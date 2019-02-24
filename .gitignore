@@ -2,5 +2,6 @@
 # .v4p backup files
 *~.xml
 
-# venv
+# venv and pucache
 venv/
+__pycache__/
