@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta name='description' content='Greece my Love'>
+	<meta name='author' content='Asia P'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	<meta charset='UTF-8'>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="../static/css/styles.css?=09864323409754323468998765432">
+	<title> Greece my Love </title>
+</head>
+<body>
+	<nav>
+		<div>
+			<ul>
+				<a href="/"><li> Home </li></a>
+				<li><a href="/add-post#add-post"> Posts </a>
+					<ul>
+						<a href="/add-post#add-post"><li> Add post </li></a>
+						<a href="/view-posts#view-posts"><li> View posts </li></a>
+						<a href="/search#search"><li> Search posts </li></a>
+						<a href="/random-post#random-post"><li> Random post </li></a>
+					</ul>
+				</li>
+				<a href="#footer"><li> About </li></a>
+			</ul>
+		</div>
+	</nav>
+	<section>
+		<div class="jumbotron">
+			<div class="small-jumb">
+				<h1> Greece my Love </h1>
+				<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
+				<a href="#home" class="explore-btn"> Explore Greece <i class="fa fa-angle-double-right"></i></a>
+			</div>
+		</div>
+    </section>
+	<div class="page-content container">
+		<section class="section-style" id="home">
+            {% if post %}
+            <div class="visible-post">
+                <h1 class="h-style"> {{ '#{} {}'.format(post.id, post.title) }} </h1>
+                <p class="p-style">  {{ post.content }}</p>
+                <h5 class="p-style credentials"> Created by <span class="author">{{ post.author }}</span> on {{ '{} {} {}, {}:{}'.format(post.creation_date.day, post.creation_date.strftime('%B'), post.creation_date.year, post.creation_date.hour, post.creation_date.minute) }}</h5>
+            </div>
+            <div class="visible-post-comments">
+                <h4>Comments ({{ comments_count }}) <span class="caret"><i class="fa fa-caret-down caret-icon-fa"></i></span></h4>
+                <hr class="comments-hr">
+                <div class="visible-post-comments-content">
+                    <div class="leave-comment">
+                        <h5 class="comments-h">Leave a comment </h5>
+                        <form class="form-horizontal" action="/addcomment/{{ post.id}}" method="post">
+                            <div class="form-group row">
+                                <label for="com_author" class="col-sm-2 col-form-label" data-toggle="tooltip" title="Type your name here" data-placement="left"> Your name </label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="author" id="com_author" placeholder="Type your name here" class="form-control" required><br>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="com_content" class="col-sm-2 col-form-label" data-toggle="tooltip" title="Type your comment" data-placement="top"> Your comment </label>
+                                <div class="col-sm-6">
+                                    <textarea name="content" id="com_content" placeholder="Type your comment here" class="form-control" rows="2" required></textarea><br>
+                                </div>
+                            </div>
+                            <button type="reset" class="btn btn-info form-btn"> Clear </button>
+                            <button type="submit" class="btn btn-info form-btn"> Send </button>
+                        </form>
+                    </div>
+                    {% if comments %}
+                    <div class="left-comments">
+                        {% for comment in comments %}
+                        <div class="comment">
+                            <p class="p-style comment-p credentials"> <span class="user-icon"><i class="fa fa-user-circle user-icon-fa"></i></span><span class="author"> {{ comment.author }}</span>, {{ '{} {} {}, {}:{}'.format(comment.creation_date.day, comment.creation_date.strftime('%B'), comment.creation_date.year, comment.creation_date.hour, comment.creation_date.minute) }}</p>
+                            <span class="quot"><i class="fa fa-quote-left quot-icon-fa"></i></span><span class="p-style">  {{ comment.content }}</span><span><i class="fa fa-quote-right quot-icon-fa"></i></span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="">
+                        <p class="p-style">  <br> No comments yet. </p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% else %}
+            <div class="no-visible-posts">
+                <h1 class="h-style"> Hi! </h1>
+                <p class="p-style">  <br> No posts yet. Add the first one! </p>
+            </div>
+            {% endif %}
+		</section>
+
+		<!--<section class="form addpost section-style" id="addpost">-->
+            <!--<h1> Dodaj posta! </h1>-->
+            <!--<form class="form-horizontal" action="/addpost" method = "post">-->
+                <!--<div class="form-group">-->
+                    <!--<label for="author" data-toggle="tooltip" title="tu wpisz swoj nick" data-placement="left"> Twój nick </label>-->
+                    <!--<input type="text" name="author" id="author" placeholder="type your nick here" class="form-control" required><br>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label for="title" data-toggle="tooltip" title="tu daj tytul" data-placement="top"> Tytul posta </label>-->
+                    <!--<input type="text" name="title" id="title" placeholder="type your title here" class="form-control" required><br>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label for="content" data-toggle="tooltip" title="tu mozesz pisac" data-placement="top"> Treść posta </label>-->
+                    <!--<textarea name="content" id="content" class="form-control" rows="8" required></textarea><br>-->
+                <!--</div>-->
+                <!--<button type="reset" class="btn btn-info"> Wyczyść </button>-->
+                <!--<button type="submit" class="btn btn-info"> Wyślij </button>-->
+            <!--</form>-->
+		<!--</section>-->
+
+		<!--<section class="seeposts section-style" id="seeposts">-->
+			<!--<h1> Przegląd postów </h1>-->
+			<!--<div>-->
+				<!--<button type="submit" formmethod="get" formaction="/seeposts/oldest" name="oldest"> Sortuj: od najstarszego </button>-->
+				<!--<button type="submit" formmethod="get" formaction="/seeposts/newest" name="newest"> Sortuj: od najnowszego </button>-->
+				<!--<button type="submit" formmethod="get" formaction="/seeposts/one" name="one'"> Wyświetl: 1 na stronę </button>-->
+				<!--<button type="submit" formmethod="get" formaction="/seeposts/lastweek" name="lastweek"> Wyświetl: ostatni tydzień </button>-->
+				<!--<button type="submit" formmethod="get" formaction="/seeposts/lastmonth" name="lastmonth"> Wyświetl: ostatni meisiąc </button>-->
+			<!--</div>-->
+			<!--{% if seeposts %}-->
+			<!--<div>-->
+				<!--<table>-->
+					<!--{% for i in seeposts %}-->
+					<!--<tr>-->
+						<!--<td> {{ i.title }} </td>-->
+						<!--<td> {{ i.content }} </td>-->
+						<!--<td> {{ i.author }} </td>-->
+						<!--<td> {{ i.date }} </td>-->
+						<!--<td> <button> Edytuj </button></td>-->
+						<!--<td> <button> Usuń </button></td>-->
+					<!--</tr>-->
+					<!--{% endfor %}-->
+				<!--</table>-->
+			<!--</div>-->
+			<!--{% endif %}-->
+		<!--</section>-->
+
+		<!--<section class="form searchposts section-style" id="searchposts">-->
+			<!--<div class="container">-->
+				<!--<h1> Szukaj postów </h1>-->
+				<!--<form class="form-horizontal">-->
+					<!--<div class="form-group">-->
+						<!--<label for="searchcontent" data-toggle="tooltip" title="tu wpisz treść" data-placement="left"> Treść posta </label>-->
+						<!--<input type="text" name="searchcontent" id="searchcontent" placeholder="type your text here" class="form-control" ><br>-->
+					<!--</div>-->
+					<!--<div class="form-group">-->
+						<!--<label for="searchtitle" data-toggle="tooltip" title="tu wpisz tytul" data-placement="top"> Tytuł posta </label>-->
+						<!--<textarea name="searchtitle" id="searchtitle" class="form-control" rows="8" ></textarea><br>-->
+					<!--</div>-->
+					<!--<div class="form-group">-->
+						<!--<label for="searchnick" data-toggle="tooltip" title="tu wpisz tytul" data-placement="top"> Tytuł posta </label>-->
+						<!--<textarea name="searchnick" id="searchnick" class="form-control" rows="8" ></textarea><br>-->
+					<!--</div>-->
+					<!--<button type="reset" class="btn btn-info"> Wyczyść </button>-->
+					<!--<button type="submit" class="btn btn-info"> Wyślij </button>-->
+				<!--</form>-->
+			<!--</div>-->
+			<!--{% if searchposts %}-->
+			<!--<div>-->
+				<!--<table>-->
+					<!--{% for i in searchposts %}-->
+					<!--<tr>-->
+						<!--<td> {{ i.title }} </td>-->
+						<!--<td> {{ i.content }} </td>-->
+						<!--<td> {{ i.author }} </td>-->
+						<!--<td> {{ i.date }} </td>-->
+						<!--<td> <button> Edytuj </button></td>-->
+						<!--<td> <button> Usuń </button></td>-->
+					<!--</tr>-->
+					<!--{% endfor %}-->
+				<!--</table>-->
+			<!--</div>-->
+			<!--{% endif %}-->
+
+			<!--{% if searchposts %}-->
+			<!--<div class="col-8 col-m-12 col-s-12 ">-->
+				<!--<p class="p-style">  {{ searchposts }} </p>-->
+			<!--</div>-->
+			<!--{% endif %}-->
+		<!--</section>-->
+	</div>
+	<footer id="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-m-12 col-s-12 footer-part x">
+					<h1> Find me here:: </h1>
+					<div class="col-12">
+						<section class="social">
+							<a href="https://www.facebook.com/asia.paliwoda" target="_blank" title="Facebook"><button class="icon-btn facebook"><i class="fa fa-facebook"></i></button></a>
+							<a href="https://www.instagram.com/asia_paliwoda/" target="_blank" title="Instagram"><button class="icon-btn instagram"><i class="fa fa-instagram"></i></button></a>
+							<a href="https://github.com/asia111307" target="_blank" title="GitHub"><button class="icon-btn github"><i class="fa fa-github"></i></button></a>
+							<a href="https://www.linkedin.com/in/joanna-paliwoda-04644a153/" target="_blank" title="LinkedIn"><button class="icon-btn linkedin"><i class="fa fa-linkedin"></i></button></a>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 copyright">
+			<p> Copyrights 2019, Greece my Love </p>
+		</div>
+	</footer>
+ <script type="text/javascript" src="../static/js/script.js?=12345898543"></script>
+</body>
+</html>

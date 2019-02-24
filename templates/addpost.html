@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta name='description' content='Greece my Love'>
+	<meta name='author' content='Asia P'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	<meta charset='UTF-8'>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="../static/css/styles.css?=09864323409754324568998765432">
+	<title> Greece my Love </title>
+</head>
+<body>
+	<nav>
+		<div>
+			<ul>
+				<a href="/"><li> Home </li></a>
+				<li><a href="/add-post#add-post"> Posts </a>
+					<ul>
+						<a href="/add-post#add-post"><li> Add post </li></a>
+						<a href="/view-posts#view-posts"><li> View posts </li></a>
+						<a href="/search#search"><li> Search posts </li></a>
+						<a href="/random-post#random-post"><li> Random post </li></a>
+					</ul>
+				</li>
+				<a href="#footer"><li> About </li></a>
+			</ul>
+		</div>
+	</nav>
+	<section>
+		<div class="jumbotron">
+			<div class="small-jumb">
+				<h1> Greece my Love </h1>
+				<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
+				<a href="#home" class="explore-btn"> Explore Greece <i class="fa fa-angle-double-right"></i></a>
+			</div>
+		</div>
+    </section>
+	<div class="page-content container">
+		<section class="section-style" id="add-post">
+            <h1 class="h-style"> Add a new post </h1>
+            <form class="form-horizontal" action="/addpost" method = "post">
+                <div class="form-group">
+                    <label for="author" data-toggle="tooltip" title="Your name" data-placement="left"> Your name </label>
+                    <input type="text" name="author" id="author" placeholder="Type your name here" class="form-control" required><br>
+                </div>
+                <div class="form-group">
+                    <label for="title" data-toggle="tooltip" title="Post title" data-placement="top"> Post title </label>
+                    <input type="text" name="title" id="title" placeholder="Type post title here" class="form-control" required><br>
+                </div>
+                <div class="form-group">
+                    <label for="content" data-toggle="tooltip" title="Post content" data-placement="top"> Post content </label>
+                    <textarea name="content" id="content" placeholder="Type post content here" class="form-control" rows="8" required></textarea><br>
+                </div>
+                <button type="reset" class="btn btn-info form-btn"> Clear </button>
+                <button type="submit" class="btn btn-info form-btn"> Add post </button>
+            </form>
+		</section>
+	</div>
+
+    <footer id="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-m-12 col-s-12 footer-part x">
+					<h1> Find me here:: </h1>
+					<div class="col-12">
+						<section class="social">
+							<a href="https://www.facebook.com/asia.paliwoda" target="_blank" title="Facebook"><button class="icon-btn facebook"><i class="fa fa-facebook"></i></button></a>
+							<a href="https://www.instagram.com/asia_paliwoda/" target="_blank" title="Instagram"><button class="icon-btn instagram"><i class="fa fa-instagram"></i></button></a>
+							<a href="https://github.com/asia111307" target="_blank" title="GitHub"><button class="icon-btn github"><i class="fa fa-github"></i></button></a>
+							<a href="https://www.linkedin.com/in/joanna-paliwoda-04644a153/" target="_blank" title="LinkedIn"><button class="icon-btn linkedin"><i class="fa fa-linkedin"></i></button></a>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 copyright">
+			<p> Copyrights 2019, Greece my Love </p>
+		</div>
+	</footer>
+ <script type="text/javascript" src="../static/js/script.js?=12345898543"></script>
+</body>
+</html>

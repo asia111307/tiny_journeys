@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta name='description' content='Greece my Love'>
+	<meta name='author' content='Asia P'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	<meta charset='UTF-8'>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="../static/css/styles.css?=0986432975434899876432">
+	<title> Greece my Love </title>
+</head>
+<body>
+	<nav>
+		<div>
+			<ul>
+				<a href="/"><li> Home </li></a>
+				<li><a href="/add-post#add-post"> Posts </a>
+					<ul>
+						<a href="/add-post#add-post"><li> Add post </li></a>
+						<a href="/view-posts#view-posts"><li> View posts </li></a>
+						<a href="/search#search"><li> Search posts </li></a>
+						<a href="/random-post#random-post"><li> Random post </li></a>
+					</ul>
+				</li>
+				<a href="#footer"><li> About </li></a>
+			</ul>
+		</div>
+	</nav>
+	<section>
+		<div class="jumbotron">
+			<div class="small-jumb">
+				<h1> Greece my Love </h1>
+				<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
+				<a href="#home" class="explore-btn"> Explore Greece <i class="fa fa-angle-double-right"></i></a>
+			</div>
+		</div>
+    </section>
+	<div class="page-content container">
+		<section class="section-style" id="view-posts">
+			<h1 class="h-style"> View posts </h1>
+			<div class="sort-options">
+				<button type="submit" class="btn btn-info form-btn" formmethod="get" formaction="/viewposts/oldestfirst" name="oldestfirst"> Latest first </button>
+				<button type="submit" class="btn btn-info form-btn" formmethod="get" formaction="/viewposts/newestfirst" name="newestfirst"> Oldest first </button>
+				<button type="submit" class="btn btn-info form-btn" formmethod="get" formaction="/viewposts/oneperpage" name="oneperpage'"> One per page </button>
+				<button type="submit" class="btn btn-info form-btn" formmethod="get" formaction="/viewposts/lastweek" name="lastweek"> Last week</button>
+				<button type="submit" class="btn btn-info form-btn" formmethod="get" formaction="/viewposts/lastmonth" name="lastmonth"> Last month </button>
+			</div>
+			{% if posts %}
+			<h5 class="comments-h">You are viewing posts: {{ current_option }} </h5>
+			<div class="view-posts">
+					{% for post in posts %}
+					<div class="view_post">
+						<h6> {{ post.title }}</h6>
+						<p class="p-style comment-p credentials"><span class="author"> {{ post.author }}</span>, {{ '{} {} {}, {}:{}'.format(post.creation_date.day, post.creation_date.strftime('%B'), post.creation_date.year, post.creation_date.hour, post.creation_date.minute) }}</p>
+						{% if post.content | length >= 300 %}
+						<p>{{ post.content | truncate(300) }}<span class="readmore"><button class="readmorebtn" formmethod="get" formaction="/view/{{ post.id }}">Read more </button></span> </p>
+						{% else %}
+						<p>{{ post.content }} </p>
+						{% endif %}
+						<!--<td> <button> Edytuj </button></td>-->
+						<!--<td> <button> Usuń </button></td>-->
+					</div>
+					{% endfor %}
+			</div>
+			{% endif %}
+		</section>
+
+		<!--<section class="form searchposts section-style" id="searchposts">-->
+			<!--<div class="container">-->
+				<!--<h1> Szukaj postów </h1>-->
+				<!--<form class="form-horizontal">-->
+					<!--<div class="form-group">-->
+						<!--<label for="searchcontent" data-toggle="tooltip" title="tu wpisz treść" data-placement="left"> Treść posta </label>-->
+						<!--<input type="text" name="searchcontent" id="searchcontent" placeholder="type your text here" class="form-control" ><br>-->
+					<!--</div>-->
+					<!--<div class="form-group">-->
+						<!--<label for="searchtitle" data-toggle="tooltip" title="tu wpisz tytul" data-placement="top"> Tytuł posta </label>-->
+						<!--<textarea name="searchtitle" id="searchtitle" class="form-control" rows="8" ></textarea><br>-->
+					<!--</div>-->
+					<!--<div class="form-group">-->
+						<!--<label for="searchnick" data-toggle="tooltip" title="tu wpisz tytul" data-placement="top"> Tytuł posta </label>-->
+						<!--<textarea name="searchnick" id="searchnick" class="form-control" rows="8" ></textarea><br>-->
+					<!--</div>-->
+					<!--<button type="reset" class="btn btn-info"> Wyczyść </button>-->
+					<!--<button type="submit" class="btn btn-info"> Wyślij </button>-->
+				<!--</form>-->
+			<!--</div>-->
+			<!--{% if searchposts %}-->
+			<!--<div>-->
+				<!--<table>-->
+					<!--{% for i in searchposts %}-->
+					<!--<tr>-->
+						<!--<td> {{ i.title }} </td>-->
+						<!--<td> {{ i.content }} </td>-->
+						<!--<td> {{ i.author }} </td>-->
+						<!--<td> {{ i.date }} </td>-->
+						<!--<td> <button> Edytuj </button></td>-->
+						<!--<td> <button> Usuń </button></td>-->
+					<!--</tr>-->
+					<!--{% endfor %}-->
+				<!--</table>-->
+			<!--</div>-->
+			<!--{% endif %}-->
+
+			<!--{% if searchposts %}-->
+			<!--<div class="col-8 col-m-12 col-s-12 ">-->
+				<!--<p class="p-style">  {{ searchposts }} </p>-->
+			<!--</div>-->
+			<!--{% endif %}-->
+		<!--</section>-->
+	</div>
+	<footer id="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-m-12 col-s-12 footer-part x">
+					<h1> Find me here:: </h1>
+					<div class="col-12">
+						<section class="social">
+							<a href="https://www.facebook.com/asia.paliwoda" target="_blank" title="Facebook"><button class="icon-btn facebook"><i class="fa fa-facebook"></i></button></a>
+							<a href="https://www.instagram.com/asia_paliwoda/" target="_blank" title="Instagram"><button class="icon-btn instagram"><i class="fa fa-instagram"></i></button></a>
+							<a href="https://github.com/asia111307" target="_blank" title="GitHub"><button class="icon-btn github"><i class="fa fa-github"></i></button></a>
+							<a href="https://www.linkedin.com/in/joanna-paliwoda-04644a153/" target="_blank" title="LinkedIn"><button class="icon-btn linkedin"><i class="fa fa-linkedin"></i></button></a>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 copyright">
+			<p> Copyrights 2019, Greece my Love </p>
+		</div>
+	</footer>
+ <script type="text/javascript" src="../static/js/script.js?=12345898543"></script>
+</body>
+</html>
