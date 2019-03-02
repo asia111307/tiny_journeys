@@ -6,7 +6,6 @@
 			<div class="sort-options">
 				<a class="btn btn-info form-btn" href="/view/oldestfirst" name="oldestfirst"> Oldestt first </a>
 				<a class="btn btn-info form-btn" href="/view/newestfirst" name="newestfirst"> Latest first </a>
-				<a class="btn btn-info form-btn" href="/view/oneperpage" name="oneperpage'"> One per page </a>
 				<a class="btn btn-info form-btn" href="/view/lastweek" name="lastweek"> Last week</a>
 				<a class="btn btn-info form-btn" href="/view/lastmonth" name="lastmonth"> Last month </a>
 			</div>
@@ -17,11 +16,11 @@
 						{% for post in posts %}
 						<div class="view_post">
 							<h6> <a href="/view/post/{{ post.id }}">#{{ post.id }} {{ post.title }} </a></h6>
-							<p class="p-style comment-p credentials"><span class="author"> {{ post.author }}</span>, {{ '{} {} {}, {}:{}'.format(post.creation_date.day, post.creation_date.strftime('%B'), post.creation_date.year, post.creation_date.hour, post.creation_date.minute) }}</p>
+							<p class="p-style comment-p credentials"><span class="author"> {{ post.author }}</span>, {{ '{} {} {}, {}:{}'.format(post.creation_date.day, post.creation_date.strftime('%B'), post.creation_date.year, post.creation_date.hour, post.creation_date.strftime('%M')) }}</p>
 							{% if post.content | length >= 300 %}
-							<p>{{ post.content | safe | truncate(300) }}<span class="readmore"><a class="readmorebtn" href="/view/post/{{ post.id }}">Read more </a></span> </p>
+							<p class="p-content">{{ post.content | safe | truncate(300) }}<span class="readmore"><a class="readmorebtn" href="/view/post/{{ post.id }}">Read more </a></span> </p>
 							{% else %}
-							<p>{{ post.content | safe }} </p>
+							<p class="p-content">{{ post.content | safe }} </p>
 							{% endif %}
 						</div>
 						{% endfor %}

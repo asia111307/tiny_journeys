@@ -17,6 +17,13 @@ a:link, a:visited, a:active, a:hover, a:focus {
   text-decoration: none;
 }
 
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .p-style {
   font-size: 16px;
   color: grey;
@@ -32,7 +39,7 @@ a:link, a:visited, a:active, a:hover, a:focus {
 
 .section-style {
   min-height: 100vh;
-  padding: 10% 0;
+  padding: 5% 0;
 }
 
 /* NAV */
@@ -142,6 +149,14 @@ nav a {
   margin: 30px 0;
 }
 
+.view_post {
+  padding: 30px 20px;
+  border-radius: 10px;
+}
+.view_post .p-content {
+  margin: 30px 0 0 0;
+}
+
 .sort-options {
   display: flex;
   justify-content: flex-end;
@@ -168,6 +183,23 @@ nav a {
 .form-btn:hover {
   color: rgba(7, 94, 175, 0.8);
   background-position: 0 100%;
+}
+
+.meta-btn {
+  font-size: 12px;
+}
+
+.form-meta {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-author {
+  width: 25%;
+}
+
+.form-title {
+  width: 75%;
 }
 
 /* SINGLE POST VIEW */
@@ -212,13 +244,14 @@ nav a {
 
 .comment {
   padding: 20px 0;
+  width: 65%;
 }
 
 .quot {
   margin-left: 10px;
 }
 
-.user-icon, .arrow-icon {
+.user-icon {
   padding: 5px;
   width: 40px;
   height: 40px;
@@ -233,10 +266,6 @@ nav a {
   font-size: 10px;
   color: darkgray;
   padding: 0 5px;
-}
-
-.caret-icon-fa {
-  color: grey;
 }
 
 .credentials, .arrow-icon-fa {
@@ -256,6 +285,14 @@ nav a {
   margin-top: 50px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+.neighbour-posts h5, .meta h5 {
+  margin-bottom: 0;
+}
+
+.form-horizontal, .sort-options {
+  margin-top: 60px;
 }
 
 /* FOOTER */
