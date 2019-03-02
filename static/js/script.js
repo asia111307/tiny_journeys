@@ -1,5 +1,7 @@
 const arrow = document.getElementsByClassName('caret-icon-fa')[0];
 const comment_content = document.getElementsByClassName('visible-post-comments-content')[0];
+const comments = document.getElementsByClassName('comment');
+const posts = document.getElementsByClassName('view_post');
 
 function toggleOpenContent() {
     if (arrow.classList.contains('open')) {
@@ -23,4 +25,12 @@ function scrollToSection() {
 scrollToSection();
 if (arrow) {
     arrow.addEventListener('click', toggleOpenContent);
+}
+if (comments.length) {
+    arrow.click();
+}
+
+for (var i=0; i< posts.length; i+=2) {
+    posts[i].style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
+    console.log(posts[i]);
 }

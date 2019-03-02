@@ -7,31 +7,32 @@
                 <h1 class="h-style">{{ '#{} {}'.format(post.id, post.title) }}</h1>
                 <p class="p-style">  {{ post.content | safe  }}</p>
                 <div class="meta">
-                    <h5 class="p-style credentials"> Created by <span class="author">{{ post.author }}</span> on {{ '{} {} {}, {}:{}'.format(post.creation_date.day, post.creation_date.strftime('%B'), post.creation_date.year, post.creation_date.hour, post.creation_date.minute) }}</h5>
+                    <h5 class="p-style credentials"> Created by <span class="author">{{ post.author }}</span> on {{ '{} {} {}, {}:{}'.format(post.creation_date.day, post.creation_date.strftime('%B'), post.creation_date.year, post.creation_date.hour, post.creation_date.strftime('%M')) }}</h5>
+                    <h5 class="p-style credentials">Last modified on {{ '{} {} {}, {}:{}'.format(post.last_modified_date.day, post.last_modified_date.strftime('%B'), post.last_modified_date.year, post.last_modified_date.hour, post.last_modified_date.strftime('%M')) }}</h5>
                     <div class="post-actions">
                         <div class="edit">
-                            <a class="btn btn-info form-btn" href="/post/edit/{{post.id}}" name="edit-btn"> Edit </a>
+                            <a class="btn btn-info form-btn meta-btn" href="/edit/post/{{post.id}}" name="edit-btn"> <i class="fa fa-pencil"></i> Edit </a>
                         </div>
                         <div class="delete">
-                            <a class="btn btn-info form-btn" href="/post/delete/{{post.id}}" name="delete-btn"> Delete </a>
+                            <a class="btn btn-info form-btn meta-btn" href="/delete/post/{{post.id}}" name="delete-btn"><i class="fa fa-times-circle"></i> Delete </a>
                         </div>
                     </div>
                 </div>
             	<div class="neighbour-posts">
 					{% if prev %}
-					<h5 class="p-style credentials"><a href="/view/post/{{ prev.id }}"><span class="arrow-icon"><i class="fa fa-caret-left arrow-icon-fa"></i></span>{{ '#{} {}'.format(prev.id, prev.title) }}</a></h5>
+					<h5 class="p-style credentials"><a href="/view/post/{{ prev.id }}"><i class="fa fa-caret-left"></i> {{ '#{} {}'.format(prev.id, prev.title) }}</a></h5>
 					{% else %}
                     <h5></h5>
                     {% endif %}
 					{% if next %}
-					<h5 class="p-style credentials"><a href="/view/post/{{ next.id }}">{{ '#{} {}'.format(next.id, next.title) }}<span class="arrow-icon"><i class="fa fa-caret-right arrow-icon-fa"></i></span></a></h5>
+                    <h5 class="p-style credentials"><a href="/view/post/{{ next.id }}">{{ '#{} {}'.format(next.id, next.title) }} <i class="fa fa-caret-right"></i></a></h5>
 					{% else %}
                     <h5></h5>
                     {% endif %}
 				</div>
 			</div>
             <div class="visible-post-comments">
-                <h5>Comments ({{ comments_count }}) <span class="caret"><i class="fa fa-caret-down caret-icon-fa"></i></span></h5>
+                <h5>Comments ({{ comments_count }}) <i class="fa fa-caret-down caret-icon-fa"></i></h5>
                 <hr class="comments-hr">
                 <div class="visible-post-comments-content">
                     <div class="leave-comment">
@@ -57,7 +58,10 @@
                     <div class="left-comments">
                         {% for comment in comments %}
                         <div class="comment">
-                            <p class="p-style comment-p credentials"> <span class="user-icon"><i class="fa fa-user-circle user-icon-fa"></i></span><span class="author"> {{ comment.author }}</span>, {{ '{} {} {}, {}:{}'.format(comment.creation_date.day, comment.creation_date.strftime('%B'), comment.creation_date.year, comment.creation_date.hour, comment.creation_date.minute) }}</p>
+                            <div class="meta">
+                                <p class="p-style comment-p credentials"> <span class="user-icon"><i class="fa fa-user-circle user-icon-fa"></i></span><span class="author"> {{ comment.author }}</span>, {{ '{} {} {}, {}:{}'.format(comment.creation_date.day, comment.creation_date.strftime('%B'), comment.creation_date.year, comment.creation_date.hour, comment.creation_date.minute) }}</p>
+                                <a href="/delete/comment/{{ post.id }}/{{comment.id}}" name="delete-commentt-btn"> <i class="fa fa-times"></i></a>
+                            </div>
                             <span class="quot"><i class="fa fa-quote-left quot-icon-fa"></i></span><span class="p-style">  {{ comment.content }}</span><span><i class="fa fa-quote-right quot-icon-fa"></i></span>
                         </div>
                         {% endfor %}

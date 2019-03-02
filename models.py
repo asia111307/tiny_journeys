@@ -19,7 +19,8 @@ class Post(db.Model):
     author = Column(String, default="admin")
     title = Column(String, default="")
     content = Column(String, default="")
-    creation_date = Column(DateTime, default=datetime.datetime.utcnow)
+    creation_date = Column(DateTime, default=datetime.datetime.now)
+    last_modified_date = Column(DateTime, default=datetime.datetime.now)
     isAccepted = Column(Boolean, default=False)
 
     def to_json(self):
@@ -29,6 +30,7 @@ class Post(db.Model):
         'title' :self.title,
         'content': self.content,
         'creation_date': self.creation_date,
+        'last_modified_date': self.last_modified_date,
         'isAccepted': self.isAccepted,
         }
 

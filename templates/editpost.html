@@ -1,5 +1,5 @@
 {% extends "start.html" %}
-{% block title %}View posts{% endblock %}
+{% block title %}Edit posts{% endblock %}
 {% block bootstrap %}
   <!--<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
 {% endblock %}
@@ -10,8 +10,8 @@
 {% endblock %}
 {% block content %}
 		<section class="section-style">
-            <h1 class="h-style"> Add a new post </h1>
-            <form class="form-horizontal" action="/addpost" method = "post">
+            <h1 class="h-style"> Edit post </h1>
+            <form class="form-horizontal" action="/editpost/{{ post.id }}" method = "post">
                 <div class="form-meta">
                     <div class="form-group form-author">
                         <label for="author" data-toggle="tooltip" title="Your name" data-placement="left"> Your name </label>
@@ -19,15 +19,14 @@
                     </div>
                     <div class="form-group form-title">
                         <label for="title" data-toggle="tooltip" title="Post title" data-placement="top"> Post title </label>
-                        <input type="text" name="title" id="title" placeholder="Type post title here" class="form-control" required><br>
+                        <input type="text" name="title" id="title" placeholder="Type post title here" class="form-control" value="{{ post.title }}" required><br>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="content" data-toggle="tooltip" title="Post content" data-placement="top"> Post content </label>
-                    <textarea name="content" id="content" placeholder="Type post content here" class="form-control" rows="8" required></textarea>
+                    <textarea name="content" id="content" placeholder="Type post content here" class="form-control" rows="8" required>{{ post.content }}</textarea>
                 </div>
-                <button type="reset" class="btn btn-info form-btn" id="reset-btn"> Clear </button>
-                <button type="submit" class="btn btn-info form-btn"> Add post </button>
+                <button type="submit" class="btn btn-info form-btn"> Save changes </button>
             </form>
 		</section>
 	</div>
