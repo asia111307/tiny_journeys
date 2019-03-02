@@ -14,5 +14,13 @@ function toggleOpenContent() {
         arrow.classList.add('open');
     }
 }
-
-arrow.addEventListener('click', toggleOpenContent);
+function scrollToSection() {
+    var path = window.location.pathname;
+    if (path !== '/') {
+        document.getElementsByClassName('page-content')[0].scrollIntoView();
+    }
+}
+scrollToSection();
+if (arrow) {
+    arrow.addEventListener('click', toggleOpenContent);
+}

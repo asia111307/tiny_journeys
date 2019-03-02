@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta name='description' content='Greece my Love'>
+	<meta name='author' content='Asia P'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	<meta charset='UTF-8'>
+    <title> {% block title %}{% endblock %} | Greece my Love </title>
+    {% block bootstrap %}
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% endblock %}
+	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% block head %}{% endblock %}
+    <link rel="stylesheet" type="text/css"href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+	<nav>
+		<div>
+			<ul>
+				<a href="/"><li> Home </li></a>
+				<li><a href="/add-post#add-post"> Posts </a>
+					<ul>
+						<a href="/add-post"><li> Add post </li></a>
+						<a href="/view"><li> View posts </li></a>
+					</ul>
+				</li>
+				<a href="#footer"><li> About </li></a>
+			</ul>
+		</div>
+	</nav>
+	<section>
+		<div class="jumbotron">
+			<div class="small-jumb">
+				<h1> Greece my Love </h1>
+				<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
+				<a href="#home" class="explore-btn"> Explore Greece <i class="fa fa-angle-double-right"></i></a>
+			</div>
+		</div>
+    </section>
+	<div class="page-content container" id="home">
+    {% block content %}{% endblock %}
+		<!--<section class="form searchposts section-style" id="searchposts">-->
+			<!--<div class="container">-->
+				<!--<h1> Szukaj postów </h1>-->
+				<!--<form class="form-horizontal">-->
+					<!--<div class="form-group">-->
+						<!--<label for="searchcontent" data-toggle="tooltip" title="tu wpisz treść" data-placement="left"> Treść posta </label>-->
+						<!--<input type="text" name="searchcontent" id="searchcontent" placeholder="type your text here" class="form-control" ><br>-->
+					<!--</div>-->
+					<!--<div class="form-group">-->
+						<!--<label for="searchtitle" data-toggle="tooltip" title="tu wpisz tytul" data-placement="top"> Tytuł posta </label>-->
+						<!--<textarea name="searchtitle" id="searchtitle" class="form-control" rows="8" ></textarea><br>-->
+					<!--</div>-->
+					<!--<div class="form-group">-->
+						<!--<label for="searchnick" data-toggle="tooltip" title="tu wpisz tytul" data-placement="top"> Tytuł posta </label>-->
+						<!--<textarea name="searchnick" id="searchnick" class="form-control" rows="8" ></textarea><br>-->
+					<!--</div>-->
+					<!--<button type="reset" class="btn btn-info"> Wyczyść </button>-->
+					<!--<button type="submit" class="btn btn-info"> Wyślij </button>-->
+				<!--</form>-->
+			<!--</div>-->
+			<!--{% if searchposts %}-->
+			<!--<div>-->
+				<!--<table>-->
+					<!--{% for i in searchposts %}-->
+					<!--<tr>-->
+						<!--<td> {{ i.title }} </td>-->
+						<!--<td> {{ i.content }} </td>-->
+						<!--<td> {{ i.author }} </td>-->
+						<!--<td> {{ i.date }} </td>-->
+						<!--<td> <button> Edytuj </button></td>-->
+						<!--<td> <button> Usuń </button></td>-->
+					<!--</tr>-->
+					<!--{% endfor %}-->
+				<!--</table>-->
+			<!--</div>-->
+			<!--{% endif %}-->
+
+			<!--{% if searchposts %}-->
+			<!--<div class="col-8 col-m-12 col-s-12 ">-->
+				<!--<p class="p-style">  {{ searchposts }} </p>-->
+			<!--</div>-->
+			<!--{% endif %}-->
+		<!--</section>-->
+	</div>
+	<footer id="footer">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12 col-m-12 col-s-12 footer">
+					<h5> Find me here: </h5>
+					<div class="col-12 social">
+                        <a href="https://www.facebook.com/asia.paliwoda" target="_blank" title="Facebook"><button class="icon-btn facebook-btn"><i class="fa fa-facebook"></i></button></a>
+                        <a href="https://www.instagram.com/asia_paliwoda/" target="_blank" title="Instagram"><button class="icon-btn instagram-btn"><i class="fa fa-instagram"></i></button></a>
+                        <a href="https://github.com/asia111307" target="_blank" title="GitHub"><button class="icon-btn github-btn"><i class="fa fa-github"></i></button></a>
+                        <a href="https://www.linkedin.com/in/joanna-paliwoda-04644a153/" target="_blank" title="LinkedIn"><button class="icon-btn linkedin-btn"><i class="fa fa-linkedin"></i></button></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 copyright">
+            <div class="row"
+			    <p> Copyrights 2019, Greece my Love </p>
+            </div>
+		</div>
+	</footer>
+    {% block scripts %} {% endblock %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
