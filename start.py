@@ -23,7 +23,12 @@ def db_start():
     db.create_all()
     db.session.commit()
 
-
-from views import *
+    
 from models import *
+from views import *
 db_start()
+
+
+if __name__ == 'start':
+    app.run(debug=True)
+
