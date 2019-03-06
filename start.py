@@ -24,8 +24,6 @@ def db_start():
     db.session.commit()
 
 
-if __name__ == 'start':
-    from views import *
-    app.run(debug=True)
-    from models import *
-    db_start()
+from views import *
+from models import *
+db_start()
