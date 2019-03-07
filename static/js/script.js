@@ -30,7 +30,6 @@ if (comments.length) {
 }
 for (var i=0; i< posts.length; i+=2) {
     posts[i].style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
-    console.log(posts[i]);
 }
 // TITLE ANIMATION -------------------
 const titleAnm = document.querySelector(".title-anm");
@@ -65,3 +64,10 @@ document.querySelector(".jumb-video").addEventListener("loadedmetadata", functio
         this.currentTime = 27;
     }, false
 );
+
+// let span = document.getElementsByClassName('.note-icon-caret');
+// console.log(span);
+
+// while (spans.length) {
+//     spans[0].classList.remove('note-icon-caret');
+// }

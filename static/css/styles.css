@@ -40,6 +40,7 @@ a:link, a:visited, a:active, a:hover, a:focus {
 .section-style {
   min-height: 100vh;
   padding: 5% 0;
+  position: relative;
 }
 
 /* NAV */
@@ -150,13 +151,15 @@ nav a {
 .jumbotron .jumb-video {
   min-width: 100%;
   position: fixed;
+  top: 0;
+  left: 0;
 }
 .jumbotron .video-container {
   opacity: 0.9;
-  position: absolute;
   height: 100%;
   left: 0;
   top: 0;
+  overflow: hidden;
 }
 .jumbotron .small-jumb {
   width: 46%;
@@ -197,6 +200,10 @@ nav a {
 .jumbotron .explore-btn:hover {
   color: white;
   background-position: 0 100%;
+}
+
+.page-content {
+  position: relative;
 }
 
 /* VIEV POSTS */
