@@ -65,8 +65,9 @@ document.querySelector(".jumb-video").addEventListener("loadedmetadata", functio
     }, false
 );
 
-// let span = document.getElementsByClassName('.note-icon-caret');
-// console.log(span);
+let span = document.getElementsByClassName('note-icon-caret');
+span[0].className = 'icon-caret';
+
 
 // while (spans.length) {
 //     spans[0].classList.remove('note-icon-caret');
