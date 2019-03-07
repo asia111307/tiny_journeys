@@ -26,7 +26,7 @@ a:link, a:visited, a:active, a:hover, a:focus {
 
 .p-style {
   font-size: 16px;
-  color: grey;
+  color: gray;
   text-align: justify;
 }
 
@@ -40,6 +40,7 @@ a:link, a:visited, a:active, a:hover, a:focus {
 .section-style {
   min-height: 100vh;
   padding: 5% 0;
+  position: relative;
 }
 
 /* NAV */
@@ -50,11 +51,24 @@ nav {
   z-index: 1;
   margin: 0;
 }
+nav .sign-in {
+  float: right;
+  padding-top: 15px;
+  margin-right: 30px;
+}
+nav .sign-in .login {
+  display: inline;
+  padding: 0 15px;
+}
+nav .sign-in .password {
+  display: inline;
+}
 nav ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
-  float: right;
+  display: flex;
+  justify-content: flex-end;
 }
 nav ul ul {
   display: none;
@@ -97,51 +111,99 @@ nav a {
 }
 
 /* JUMBOTRON */
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.cursor {
+  opacity: 0;
+  transition: 0.2s;
+}
+
+.cursor-hide {
+  opacity: 1;
+}
+
+.underline {
+  padding: 1px;
+  background: white;
+  width: 80%;
+  margin-left: 10%;
+  opacity: 0;
+  transition: 0.8s;
+}
+
 .jumbotron {
   width: 100%;
   height: 100vh;
   opacity: 0.85;
   text-align: center;
-  background-image: url("../images/gr.jpg");
-  background-size: cover;
-  background-attachment: fixed;
   display: flex;
+  position: relative;
+  background: black;
   align-items: center;
+  overflow: hidden;
+}
+.jumbotron .jumb-video {
+  min-width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.jumbotron .video-container {
+  opacity: 0.9;
+  height: 100%;
+  left: 0;
+  top: 0;
+  overflow: hidden;
 }
 .jumbotron .small-jumb {
-  width: 40%;
+  width: 46%;
   text-align: center;
   color: white;
   padding: 5%;
-  margin-left: 5%;
+  margin: 0 27%;
+  z-index: 2;
+  letter-spacing: 2px;
 }
-.jumbotron .small-jumb h1 {
+.jumbotron h1 {
   font-size: 48px;
   text-shadow: 0 0 2px;
+  letter-spacing: 1px;
+  transition: 0.5s;
 }
-.jumbotron .small-jumb p {
+.jumbotron p {
   font-size: 24px;
   font-weight: normal;
   margin-top: 30px;
   padding-bottom: 10%;
+  height: 140px;
 }
-.jumbotron .small-jumb .explore-btn {
+.jumbotron .explore-btn {
   font-size: 30px;
   font-weight: bold;
-  color: white;
+  color: rgba(7, 94, 175, 0.8);
   transition: 0.8s;
   cursor: pointer;
   border: none;
-  background-color: rgba(7, 94, 175, 0.8);
+  background-color: white;
   background-position: 100% 0;
   background-size: 300%;
-  background-image: linear-gradient(45deg, #FAF5F0 50%, transparent 50%);
+  background-image: linear-gradient(45deg, rgba(7, 94, 175, 0.8) 50%, transparent 50%);
   padding: 15px 50px;
   margin-top: 5%;
 }
-.jumbotron .small-jumb .explore-btn:hover {
-  color: rgba(7, 94, 175, 0.8);
+.jumbotron .explore-btn:hover {
+  color: white;
   background-position: 0 100%;
+}
+
+.page-content {
+  position: relative;
 }
 
 /* VIEV POSTS */
@@ -365,7 +427,11 @@ footer .copyright p {
   background-color: #007BB6;
 }
 
-/*@media (min-width: 768px) and (max-width: 1199px) {*/
+@media (max-width: 768px) {
+  .jumb-video {
+    height: 100%;
+  }
+}
 /*.h-style {*/
 /*margin-bottom: 80px;*/
 /*}*/
