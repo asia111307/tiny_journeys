@@ -1,3 +1,4 @@
+// COMMENT BLOCK SECTION OPENING ----------------
 const arrow = document.getElementsByClassName('caret-icon-fa')[0];
 const comment_content = document.getElementsByClassName('visible-post-comments-content')[0];
 const comments = document.getElementsByClassName('comment');
@@ -15,22 +16,20 @@ function toggleOpenContent() {
         arrow.classList.add('open');
     }
 }
-function scrollToSection() {
-    var path = window.location.pathname;
-    if (path !== '/') {
-        document.getElementsByClassName('page-content')[0].scrollIntoView();
-    }
-}
-scrollToSection();
 if (arrow) {
     arrow.addEventListener('click', toggleOpenContent);
 }
 if (comments.length) {
     arrow.click();
 }
-for (var i=0; i< posts.length; i+=2) {
-    posts[i].style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
+if (posts) {
+    for (var i=0; i< posts.length; i+=2) {
+        posts[i].style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
+    }
 }
+
+
+
 // TITLE ANIMATION -------------------
 const titleAnm = document.querySelector(".title-anm");
 const cursor = document.querySelector(".cursor");
@@ -55,20 +54,53 @@ const animation = () => {
         },1500)
     }
 };
+
+
+// CURSOR ANIMATION------------------------------------
+const jumb_video = document.querySelector(".jumb-video");
 const anmInt = setInterval(animation, 250);
 const cursorAnimation = () => {
     cursor.classList.toggle("cursor-hide");
 };
-setInterval(cursorAnimation, 400);
-document.querySelector(".jumb-video").addEventListener("loadedmetadata", function (){
-        this.currentTime = 27;
-    }, false
-);
+if (jumb_video) {
+    setInterval(cursorAnimation, 500);
+    jumb_video.addEventListener("loadedmetadata", function (){
+            this.currentTime = 27;
+        }, false
+    );
+}
 
-let span = document.getElementsByClassName('note-icon-caret');
-span[0].className = 'icon-caret';
 
 
-// while (spans.length) {
-//     spans[0].classList.remove('note-icon-caret');
-// }
+// TRIP TIMER ---------------------
+const trip = new Date("2019-08-11 04:00:00").getTime();
+
+const day = document.querySelector('.days');
+const hour = document.querySelector('.hours');
+const minute = document.querySelector('.minutes');
+const second = document.querySelector('.seconds');
+
+const tripTimer = () => {
+    const today = new Date().getTime();
+
+    let days = Math.floor((trip / (1000 * 60 * 60 * 24)) - (today / (1000 * 60 * 60 * 24)));
+    days = days < 10 ? `0${days}` : days;
+
+    let hours = Math.floor((trip / (1000 * 60 * 60)) - today / (1000 * 60 * 60)) % 24;
+    hours = hours < 10 ? `0${hours}` : hours;
+
+    let minutes = Math.floor(trip / (1000 * 60) - today / (1000 * 60)) % 60;
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+
+    let seconds = Math.floor(trip / 1000 - today / 1000) % 60;
+    seconds = seconds < 10 ? `0${seconds}` : seconds;
+
+    day.textContent = days;
+    hour.textContent = hours;
+    minute.textContent = minutes;
+    second.textContent = seconds;
+};
+if (day && hour && minute && second) {
+    tripTimer();
+    setInterval(tripTimer,1000);
+}

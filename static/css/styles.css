@@ -13,6 +13,10 @@ body {
   box-sizing: border-box;
 }
 
+iframe {
+  max-width: 90%;
+}
+
 a:link, a:visited, a:active, a:hover, a:focus {
   text-decoration: none;
 }
@@ -41,6 +45,10 @@ a:link, a:visited, a:active, a:hover, a:focus {
   min-height: 100vh;
   padding: 5% 0;
   position: relative;
+}
+
+.home-section {
+  display: flex;
 }
 
 /* NAV */
@@ -204,6 +212,52 @@ nav a {
 
 .page-content {
   position: relative;
+}
+
+.post-content {
+  width: 70%;
+  padding: 0 10%;
+  border-right: 2px solid rgba(192, 192, 192, 0.2);
+}
+
+.sidebar {
+  width: 30%;
+  padding: 0 5%;
+}
+
+.timer {
+  min-height: 260px;
+  width: 100%;
+  background: url("../images/spina.jpg");
+  background-size: cover;
+  border-radius: 10px;
+  color: white;
+  text-shadow: 0 0 1px black;
+  box-shadow: 0 0 4px black;
+  text-align: center;
+  font-weight: bold;
+  padding: 10% 8%;
+}
+.timer .crete {
+  font-size: 3em;
+  text-shadow: none;
+  margin-bottom: 20px;
+}
+.timer .timer-inner {
+  display: flex;
+  justify-content: space-around;
+  font-size: 22px;
+}
+.timer .timer-inner .timer-item {
+  width: 25%;
+  border-right: 1px solid white;
+}
+.timer .timer-inner .timer-item:last-child {
+  border-right: 0;
+}
+.timer .timer-inner .timer-p {
+  font-size: 12px;
+  margin-bottom: 0;
 }
 
 /* VIEV POSTS */

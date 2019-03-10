@@ -1,7 +1,7 @@
 {% extends "start.html" %}
 {% block title %}View posts{% endblock %}
 {% block content %}
-		<section class="section-style">
+		<section class="section-style container">
             {% if post %}
             <div class="visible-post">
                 <h1 class="h-style">{{ '#{} {}'.format(post.id, post.title) }}</h1>

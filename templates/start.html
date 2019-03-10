@@ -37,22 +37,8 @@
       </ul>
    </div>
 </nav>
-<section>
-   <div class="jumbotron">
-      <div class="small-jumb">
-         <h1> <span class="title-anm"></span><span class="cursor cursor-hide">|</span> </h1>
-         <hr class="underline">
-         <p></p>
-         <a href="#home" class="explore-btn"> Explore Greece <i class="fa fa-angle-double-right"></i></a>
-      </div>
-      <div class="video-container">
-         <video autoplay loop muted class="jumb-video">
-            <source src="../static/images/crete.mp4" type="video/mp4">
-         </video>
-      </div>
-   </div>
-   </section>
-	<div class="page-content container" id="home">
+    {% block jumbotron %}{% endblock %}
+	<div class="page-content container-fluid" id="home">
     {% block content %}{% endblock %}
 		<!--<section class="form searchposts section-style" id="searchposts">-->
 			<!--<div class="container">-->
@@ -113,7 +99,7 @@
 			</div>
 		</div>
 		<div class="col-12 copyright">
-            <div class="row"
+            <div class="row">
 			    <p> Copyrights 2019, Greece my Love </p>
             </div>
 		</div>
