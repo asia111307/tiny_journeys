@@ -37,7 +37,7 @@ def add_post():
         imgs = pat.findall(content)
         if imgs:
             for i in range(len(imgs)):
-                img_title =  'Picture {} for {}'.format(i, title)
+                img_title =  'Picture {} for {}'.format(i+1, title)
                 db.session.add(Photo(img_title, imgs[i], post_id))
                 db.session.commit()
         pat2 = re.compile(r'<iframe [^>]*src="([^"]+)')
@@ -45,7 +45,7 @@ def add_post():
         if videos:
             print(videos)
             for i in range(len(videos)):
-                vid_title =  'Video {} for {}'.format(i, title)
+                vid_title =  'Video {} for {}'.format(i+1, title)
                 db.session.add(Video(vid_title, videos[i], post_id))
                 db.session.commit()
         link = '/view/post/{}'.format(post_id)
@@ -102,6 +102,8 @@ def render_view_post(post_id):
 @app.route('/delete/post/<int:post_id>')
 def delete_post(post_id):
     Post.query.filter_by(id=post_id).delete()
+    Photo.query.filter_by(post_id=post_id).delete()
+    Video.query.filter_by(post_id=post_id).delete()
     db.session.commit()
     return redirect('/')
 
@@ -133,14 +135,14 @@ def edit_post_id(post_id):
     imgs = pat.findall(post.content)
     if imgs:
         for i in range(len(imgs)):
-            img_title = 'Picture {} for {}'.format(i, post.title)
+            img_title = 'Picture {} for {}'.format(i+1, post.title)
             db.session.add(Photo(img_title, imgs[i], post_id))
             db.session.commit()
     pat2 = re.compile(r'<iframe [^>]*src="([^"]+)')
     videos = pat2.findall(post.content)
     if videos:
         for i in range(len(videos)):
-            vid_title = 'Video {} for {}'.format(i, post.title)
+            vid_title = 'Video {} for {}'.format(i+1, post.title)
             db.session.add(Video(vid_title, videos[i], post_id))
             db.session.commit()
     link = '/view/post/{}'.format(post.id)
