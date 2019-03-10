@@ -4,8 +4,7 @@
 from start import app, db
 from flask import render_template, request, jsonify, redirect, url_for, Markup
 from models import *
-import os
-import datetime
+import os, datetime, re
 
 
 @app.route('/')
@@ -33,18 +32,47 @@ def add_post():
     if author and title and content:
         db.session.add(Post(author, title, content))
         db.session.commit()
-        link = '/view/post/{}'.format(Post.query.order_by(Post.id.desc()).first().id)
+        post_id = Post.query.order_by(Post.id.desc()).first().id
+        pat = re.compile(r'<img [^>]*src="([^"]+)')
+        imgs = pat.findall(content)
+        if imgs:
+            for i in range(len(imgs)):
+                img_title =  'Picture {} for {}'.format(i, title)
+                db.session.add(Photo(img_title, imgs[i], post_id))
+                db.session.commit()
+        pat2 = re.compile(r'<iframe [^>]*src="([^"]+)')
+        videos = pat2.findall(content)
+        if videos:
+            print(videos)
+            for i in range(len(videos)):
+                vid_title =  'Video {} for {}'.format(i, title)
+                db.session.add(Video(vid_title, videos[i], post_id))
+                db.session.commit()
+        link = '/view/post/{}'.format(post_id)
     return redirect(link)
 
 
-@app.route('/view')
+@app.route('/view/posts')
 def render_view_posts():
     posts = Post.query.all()
     return render_template('viewposts.html', posts=posts, current_option='All')
 
 
-@app.route('/view/<sort_option>', methods=['POST', 'GET'])
+@app.route('/view/pics')
+def render_view_pics():
+    pics = Photo.query.all()
+    return render_template('viewpics.html', pics=pics, current_option='All')
+
+
+@app.route('/view/videos')
+def render_view_videos():
+    videos = Video.query.all()
+    return render_template('viewvideos.html', videos=videos, current_option='All')
+
+
+@app.route('/view/posts/<sort_option>', methods=['POST', 'GET'])
 def render_view_posts_options(sort_option):
+    posts = Post.query.all()
     if sort_option == 'oldestfirst':
         posts = Post.query.order_by(Post.creation_date)
         sort_option = 'Oldest first'
@@ -100,6 +128,21 @@ def edit_post_id(post_id):
     post.content = request.form.get('content')
     post.last_modified_date = datetime.datetime.now()
     db.session.commit()
+    post_id = Post.query.order_by(Post.id.desc()).first().id
+    pat = re.compile(r'<img [^>]*src="([^"]+)')
+    imgs = pat.findall(post.content)
+    if imgs:
+        for i in range(len(imgs)):
+            img_title = 'Picture {} for {}'.format(i, post.title)
+            db.session.add(Photo(img_title, imgs[i], post_id))
+            db.session.commit()
+    pat2 = re.compile(r'<iframe [^>]*src="([^"]+)')
+    videos = pat2.findall(post.content)
+    if videos:
+        for i in range(len(videos)):
+            vid_title = 'Video {} for {}'.format(i, post.title)
+            db.session.add(Video(vid_title, videos[i], post_id))
+            db.session.commit()
     link = '/view/post/{}'.format(post.id)
     return redirect(link)
 
@@ -113,6 +156,45 @@ def add_comment(post_id):
     link = '/view/post/{}'.format(post_id)
     return redirect(link)
 
+
+@app.route('/view/pics/<sort_option>', methods=['POST', 'GET'])
+def render_view_pics_options(sort_option):
+    pics = Photo.query.all()
+    if sort_option == 'oldestfirst':
+        pics = Photo.query.order_by(Photo.creation_date)
+        sort_option = 'Oldest first'
+    elif sort_option == 'newestfirst':
+        pics = Photo.query.order_by(Photo.creation_date.desc())
+        sort_option = 'Newest first'
+    elif sort_option == 'lastweek':
+        week_ago = datetime.datetime.today() - datetime.timedelta(days=7)
+        pics = Photo.query.filter(Photo.creation_date > week_ago).order_by(Photo.creation_date.desc())
+        sort_option = 'Last week'
+    elif sort_option == 'lastmonth':
+        month_ago = datetime.datetime.today() - datetime.timedelta(days=3)
+        pics = Photo.query.filter(Photo.creation_date > month_ago).order_by(Photo.creation_date.desc())
+        sort_option = 'Last month'
+    return render_template('viewpics.html', pics=pics, current_option=sort_option)
+
+
+@app.route('/view/videos/<sort_option>', methods=['POST', 'GET'])
+def render_view_videos_options(sort_option):
+    videos = Video.query.all()
+    if sort_option == 'oldestfirst':
+        videos = Video.query.order_by(Video.creation_date)
+        sort_option = 'Oldest first'
+    elif sort_option == 'newestfirst':
+        videos = Video.query.order_by(Video.creation_date.desc())
+        sort_option = 'Newest first'
+    elif sort_option == 'lastweek':
+        week_ago = datetime.datetime.today() - datetime.timedelta(days=7)
+        videos = Video.query.filter(Video.creation_date > week_ago).order_by(Video.creation_date.desc())
+        sort_option = 'Last week'
+    elif sort_option == 'lastmonth':
+        month_ago = datetime.datetime.today() - datetime.timedelta(days=3)
+        videos = Video.query.filter(Video.creation_date > month_ago).order_by(Video.creation_date.desc())
+        sort_option = 'Last month'
+    return render_template('viewvideos.html', videos=videos, current_option=sort_option)
 
 # @app.route('/products/<int:id>', methods=['GET'])
 # def add(id):

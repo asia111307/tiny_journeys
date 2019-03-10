@@ -1,0 +1,27 @@
+{% extends "start.html" %}
+{% block title %}View pictures{% endblock %}
+{% block content %}
+		<section class="section-style">
+			<h1 class="h-style"> View pictures </h1>
+			<div class="sort-options">
+				<a class="btn btn-info form-btn" href="/view/pics/oldestfirst" name="oldestfirst"> Oldest first </a>
+				<a class="btn btn-info form-btn" href="/view/pics/newestfirst" name="newestfirst"> Latest first </a>
+				<a class="btn btn-info form-btn" href="/view/pics/lastweek" name="lastweek"> Last week</a>
+				<a class="btn btn-info form-btn" href="/view/pics/lastmonth" name="lastmonth"> Last month </a>
+			</div>
+			{% if pics %}
+			<h5 class="comments-h vieving-posts">You are viewing pictures: {{ current_option }} </h5>
+			<div class="view-posts">
+                {% for pic in pics %}
+                 <div class="view_post">
+                    <h6><a href="/view/post/{{ pic.post_id }}">{{ pic.name }}</a></h6>
+                    <img src="{{ pic.source }}" alt="{{ pic.name }}">
+					</div>
+                {% endfor %}
+			{% else %}
+				<h6> No pictures yet </h6>
+			{% endif %}
+			</div>
+		</section>
+{% endblock %}
+

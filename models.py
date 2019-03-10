@@ -46,7 +46,7 @@ class Comment(db.Model):
     author = Column(String, default='')
     content = Column(String, default='')
     post_id = Column(Integer, ForeignKey('post.id'))
-    creation_date = Column(DateTime, default=datetime.datetime.utcnow)
+    creation_date = Column(DateTime, default=datetime.datetime.now)
 
     def to_json(self):
         return {
@@ -69,7 +69,8 @@ class User(db.Model):
     name = Column(String, default='')
     username = Column(String, default='')
     password = Column(String, default='')
-    creation_date = Column(DateTime, default=datetime.datetime.utcnow)
+    creation_date = Column(DateTime, default=datetime.datetime.now)
+    last_profile_modified_date = Column(DateTime, default=datetime.datetime.now)
     isAdmin = Column(Boolean, default=False)
     isLocked = Column(Boolean, default=False)
 
@@ -80,6 +81,7 @@ class User(db.Model):
             'username': self.username,
             'password': self.password,
             'creation_date': self.creation_date,
+            'last_profile_modified_date': self.last_profile_modified_date,
             'isAdmin': self.isAdmin,
             'isLocked': self.isLocked
         }
@@ -88,3 +90,51 @@ class User(db.Model):
         self.name = name
         self.username = username
         self.password = password
+
+
+class Photo(db.Model):
+    __tablename__ = 'photo'
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    name = Column(String, default='')
+    source = Column(String, default='')
+    post_id = Column(Integer, ForeignKey('post.id'))
+    creation_date = Column(DateTime, default=datetime.datetime.now)
+
+    def to_json(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'source': self.source,
+            'post_id': self.post_id,
+            'creation_date': self.creation_date,
+        }
+
+    def __init__(self, name, source, *post_id):
+        self.name = name
+        self.source = source
+        if post_id:
+            self.post_id = post_id[0]
+
+
+class Video(db.Model):
+    __tablename__ = 'video'
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    name = Column(String, default='')
+    source = Column(String, default='')
+    post_id = Column(Integer, ForeignKey('post.id'))
+    creation_date = Column(DateTime, default=datetime.datetime.now)
+
+    def to_json(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'source': self.source,
+            'post_id': self.post_id,
+            'creation_date': self.creation_date,
+        }
+
+    def __init__(self, name, source, *post_id):
+        self.name = name
+        self.source = source
+        if post_id:
+            self.post_id = post_id[0]
