@@ -11,11 +11,11 @@
 			</div>
 			{% if pics %}
 			<h5 class="comments-h vieving-posts">You are viewing pictures: {{ current_option }} </h5>
-			<div class="view-posts">
+			<div class="view-posts viewing-pics">
                 {% for pic in pics %}
-                 <div class="view_post">
+                 <div class="view_post view-pic-item">
                     <h6><a href="/view/post/{{ pic.post_id }}">{{ pic.name }}</a></h6>
-                    <img src="{{ pic.source }}" alt="{{ pic.name }}">
+                    <img src="{{ pic.source }}" alt="{{ pic.name }}" class="view-pic">
 					</div>
                 {% endfor %}
 			{% else %}

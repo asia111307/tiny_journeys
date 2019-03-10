@@ -18,10 +18,13 @@ body {
     box-sizing: border-box;
 }
 
-iframe {
+iframe, img {
     max-width: 90%;
 }
 
+.view-pic {
+    max-width: 30%;
+}
 a:link, a:visited, a:active, a:hover, a:focus {
     text-decoration: none;;
 }
@@ -253,6 +256,12 @@ nav {
 /* VIEV POSTS */
 .vieving-posts, .view_post {
     margin: 30px 0;
+}
+.viewing-pics {
+  display: flex;
+}
+.view-pic-item {
+  width: auto;
 }
 .view_post {
     padding: 30px 20px;
