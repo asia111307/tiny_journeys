@@ -4,9 +4,11 @@
 
 # venv, pycache, IDE settings
 venv/
+venv-windows/
 __pycache__/
 .idea/
 *.db
 venv\
+venv-windows\
 __pycache__\
 .idea\
