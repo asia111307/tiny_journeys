@@ -1,0 +1,30 @@
+{% macro block_nav() %}
+<nav>
+    <div>
+        <ul>
+            <div class="logo-menu-item">
+                 <a href="/" title="Tiny Journeys" class="menu-item-logo">
+                <li>
+                    <div class="logo-container">
+                        <div class="logo-btn"></div>
+                        <p> | Tiny Journeys </p>
+                    </div>
+                </li>
+            </a>
+            </div>
+            <div class="other-menu-items">
+                <li>
+                    <a href="/add-post#add-post"> Posts </a>
+                    <ul>
+                        <a href="/add-post"><li> Add post </li></a>
+                        <a href="/view/posts"><li> View posts </li></a>
+                        <a href="/view/pics"><li> View pictures </li></a>
+                        <a href="/view/videos"><li> View videos </li></a>
+                    </ul>
+                </li>
+                <a href="/login"><li> Login </li></a>
+            </div>
+        </ul>
+    </div>
+</nav>
+{% endmacro %}

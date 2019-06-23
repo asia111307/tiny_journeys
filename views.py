@@ -6,7 +6,6 @@ from flask import render_template, request, jsonify, redirect, url_for, Markup
 from models import *
 import os, datetime, re
 
-
 @app.route('/')
 def start():
     post = Post.query.order_by(Post.id.desc()).first()

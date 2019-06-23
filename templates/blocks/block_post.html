@@ -1,0 +1,42 @@
+{% from 'blocks/block_comments.html' import block_comment with context %}
+
+{% macro block_post(post, prev, next, comments, comments_count, fullview) %}
+    {% if post %}
+        <div class="visible-post">
+            <h1 class="h-style"><a href="/view/post/{{ post.id }}">{{ '#{} {}'.format(post.id, post.title) }} </a> </h1>
+            <p class="p-style">  {{ post.content | safe  }}</p>
+            <div class="meta">
+                <h5 class="p-style credentials"> Created by <span class="author">{{ post.author }}</span> on {{ '{} {} {}, {}:{}'.format(post.creation_date.day, post.creation_date.strftime('%B'), post.creation_date.year, post.creation_date.hour, post.creation_date.strftime('%M')) }}</h5>
+                <h5 class="p-style credentials">Last modified on {{ '{} {} {}, {}:{}'.format(post.last_modified_date.day, post.last_modified_date.strftime('%B'), post.last_modified_date.year, post.last_modified_date.hour, post.last_modified_date.strftime('%M')) }}</h5>
+                {% if fullview %}
+                    <div class="post-actions">
+                    <div class="edit">
+                        <a class="btn btn-info form-btn meta-btn" href="/edit/post/{{post.id}}" name="edit-btn"> <i class="fa fa-pencil"></i> Edit </a>
+                    </div>
+                    <div class="delete">
+                        <a class="btn btn-info form-btn meta-btn" href="/delete/post/{{post.id}}" name="delete-btn"><i class="fa fa-times-circle"></i> Delete </a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="neighbour-posts">
+                {% if prev %}
+                    <h5 class="p-style credentials"><a href="/view/post/{{ prev.id }}"><i class="fa fa-caret-left"></i> {{ '#{} {}'.format(prev.id, prev.title) }}</a></h5>
+                {% else %}
+                    <h5></h5>
+                {% endif %}
+                {% if next %}
+                    <h5 class="p-style credentials"><a href="/view/post/{{ next.id }}">{{ '#{} {}'.format(next.id, next.title) }} <i class="fa fa-caret-right"></i></a></h5>
+                {% else %}
+                    <h5></h5>
+                {% endif %}
+            </div>
+        </div>
+        {{ block_comment(post, comments, comments_count) }}
+    {% else %}
+        <div class="no-visible-posts">
+            <h1 class="h-style"> Hi! </h1>
+            <p class="p-style">  <br> No posts yet. Add the first one! </p>
+        </div>
+    {% endif %}
+{% endmacro %}

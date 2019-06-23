@@ -1,4 +1,5 @@
 {% extends "start.html" %}
+{% from 'blocks/block_form.html' import block_form with context %}
 {% block title %}Edit post{% endblock %}
 {% block head %}
   <!-- Summernote Editor -->
@@ -6,27 +7,10 @@
     <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css">
 {% endblock %}
 {% block content %}
-		<section class="section-style container">
-            <h1 class="h-style"> Edit post </h1>
-            <form class="form-horizontal" action="/editpost/{{ post.id }}" method = "post">
-                <div class="form-meta">
-                    <div class="form-group form-author">
-                        <label for="author" data-toggle="tooltip" title="Your name" data-placement="left"> Your name </label>
-                        <input type="text" name="author" id="author" placeholder="Type your name here" class="form-control" value="Admin" required readonly><br>
-                    </div>
-                    <div class="form-group form-title">
-                        <label for="title" data-toggle="tooltip" title="Post title" data-placement="top"> Post title </label>
-                        <input type="text" name="title" id="title" placeholder="Type post title here" class="form-control" value="{{ post.title }}" required><br>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="content" data-toggle="tooltip" title="Post content" data-placement="top"> Post content </label>
-                    <textarea name="content" id="content" placeholder="Type post content here" class="form-control" rows="8" required>{{ post.content }}</textarea>
-                </div>
-                <button type="submit" class="btn btn-info form-btn"> Save changes </button>
-            </form>
-		</section>
-	</div>
+    <section class="section-style container">
+        <h1 class="h-style"> Edit post </h1>
+        {{ block_form(type='edit', post=post) }}
+    </section>
 {% endblock %}
 {% block scripts %}
     <!-- Summernote Editor -->

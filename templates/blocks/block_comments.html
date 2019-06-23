@@ -1,0 +1,45 @@
+{% macro block_comment(post, comments, comments_count) %}
+    <div class="visible-post-comments">
+            <h5>Comments ({{ comments_count }}) <i class="fa fa-caret-down caret-icon-fa"></i></h5>
+            <hr class="comments-hr">
+            <div class="visible-post-comments-content">
+                <div class="leave-comment">
+                    <h6 class="comments-h">Leave a comment </h6>
+                    <form class="form-horizontal" action="/addcomment/{{ post.id}}" method="post">
+                        <div class="form-group row">
+                            <label for="com_author" class="col-sm-2 col-form-label" data-toggle="tooltip" title="Type your name here" data-placement="left"> Your name </label>
+                            <div class="col-sm-6">
+                                <input type="text" name="author" id="com_author" placeholder="Type your name here" class="form-control" required><br>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="com_content" class="col-sm-2 col-form-label" data-toggle="tooltip" title="Type your comment" data-placement="top"> Your comment </label>
+                            <div class="col-sm-6">
+                                <textarea name="content" id="com_content" placeholder="Type your comment here" class="form-control" rows="2" required></textarea><br>
+                            </div>
+                        </div>
+                        <button type="reset" class="btn btn-info form-btn"> Clear </button>
+                        <button type="submit" class="btn btn-info form-btn"> Send </button>
+                    </form>
+                </div>
+                {% if comments %}
+                    <div class="left-comments">
+                        {% for comment in comments %}
+                            <div class="comment">
+                                <div class="meta">
+                                    <p class="p-style comment-p credentials"> <span class="user-icon"><i class="fa fa-user-circle user-icon-fa"></i></span><span class="author"> {{ comment.author }}</span>, {{ '{} {} {}, {}:{}'.format(comment.creation_date.day, comment.creation_date.strftime('%B'), comment.creation_date.year, comment.creation_date.hour, comment.creation_date.minute) }}</p>
+                                    <a href="/delete/comment/{{ post.id }}/{{comment.id}}" name="delete-commentt-btn"> <i class="fa fa-times"></i></a>
+                                </div>
+                                <span class="quot"><i class="fa fa-quote-left quot-icon-fa"></i></span><span class="p-style">  {{ comment.content }}</span><span><i class="fa fa-quote-right quot-icon-fa"></i></span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="">
+                        <p class="p-style">  <br> No comments yet. </p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+{% endmacro %}
+

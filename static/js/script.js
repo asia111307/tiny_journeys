@@ -33,7 +33,7 @@ if (posts) {
 // TITLE ANIMATION -------------------
 const titleAnm = document.querySelector(".title-anm");
 const cursor = document.querySelector(".cursor");
-const title = "Greece my Love";
+const title = "Tiny Journeys";
 const description = document.querySelector(".small-jumb p");
 const descWord = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.";
 let letterNumber = 0;
