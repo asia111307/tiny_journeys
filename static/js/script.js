@@ -1,3 +1,24 @@
+// HAMBURGER MENU
+document.getElementById('nav-icon1').addEventListener('click', function() {
+  this.classList.toggle('open');
+  console.log('menu toggled');
+  const menu_items = document.getElementsByClassName('nav-hidden');
+  const menu = this;
+  for (let i=0; i< menu_items.length; i++) {
+      if (menu.classList.contains('open')) {
+          menu_items[i].style.display = 'flex';
+          document.querySelector('nav').style.backgroundColor = '#FFFFFF';
+      } else {
+          menu_items[i].style.display = 'none';
+          document.querySelector('nav').style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+      }
+  }
+});
+document.getElementById('nav-icon1').click();
+document.getElementById('nav-icon1').click();
+
+
+
 // COMMENT BLOCK SECTION OPENING ----------------
 const arrow = document.getElementsByClassName('caret-icon-fa')[0];
 const comment_content = document.getElementsByClassName('visible-post-comments-content')[0];

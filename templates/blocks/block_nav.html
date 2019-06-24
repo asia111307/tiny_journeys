@@ -1,5 +1,5 @@
 {% macro block_nav() %}
-<nav>
+<nav id="nav">
     <div>
         <ul>
             <div class="logo-menu-item">
@@ -13,7 +13,7 @@
             </a>
             </div>
             <div class="other-menu-items">
-                <li>
+                <li class="nav-hidden">
                     <a href="/add-post#add-post"> Posts </a>
                     <ul>
                         <a href="/add-post"><li> Add post </li></a>
@@ -22,8 +22,16 @@
                         <a href="/view/videos"><li> View videos </li></a>
                     </ul>
                 </li>
-                <a href="/login"><li> Login </li></a>
+                <a href="/login"><li class="nav-hidden"> Login </li></a>
+                <li>
+                    <div id="nav-icon1" class="start">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </li>
             </div>
+
         </ul>
     </div>
 </nav>

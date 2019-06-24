@@ -25,6 +25,10 @@ a:link, a:visited, a:active, a:hover, a:focus {
   text-decoration: none;
 }
 
+a {
+  color: rgba(7, 94, 175, 0.8);
+}
+
 .not-found {
   display: flex;
   flex-direction: column;
@@ -40,7 +44,7 @@ a:link, a:visited, a:active, a:hover, a:focus {
 
 .h-style {
   text-align: center;
-  font-size: 40px;
+  font-size: 30px;
   font-weight: bold;
   margin: 10px 0;
 }
@@ -82,7 +86,7 @@ nav ul ul li {
   transition: 0.3s;
 }
 nav ul li {
-  display: inline-block;
+  display: flex;
   line-height: 60px;
   height: 60px;
   min-width: 200px;
@@ -90,6 +94,8 @@ nav ul li {
   font-weight: bold;
   font-size: 16px;
   color: rgba(7, 94, 175, 0.8);
+  align-items: center;
+  justify-content: center;
 }
 nav ul li:hover {
   cursor: pointer;
@@ -99,7 +105,7 @@ nav ul li:hover a {
 }
 nav ul li:hover ul {
   display: block;
-  margin-top: -5px;
+  margin-top: 148px;
 }
 nav ul a {
   text-decoration: none;
@@ -120,6 +126,12 @@ nav ul a .logo-container p {
 }
 nav ul .menu-item-logo {
   text-align: left;
+}
+nav ul .other-menu-items {
+  display: flex;
+}
+nav ul .other-menu-items li {
+  transition: 0.3s;
 }
 nav ul .other-menu-items li:hover {
   transform: scale(1.1);
@@ -165,6 +177,7 @@ nav ul .other-menu-items li:hover {
 }
 .jumbotron .jumb-video {
   min-width: 100%;
+  min-height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
@@ -199,6 +212,7 @@ nav ul .other-menu-items li:hover {
 }
 .jumbotron .explore-btn {
   width: 100%;
+  min-width: 340px;
   font-size: 30px;
   font-weight: bold;
   color: rgba(7, 94, 175, 0.8);
@@ -209,8 +223,9 @@ nav ul .other-menu-items li:hover {
   background-position: 100% 0;
   background-size: 300%;
   background-image: linear-gradient(45deg, rgba(7, 94, 175, 0.8) 50%, transparent 50%);
-  padding: 15px 50px;
-  margin-top: 5%;
+  padding: 25px;
+  margin: 5% auto auto auto;
+  box-shadow: 15px 15px 60px 10px gray;
 }
 .jumbotron .explore-btn:hover {
   color: white;
@@ -496,9 +511,147 @@ footer .copyright p {
   background-color: #007BB6;
 }
 
+#nav-icon1 {
+  width: 35px;
+  height: 35px;
+  position: relative;
+  align-self: flex-end;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: 0.5s ease-in-out;
+  -moz-transition: 0.5s ease-in-out;
+  -o-transition: 0.5s ease-in-out;
+  transition: 0.5s ease-in-out;
+  cursor: pointer;
+  overflow: hidden;
+  margin: auto;
+}
+
+#nav-icon1 span {
+  display: block;
+  position: absolute;
+  height: 4px;
+  background: rgba(7, 94, 175, 0.8);
+  border-radius: 9px;
+  opacity: 1;
+  left: 0;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: 0.25s ease-in-out;
+  -moz-transition: 0.25s ease-in-out;
+  -o-transition: 0.25s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+
+#nav-icon1:hover span, #nav-icon1:hover span:nth-child(1), #nav-icon1:hover span:nth-child(2), #nav-icon1:hover span:nth-child(3) {
+  width: 100%;
+}
+
+#nav-icon1 span:nth-child(1) {
+  top: 0;
+  width: 65%;
+}
+
+#nav-icon1 span:nth-child(2) {
+  top: 15px;
+  width: 48%;
+}
+
+#nav-icon1 span:nth-child(3) {
+  top: 30px;
+  width: 90%;
+}
+
+#nav-icon1.open span {
+  width: 100%;
+}
+
+#nav-icon1.open span:nth-child(1) {
+  top: 15px;
+  -webkit-transform: rotate(135deg);
+  -moz-transform: rotate(135deg);
+  -o-transform: rotate(135deg);
+  transform: rotate(135deg);
+}
+
+#nav-icon1.open span:nth-child(2) {
+  opacity: 0;
+  left: -60px;
+}
+
+#nav-icon1.open span:nth-child(3) {
+  top: 15px;
+  -webkit-transform: rotate(-135deg);
+  -moz-transform: rotate(-135deg);
+  -o-transform: rotate(-135deg);
+  transform: rotate(-135deg);
+}
+
 @media (max-width: 768px) {
   .jumb-video {
     height: 100%;
+  }
+}
+@media (max-width: 880px) {
+  nav ul, nav li, .home-section {
+    display: block;
+  }
+
+  .post-content {
+    border-right: none;
+    border-bottom: 2px solid rgba(192, 192, 192, 0.2);
+  }
+
+  .sidebar {
+    padding: 0 10%;
+    margin-top: 50px;
+  }
+
+  .post-content, .sidebar {
+    width: 100%;
+    padding: 0;
+  }
+
+  .visible-post .meta {
+    display: block;
+  }
+
+  .post-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .comment {
+    width: 100%;
+  }
+
+  .comments-hr {
+    display: none;
+  }
+
+  .small-jumb {
+    width: 100% !important;
+  }
+
+  .small-jumb h1 {
+    font-size: 30px;
+  }
+
+  .small-jumb p {
+    font-size: 16px;
+  }
+
+  .explore-btn {
+    font-size: 20px !important;
+  }
+
+  .other-menu-items {
+    flex-direction: column-reverse;
   }
 }
 /*.h-style {*/
