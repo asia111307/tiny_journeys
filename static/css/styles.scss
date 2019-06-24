@@ -545,11 +545,6 @@ footer {
   transform: rotate(-135deg);
 }
 
-@media (max-width: 768px) {
-.jumb-video {
-    height: 100%;
-}
-}
 @media (max-width: 880px) {
   nav ul, nav li, .home-section {
     display: block;
@@ -583,6 +578,7 @@ footer {
   }
   .small-jumb {
     width: 100%!important;
+    margin-top: 200px!important;
   }
   .small-jumb h1 {
     font-size: 30px;
@@ -591,10 +587,13 @@ footer {
     font-size: $mainfontsize;
   }
   .explore-btn {
-    font-size: 20px!important;
+    display: none!important;
   }
   .other-menu-items {
     flex-direction: column-reverse;
+  }
+  .jumbotron {
+    height: 50%!important;
   }
 }
  /*.h-style {*/
