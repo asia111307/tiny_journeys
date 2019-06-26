@@ -10,6 +10,7 @@ import os, datetime, re
 @app.route('/')
 def start():
     posts = Post.query.order_by(Post.creation_date.desc()).all()
+    prevs = nexts = comments = comments_counts = ''
     if posts:
         prevs = [Post.query.get(post.id - 1) for post in posts]
         nexts = [Post.query.get(post.id + 1) for post in posts]
