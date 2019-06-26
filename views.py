@@ -6,15 +6,16 @@ from flask import render_template, request, jsonify, redirect, url_for, Markup
 from models import *
 import os, datetime, re
 
+
 @app.route('/')
 def start():
-    post = Post.query.order_by(Post.id.desc()).first()
-    p_prev = p_next = comments = ''
-    if post:
-        p_prev = Post.query.get(post.id - 1)
-        p_next = Post.query.get(post.id + 1)
-        comments = Comment.query.filter(Comment.post_id == post.id).order_by(Comment.creation_date.desc()).all()
-    return render_template('index.html', post=post, prev=p_prev, next=p_next, comments=comments, comments_count=len(comments))
+    posts = Post.query.order_by(Post.creation_date.desc()).all()
+    if posts:
+        prevs = [Post.query.get(post.id - 1) for post in posts]
+        nexts = [Post.query.get(post.id + 1) for post in posts]
+        comments = [Comment.query.filter(Comment.post_id == post.id).order_by(Comment.creation_date.desc()).all() for post in posts]
+        comments_counts = [len(comments[i]) for i in range(len(posts))]
+    return render_template('index.html', posts=posts, prevs=prevs, nexts=nexts, comments=comments, comments_counts=comments_counts)
 
 
 @app.route('/add-post')

@@ -1,7 +1,6 @@
 // HAMBURGER MENU
 document.getElementById('nav-icon1').addEventListener('click', function() {
   this.classList.toggle('open');
-  console.log('menu toggled');
   const menu_items = document.getElementsByClassName('nav-hidden');
   const menu = this;
   for (let i=0; i< menu_items.length; i++) {
@@ -20,11 +19,12 @@ document.getElementById('nav-icon1').click();
 
 
 // COMMENT BLOCK SECTION OPENING ----------------
-const arrow = document.getElementsByClassName('caret-icon-fa')[0];
-const comment_content = document.getElementsByClassName('visible-post-comments-content')[0];
+const arrows = document.getElementsByClassName('caret-icon-fa');
 const comments = document.getElementsByClassName('comment');
 const posts = document.getElementsByClassName('view_post');
 function toggleOpenContent() {
+    const arrow = this;
+    const comment_content = arrow.parentElement.nextElementSibling.nextElementSibling;
     if (arrow.classList.contains('open')) {
         comment_content.style.display = 'none';
         arrow.classList.remove('fa-caret-up');
@@ -37,10 +37,15 @@ function toggleOpenContent() {
         arrow.classList.add('open');
     }
 }
-if (arrow) {
-    arrow.addEventListener('click', toggleOpenContent);
+if (arrows) {
+    for (let i=0; i<arrows.length; i++){
+        arrows[i].addEventListener('click', toggleOpenContent);
+    }
 }
-if (comments.length) {
+const single_post = document.getElementsByClassName('single-post')[0];
+if (single_post) {
+    const arrow = document.getElementsByClassName('caret-icon-fa')[0];
+    arrow.addEventListener('click', toggleOpenContent);
     arrow.click();
 }
 if (posts) {
