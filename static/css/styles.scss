@@ -392,13 +392,20 @@ width: auto;
   display: inline-flex;
 }
 .neighbour-posts, .meta {
-  margin-top: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   h5 {
       margin-bottom: 0;
   }
+}
+
+.meta {
+  margin-top: 0;
+}
+
+.neighbour-posts {
+  margin-top: 50px;
 }
 .form-horizontal, .sort-options {
   margin-top: 60px;
