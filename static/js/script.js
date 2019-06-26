@@ -51,45 +51,46 @@ if (posts) {
 
 
 
-// TITLE ANIMATION -------------------
-const titleAnm = document.querySelector(".title-anm");
-const cursor = document.querySelector(".cursor");
-const title = "Tiny Journeys";
-const description = document.querySelector(".small-jumb p");
-const descWord = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.";
-let letterNumber = 0;
-const animation = () => {
-    titleAnm.textContent += title[letterNumber++];
-    if (letterNumber === title.length){
-        clearInterval(anmInt);
-        document.querySelector(".underline").style.opacity = "1";
-        letterNumber = 0;
-        setTimeout(()=>{
-            const anmDes = setInterval(()=>{
-                description.textContent += descWord[letterNumber++];
-                if (letterNumber === descWord.length) {
-                    clearInterval(anmDes);
-                    letterNumber = 0;
-                }
-            },80);
-        },1500)
+// TITLE & CURSON ANIMATION -------------------
+const home = document.getElementById('home-feed');
+if (home) {
+    const titleAnm = document.querySelector(".title-anm");
+    const cursor = document.querySelector(".cursor");
+    const title = "Tiny Journeys";
+    const description = document.querySelector(".small-jumb p");
+    const descWord = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.";
+    let letterNumber = 0;
+    const animation = () => {
+        titleAnm.textContent += title[letterNumber++];
+        if (letterNumber === title.length){
+            clearInterval(anmInt);
+            document.querySelector(".underline").style.opacity = "1";
+            letterNumber = 0;
+            setTimeout(()=>{
+                const anmDes = setInterval(()=>{
+                    description.textContent += descWord[letterNumber++];
+                    if (letterNumber === descWord.length) {
+                        clearInterval(anmDes);
+                        letterNumber = 0;
+                    }
+                },80);
+            },1500)
+        }
+    };
+    const jumb_video = document.querySelector(".jumb-video");
+    const anmInt = setInterval(animation, 250);
+    const cursorAnimation = () => {
+        cursor.classList.toggle("cursor-hide");
+    };
+    if (jumb_video) {
+        setInterval(cursorAnimation, 500);
+        jumb_video.addEventListener("loadedmetadata", function (){
+                this.currentTime = 27;
+            }, false
+        );
     }
-};
-
-
-// CURSOR ANIMATION------------------------------------
-const jumb_video = document.querySelector(".jumb-video");
-const anmInt = setInterval(animation, 250);
-const cursorAnimation = () => {
-    cursor.classList.toggle("cursor-hide");
-};
-if (jumb_video) {
-    setInterval(cursorAnimation, 500);
-    jumb_video.addEventListener("loadedmetadata", function (){
-            this.currentTime = 27;
-        }, false
-    );
 }
+
 
 
 
