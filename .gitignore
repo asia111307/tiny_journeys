@@ -12,6 +12,7 @@ venv-windows\
 
 # DB
 *.db
+/*Db.*
 gr_db.db
 
 # Byte-compiled / optimized / DLL files

@@ -20,11 +20,18 @@
 {% block content %}
     <section class="section-style home-section" id="home-feed">
         <div class="home-posts">
+        {% if posts %}
             {% for i in range(posts|length) %}
-            <div class="post-content">
-                {{ block_post(posts[i], prevs[i], nexts[i], comments[i], comments_counts[i], fullview=False) }}
+                <div class="post-content">
+                    {{ block_post(posts[i], prevs[i], nexts[i], comments[i], comments_counts[i], fullview=False) }}
+                </div>
+            {%  endfor %}
+        {% else %}
+            <div class="no-visible-posts">
+                <h1 class="h-style"> Hi! </h1>
+                <p class="p-style">  <br> No posts yet. Add the first one! </p>
             </div>
-        {%  endfor %}
+        {% endif %}
         </div>
         {{ block_sidebar() }}
     </section>
