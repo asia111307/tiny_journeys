@@ -594,6 +594,13 @@ footer {
   }
   .jumbotron {
     height: 50%!important;
+    background-image: url("../images/spina.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+  }
+  .video-container {
+    display: none;
   }
 }
  /*.h-style {*/
