@@ -24,7 +24,7 @@ const comments = document.getElementsByClassName('comment');
 const posts = document.getElementsByClassName('view_post');
 function toggleOpenContent() {
     const arrow = this;
-    const comment_content = arrow.parentElement.nextElementSibling.nextElementSibling;
+    const comment_content = arrow.parentElement.nextElementSibling;
     if (arrow.classList.contains('open')) {
         comment_content.style.display = 'none';
         arrow.classList.remove('fa-caret-up');

@@ -70,7 +70,6 @@ class User(db.Model):
     username = Column(String, default='')
     password = Column(String, default='')
     creation_date = Column(DateTime, default=datetime.datetime.now)
-    last_profile_modified_date = Column(DateTime, default=datetime.datetime.now)
     isAdmin = Column(Boolean, default=False)
     isLocked = Column(Boolean, default=False)
 
@@ -81,7 +80,6 @@ class User(db.Model):
             'username': self.username,
             'password': self.password,
             'creation_date': self.creation_date,
-            'last_profile_modified_date': self.last_profile_modified_date,
             'isAdmin': self.isAdmin,
             'isLocked': self.isLocked
         }

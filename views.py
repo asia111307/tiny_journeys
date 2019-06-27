@@ -3,6 +3,8 @@
 
 from start import app, db
 from flask import render_template, request, jsonify, redirect, url_for, Markup
+from builtins import *
+from sqlalchemy import exc
 from models import *
 import os, datetime, re
 
@@ -16,7 +18,9 @@ def start():
         nexts = [Post.query.get(post.id + 1) for post in posts]
         comments = [Comment.query.filter(Comment.post_id == post.id).order_by(Comment.creation_date.desc()).all() for post in posts]
         comments_counts = [len(comments[i]) for i in range(len(posts))]
-    return render_template('index.html', posts=posts, prevs=prevs, nexts=nexts, comments=comments, comments_counts=comments_counts)
+    user_name = request.args.get('user_name')
+    return render_template('index.html', posts=posts, prevs=prevs, nexts=nexts, comments=comments, comments_counts=comments_counts, user_name=user_name)
+
 
 
 @app.route('/add-post')
@@ -199,23 +203,6 @@ def render_view_videos_options(sort_option):
         sort_option = 'Last month'
     return render_template('viewvideos.html', videos=videos, current_option=sort_option)
 
-# @app.route('/products/<int:id>', methods=['GET'])
-# def add(id):
-#     product = models.Product.query.get_or_404(id)
-#     return jsonify(products.to_json)
-#
-#
-# @app.route('/products', methods=['POST'])
-# def edit(content):
-#     data = request.json()
-#     product = models.Post(**data)
-#     db.session.add(product)
-#     db.session.commit()
-#     return jsonify([
-#         'created': True,
-#     'id': 0;
-#     ])
-
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -235,3 +222,44 @@ def dated_url_for(endpoint, **values):
                                  endpoint, filename)
             values['q'] = int(os.stat(file_path).st_mtime)
     return url_for(endpoint, **values)
+
+
+@app.route('/account')
+def diaplay_login_form():
+    return render_template('login.html')
+
+
+@app.route('/account/create')
+def diaplay_registration_form():
+    return render_template('register.html')
+
+
+@app.route('/account/login', methods=['POST', 'GET'])
+def login():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    try:
+        user = User.query.filter(User.username == username).first()
+        if user.password == password:
+            user_id = user.id
+            user_name = user.name
+            return redirect(url_for('.start', user_name=user_name))
+        else:
+            feedback = 'This password is incorrect'
+            return render_template('login.html', feedback=feedback)
+    except (exc.OperationalError, AttributeError):
+        db.session.rollback()
+        feedback = 'This username does not exist in our system'
+        return render_template('login.html', feedback=feedback)
+
+
+@app.route('/account/register', methods=['POST', 'GET'])
+def register():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    password_again = request.form.get('password-again')
+    name = request.form.get('name')
+    db.session.add(User(username=username, password=password, name=name))
+    db.session.commit()
+    return redirect('/')
+

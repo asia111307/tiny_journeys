@@ -1,4 +1,4 @@
-{% macro block_nav() %}
+{% macro block_nav(user_name=False) %}
 <nav id="nav">
     <div>
         <ul>
@@ -22,7 +22,11 @@
                         <a href="/view/videos"><li> View videos </li></a>
                     </ul>
                 </li>
-                <a href="/login"><li class="nav-hidden"> Login </li></a>
+                {% if user_name %}
+                    <a href="/profile"><li class="nav-hidden"> {{ user_name }} </li></a>
+                {% else %}
+                    <a href="/account"><li class="nav-hidden"> Login </li></a>
+                {% endif %}
                 <li>
                     <div id="nav-icon1" class="start">
                         <span></span>

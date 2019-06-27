@@ -241,8 +241,9 @@ nav {
 }
 .post-content {
   width: 100%;
-  padding: 0 10%;
-  border-right: 2px solid rgba(192, 192, 192, 0.2);
+  padding: 5%;
+  border: 1px solid rgba(192, 192, 192, 0.2);
+  margin-top: 30px;
 }
 .sidebar {
   width: 30%;
@@ -568,17 +569,12 @@ footer {
   .home-posts {
     width: 100%;
   }
-  .post-content {
-    border-right: none;
-    border-bottom: 2px solid rgba(192, 192, 192, 0.2);
-
-  }
   .sidebar {
     padding: 0 10%;
     margin-top: 50px;
     width: 100%;
   }
-  .post-content, .sidebar {
+  .sidebar {
     padding: 0;
   }
   .visible-post .meta {

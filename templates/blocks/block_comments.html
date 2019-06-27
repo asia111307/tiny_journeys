@@ -1,8 +1,8 @@
 {% macro block_comment(post, comments, comments_count) %}
     <div class="visible-post-comments">
-            <h5>Comments ({{ comments_count }}) <i class="fa fa-caret-down caret-icon-fa"></i></h5>
-            <hr class="comments-hr">
+            <h7>Comments ({{ comments_count }}) <i class="fa fa-caret-down caret-icon-fa"></i></h7>
             <div class="visible-post-comments-content">
+                <hr class="comments-hr">
                 <div class="leave-comment">
                     <h6 class="comments-h">Leave a comment </h6>
                     <form class="form-horizontal" action="/addcomment/{{ post.id}}" method="post">
