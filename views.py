@@ -23,8 +23,7 @@ def start():
         nexts = [Post.query.get(post.id + 1) for post in posts]
         comments = [Comment.query.filter(Comment.post_id == post.id).order_by(Comment.creation_date.desc()).all() for post in posts]
         comments_counts = [len(comments[i]) for i in range(len(posts))]
-    user_name = request.args.get('user_name')
-    return render_template('index.html', posts=posts, prevs=prevs, nexts=nexts, comments=comments, comments_counts=comments_counts, user_name=user_name)
+    return render_template('index.html', posts=posts, prevs=prevs, nexts=nexts, comments=comments, comments_counts=comments_counts)
 
 
 @app.route('/add-post')
@@ -221,6 +220,7 @@ def login():
             user = User.query.filter(User.username == username).first()
             if user.password == password:
                 login_user(user, remember=True)
+                session['logged_user'] = user.id
                 return redirect(request.args.get("next", "/"))
             else:
                 return abort(401)
@@ -255,7 +255,6 @@ def register():
     username = request.form.get('username')
     password = request.form.get('password')
     password_again = request.form.get('password-again')
-    name = request.form.get('name')
     all_usernames = [user.username for user in User.query.all()]
     if username in all_usernames:
         feedback = 'This username is already taken'
@@ -263,7 +262,7 @@ def register():
     if password != password_again:
         feedback = 'Passwords do not match'
         return render_template('register.html', feedback=feedback)
-    db.session.add(User(username=username, password=password, name=name))
+    db.session.add(User(username=username, password=password))
     db.session.commit()
     return redirect('/')
 

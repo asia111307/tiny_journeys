@@ -9,8 +9,8 @@
                         <div class="form-group row comment-area">
                             <label for="com_author" class="col-sm-3 col-form-label" data-toggle="tooltip" title="Type your name here" data-placement="left"> Your name </label>
                             <div class="col-sm-9">
-                                {% if current_user.name %}
-                                    <input type="text" name="author" id="com_author" placeholder="Type your name here" class="form-control" value="{{ current_user.name }}" required readonly><br>
+                                {% if current_user.username %}
+                                    <input type="text" name="author" id="com_author" placeholder="Type your name here" class="form-control" value="{{ current_user.username }}" required readonly><br>
                                 {%  else %}
                                     <input type="text" name="author" id="com_author" placeholder="Type your name here" class="form-control" required><br>
                                 {%  endif %}
@@ -32,9 +32,12 @@
                             <div class="comment">
                                 <div class="meta">
                                     <p class="p-style comment-p credentials"> <span class="user-icon"><i class="fa fa-user-circle user-icon-fa"></i></span><span class="author"> {{ comment.author }}</span>, {{ '{} {} {}, {}:{}'.format(comment.creation_date.day, comment.creation_date.strftime('%B'), comment.creation_date.year, comment.creation_date.hour, comment.creation_date.minute) }}</p>
-                                    <a href="/delete/comment/{{ post.id }}/{{comment.id}}" name="delete-commentt-btn"> <i class="fa fa-times"></i></a>
+                                    {% if current_user.username == 'admin' %}
+                                        <a href="/delete/comment/{{ post.id }}/{{comment.id}}" name="delete-commentt-btn"> <i class="fa fa-times"></i></a>
+                                    {% endif %}
                                 </div>
                                 <span class="quot"><i class="fa fa-quote-left quot-icon-fa"></i></span><span class="p-style">  {{ comment.content }}</span><span><i class="fa fa-quote-right quot-icon-fa"></i></span>
+
                             </div>
                         {% endfor %}
                     </div>

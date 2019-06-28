@@ -17,7 +17,7 @@ import datetime
 class Post(db.Model):
     __tablename__ = 'post'
     id = Column(Integer, autoincrement=True, primary_key=True)
-    author = Column(String, default="admin")
+    author = Column(Integer, ForeignKey('user.id'))
     title = Column(String, default="")
     content = Column(String, default="")
     creation_date = Column(DateTime, default=datetime.datetime.now)
@@ -67,7 +67,6 @@ class Comment(db.Model):
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
     id = Column(Integer, autoincrement=True, primary_key=True)
-    name = Column(String, default='')
     username = Column(String, default='')
     password = Column(String, default='')
     creation_date = Column(DateTime, default=datetime.datetime.now)
@@ -77,7 +76,6 @@ class User(db.Model, UserMixin):
     def to_json(self):
         return {
             'id': self.id,
-            'name': self.name,
             'username': self.username,
             'password': self.password,
             'creation_date': self.creation_date,
@@ -85,10 +83,10 @@ class User(db.Model, UserMixin):
             'isLocked': self.isLocked
         }
 
-    def __init__(self, name, username, password):
-        self.name = name
+    def __init__(self, username, password, isAdmin=False):
         self.username = username
         self.password = password
+        self.isAdmin = isAdmin
 
 
 class Photo(db.Model):
