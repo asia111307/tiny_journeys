@@ -7,6 +7,7 @@ from sqlalchemy.types import Boolean
 from sqlalchemy.types import Integer
 from sqlalchemy import ForeignKey
 from sqlalchemy import DateTime
+from flask_login import UserMixin
 
 
 from start import db
@@ -63,7 +64,7 @@ class Comment(db.Model):
         self.post_id = post_id
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'user'
     id = Column(Integer, autoincrement=True, primary_key=True)
     name = Column(String, default='')

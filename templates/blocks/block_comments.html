@@ -9,7 +9,11 @@
                         <div class="form-group row">
                             <label for="com_author" class="col-sm-3 col-form-label" data-toggle="tooltip" title="Type your name here" data-placement="left"> Your name </label>
                             <div class="col-sm-9">
-                                <input type="text" name="author" id="com_author" placeholder="Type your name here" class="form-control" required><br>
+                                {% if current_user.name %}
+                                    <input type="text" name="author" id="com_author" placeholder="Type your name here" class="form-control" value="{{ current_user.name }}" required readonly><br>
+                                {%  else %}
+                                    <input type="text" name="author" id="com_author" placeholder="Type your name here" class="form-control" required><br>
+                                {%  endif %}
                             </div>
                         </div>
                         <div class="form-group row">

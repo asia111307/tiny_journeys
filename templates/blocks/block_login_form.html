@@ -1,21 +1,19 @@
 {% macro block_login_form(feedback=False) %}
-<form class="form-horizontal"  method="post" action='/account/login'>
-        <div class="form-meta">
-            {%  if feedback %}
-                <p>{{ feedback }}</p>
-            {% endif %}
-        </div>
-        <div class="form-meta">
-            <div class="form-group form-author">
-                <label for="username" data-toggle="tooltip" title="Username" data-placement="left"> Username </label>
-                <input type="text" name="username" id="username" placeholder="Type your username here" class="form-control" required><br>
-            </div>
-            <div class="form-group form-title">
-                <label for="password" data-toggle="tooltip" title="Password" data-placement="top"> Password </label>
-                <input type="password" name="password" id="password" placeholder="Type your password here" class="form-control" required><br>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-info form-btn"> Login </button>
-
-    </form>
+<form method="post" action='/account/login' class="login-form">
+    <div class="form-meta">
+        {%  if feedback %}
+            <p class="feedback">{{ feedback }}</p>
+        {% endif %}
+    </div>
+    <div class="form-group form-username">
+        <label for="username" data-toggle="tooltip" title="Username" data-placement="left"> Username </label>
+        <input type="text" name="username" id="username" placeholder="Type your username here" class="form-control" required><br>
+    </div>
+    <div class="form-group form-password">
+        <label for="password" data-toggle="tooltip" title="Password" data-placement="top"> Password </label>
+        <input type="password" name="password" id="password" placeholder="Type your password here" class="form-control" required><br>
+    </div>
+    <button type="submit" class="btn btn-info form-btn"> Login </button>
+    <h5 class="yet-registered">Don't have an account yet? <a href="/account/create"><b>Register now!</b></a> </h5>
+</form>
 {% endmacro %}

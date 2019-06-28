@@ -2,11 +2,16 @@
 # encoding: utf-8
 
 from start import app, db
-from flask import render_template, request, jsonify, redirect, url_for, Markup
+from flask import render_template, request, jsonify, redirect, url_for, Markup, session, abort, Response
 from builtins import *
 from sqlalchemy import exc
 from models import *
 import os, datetime, re
+from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, UserMixin
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
 
 
 @app.route('/')
@@ -20,7 +25,6 @@ def start():
         comments_counts = [len(comments[i]) for i in range(len(posts))]
     user_name = request.args.get('user_name')
     return render_template('index.html', posts=posts, prevs=prevs, nexts=nexts, comments=comments, comments_counts=comments_counts, user_name=user_name)
-
 
 
 @app.route('/add-post')
@@ -130,7 +134,6 @@ def edit_post(post_id):
 @app.route('/editpost/<int:post_id>', methods=['POST'])
 def edit_post_id(post_id):
     post = Post.query.get_or_404(post_id)
-    post.author = request.form.get('author')
     post.title = request.form.get('title')
     post.content = request.form.get('content')
     post.last_modified_date = datetime.datetime.now()
@@ -204,6 +207,78 @@ def render_view_videos_options(sort_option):
     return render_template('viewvideos.html', videos=videos, current_option=sort_option)
 
 
+@app.route('/account')
+def diaplay_login_form():
+    return render_template('login.html')
+
+
+@app.route('/account/login', methods=['POST', 'GET'])
+def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        try:
+            user = User.query.filter(User.username == username).first()
+            if user.password == password:
+                login_user(user, remember=True)
+                return redirect(request.args.get("next", "/"))
+            else:
+                return abort(401)
+        except (exc.OperationalError, AttributeError):
+            db.session.rollback()
+            feedback = 'This username does not exist in our system'
+            return render_template('login.html', feedback=feedback)
+    else:
+        return Response('''
+        <form action="" method="post">
+            <p><input type=text name=username>
+            <p><input type=password name=password>
+            <p><input type=submit value=Login>
+        </form>
+        ''')
+
+
+@app.route("/account/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect('/')
+
+
+@app.route('/account/create')
+def diaplay_registration_form():
+    return render_template('register.html')
+
+
+@app.route('/account/register', methods=['POST', 'GET'])
+def register():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    password_again = request.form.get('password-again')
+    name = request.form.get('name')
+    all_usernames = [user.username for user in User.query.all()]
+    if username in all_usernames:
+        feedback = 'This username is already taken'
+        return render_template('register.html', feedback=feedback)
+    if password != password_again:
+        feedback = 'Passwords do not match'
+        return render_template('register.html', feedback=feedback)
+    db.session.add(User(username=username, password=password, name=name))
+    db.session.commit()
+    return redirect('/')
+
+
+@app.errorhandler(401)
+def feedback(e):
+    feedback = 'This password is incorrect'
+    return render_template('login.html', feedback=feedback)
+
+
+@login_manager.user_loader
+def load_user(id):
+    return User.query.filter_by(id=id).first()
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
@@ -222,44 +297,3 @@ def dated_url_for(endpoint, **values):
                                  endpoint, filename)
             values['q'] = int(os.stat(file_path).st_mtime)
     return url_for(endpoint, **values)
-
-
-@app.route('/account')
-def diaplay_login_form():
-    return render_template('login.html')
-
-
-@app.route('/account/create')
-def diaplay_registration_form():
-    return render_template('register.html')
-
-
-@app.route('/account/login', methods=['POST', 'GET'])
-def login():
-    username = request.form.get('username')
-    password = request.form.get('password')
-    try:
-        user = User.query.filter(User.username == username).first()
-        if user.password == password:
-            user_id = user.id
-            user_name = user.name
-            return redirect(url_for('.start', user_name=user_name))
-        else:
-            feedback = 'This password is incorrect'
-            return render_template('login.html', feedback=feedback)
-    except (exc.OperationalError, AttributeError):
-        db.session.rollback()
-        feedback = 'This username does not exist in our system'
-        return render_template('login.html', feedback=feedback)
-
-
-@app.route('/account/register', methods=['POST', 'GET'])
-def register():
-    username = request.form.get('username')
-    password = request.form.get('password')
-    password_again = request.form.get('password-again')
-    name = request.form.get('name')
-    db.session.add(User(username=username, password=password, name=name))
-    db.session.commit()
-    return redirect('/')
-

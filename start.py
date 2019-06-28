@@ -9,13 +9,14 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///gr_db.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-
 db = SQLAlchemy()
 db.app = app
 db.init_app(app)
 
-
 app.static_path = path.join(path.abspath(__file__), 'static')
+
+app.secret_key = 'super secret key'
+app.config['SESSION_TYPE'] = 'filesystem'
 
 
 def db_start():

@@ -22,8 +22,8 @@
                         <a href="/view/videos"><li> View videos </li></a>
                     </ul>
                 </li>
-                {% if user_name %}
-                    <a href="/profile"><li class="nav-hidden"> {{ user_name }} </li></a>
+                {% if current_user.is_authenticated %}
+                    <li class="nav-hidden"><a href="/profile"> {{ current_user.name }} </a> <a href="/account/logout"> (Logout) </a> </li>
                 {% else %}
                     <a href="/account"><li class="nav-hidden"> Login </li></a>
                 {% endif %}
