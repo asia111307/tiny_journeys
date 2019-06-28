@@ -634,7 +634,7 @@ footer .copyright p {
   width: 40%;
 }
 
-.post-area {
+.post-area, .comment-area {
   width: 100%;
 }
 

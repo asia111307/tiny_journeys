@@ -23,7 +23,7 @@
                     </ul>
                 </li>
                 {% if current_user.is_authenticated %}
-                    <li class="nav-hidden"><a href="/profile"> {{ current_user.name }} </a> <a href="/account/logout"> (Logout) </a> </li>
+                    <li class="nav-hidden"><a href="/profile"> {{ current_user.name }} (</a> <a href="/account/logout">Logout</a>)</li>
                 {% else %}
                     <a href="/account"><li class="nav-hidden"> Login </li></a>
                 {% endif %}
