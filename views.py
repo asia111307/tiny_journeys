@@ -35,7 +35,7 @@ def render_view_content(content_type):
         contents = Photo.query.all()
     elif content_type == 'videos':
         contents = Video.query.all()
-    return render_template('view{}.html'.format(content_type), contents=contents, current_option='All')
+    return render_template('view{}.html'.format(content_type), contents=contents, current_option='All', count=len(contents))
 
 
 @app.route('/view/<content_type>/<sort_option>', methods=['POST', 'GET'])
@@ -61,7 +61,7 @@ def render_view_photos_options(content_type, sort_option):
         month_ago = datetime.datetime.today() - datetime.timedelta(days=3)
         content = contents.query.filter(contents.creation_date > month_ago).order_by(contents.creation_date.desc())
         sort_option = 'Last month'
-    return render_template('view{}.html'.format(content_type), contents=content, current_option=sort_option)
+    return render_template('view{}.html'.format(content_type), contents=content, current_option=sort_option, count=len(content.all()))
 
 
 @app.route('/view/post/<int:post_id>')
@@ -123,6 +123,7 @@ def edit_post_id(post_id):
         post.last_modified_date = datetime.datetime.now()
         db.session.commit()
         post_id = Post.query.order_by(Post.id.desc()).first().id
+        Photo.query.filter_by(post_id=post_id).delete()
         pat = re.compile(r'<img [^>]*src="([^"]+)')
         imgs = pat.findall(post.content)
         if imgs:
@@ -130,6 +131,7 @@ def edit_post_id(post_id):
                 img_title = 'Picture {} for {}'.format(i+1, post.title)
                 db.session.add(Photo(img_title, imgs[i], post_id))
                 db.session.commit()
+        Video.query.filter_by(post_id=post_id).delete()
         pat2 = re.compile(r'<iframe [^>]*src="([^"]+)')
         videos = pat2.findall(post.content)
         if videos:

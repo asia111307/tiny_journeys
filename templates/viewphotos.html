@@ -10,7 +10,7 @@
                 <a class="btn btn-info form-btn btn-no-round" href="/view/photos/lastweek" name="lastweek"> Last week</a>
                 <a class="btn btn-info form-btn btn-no-round" href="/view/photos/lastmonth" name="lastmonth"> Last month </a>
             </div>
-            <h5 class="comments-h vieving-posts">You are viewing photos: {{ current_option }} ({{ contents|length }}) </h5>
+            <h5 class="comments-h vieving-posts">You are viewing photos: {{ current_option }} ({{ count }}) </h5>
             <div class="view-posts viewing-photos">
                 {% for photo in contents %}
                      <div class="view_post view-photo-item">
