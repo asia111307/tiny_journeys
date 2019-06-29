@@ -89,13 +89,12 @@ def add_post():
             imgs = pat.findall(content)
             if imgs:
                 for i in range(len(imgs)):
-                    img_title =  'Picture {} for {}'.format(i+1, title)
+                    img_title = 'Picture {} for {}'.format(i+1, title)
                     db.session.add(Photo(img_title, imgs[i], post_id))
                     db.session.commit()
             pat2 = re.compile(r'<iframe [^>]*src="([^"]+)')
             videos = pat2.findall(content)
             if videos:
-                print(videos)
                 for i in range(len(videos)):
                     vid_title =  'Video {} for {}'.format(i+1, title)
                     db.session.add(Video(vid_title, videos[i], post_id))
