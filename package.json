@@ -1,0 +1,32 @@
+{
+  "name": "tiny_journeys",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "autoprefixer": "^9.6.0",
+    "gulp": "^4.0.2",
+    "postcss-cli": "^6.1.2"
+  },
+  "devDependencies": {
+    "gulp-autoprefixer": "^6.1.0",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sass": "^4.0.2",
+    "node-sass": "^4.12.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asia111307/tiny_journeys.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asia111307/tiny_journeys/issues"
+  },
+  "homepage": "https://github.com/asia111307/tiny_journeys#readme"
+}
