@@ -15,7 +15,7 @@
                 {% for post in contents %}
                     <div class="view_post">
                         <h6>
-                            <a href="/view/post/{{ post.id }}">#{{ post.id }} {{ post.title }} </a>
+                            <a href="/view/post/{{ post.id }}"> {{ post.title }} </a>
                         </h6>
                         <p class="p-style comment-p credentials"><span class="author"> {{ post.author }}</span>, {{ '{} {} {}, {}:{}'.format(post.creation_date.day, post.creation_date.strftime('%B'), post.creation_date.year, post.creation_date.hour, post.creation_date.strftime('%M')) }}</p>
                         {% if post.content | length >= 300 %}
