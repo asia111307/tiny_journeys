@@ -16,16 +16,16 @@
                 <li class="nav-hidden">
                     <a href="/add-post#add-post"> Posts </a>
                     <ul>
-                        <a href="/add-post"><li> Add post </li></a>
+                        <a href="/add/post"><li> Add post </li></a>
                         <a href="/view/posts"><li> View posts </li></a>
-                        <a href="/view/pics"><li> View pictures </li></a>
+                        <a href="/view/photos"><li> View pictures </li></a>
                         <a href="/view/videos"><li> View videos </li></a>
                     </ul>
                 </li>
                 {% if current_user.is_authenticated %}
                     <li class="nav-hidden"><a href="/profile"> {{ current_user.username }} (</a> <a href="/account/logout">Logout</a>)</li>
                 {% else %}
-                    <a href="/account"><li class="nav-hidden"> Login </li></a>
+                    <a href="/account/login"><li class="nav-hidden"> Login </li></a>
                 {% endif %}
                 <li>
                     <div id="nav-icon1" class="start">

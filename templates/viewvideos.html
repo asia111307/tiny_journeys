@@ -3,16 +3,16 @@
 {% block content %}
     <section class="section-style container">
         <h1 class="h-style"> View videos </h1>
-        <div class="sort-options">
-            <a class="btn btn-info form-btn" href="/view/videos/oldestfirst" name="oldestfirst"> Oldest first </a>
-            <a class="btn btn-info form-btn" href="/view/videos/newestfirst" name="newestfirst"> Latest first </a>
-            <a class="btn btn-info form-btn" href="/view/videos/lastweek" name="lastweek"> Last week</a>
-            <a class="btn btn-info form-btn" href="/view/videos/lastmonth" name="lastmonth"> Last month </a>
-        </div>
-        {% if videos %}
+        {% if contents %}
+            <div class="sort-options">
+                <a class="btn btn-info form-btn btn-no-round" href="/view/videos/oldestfirst" name="oldestfirst"> Oldest first </a>
+                <a class="btn btn-info form-btn btn-no-round" href="/view/videos/newestfirst" name="newestfirst"> Latest first </a>
+                <a class="btn btn-info form-btn btn-no-round" href="/view/videos/lastweek" name="lastweek"> Last week</a>
+                <a class="btn btn-info form-btn btn-no-round" href="/view/videos/lastmonth" name="lastmonth"> Last month </a>
+            </div>
             <h5 class="comments-h vieving-posts">You are viewing videos: {{ current_option }} </h5>
             <div class="view-posts">
-                {% for video in videos %}
+                {% for video in contents %}
                     <div class="view_post">
                         <h6><a href="/view/post/{{ video.post_id }}">{{ video.name }}</a></h6>
                         <iframe src="{{ video.source }}"></iframe>
@@ -20,7 +20,9 @@
                 {% endfor %}
             </div>
         {% else %}
-            <h6> No videos yet </h6>
+            <div class="no-post">
+                <h6> No videos yet </h6>
+            </div>
         {% endif %}
     </section>
 {% endblock %}

@@ -3,16 +3,16 @@
 {% block content %}
     <section class="section-style container">
         <h1 class="h-style"> View posts </h1>
-        <div class="sort-options">
-            <a class="btn btn-info form-btn" href="/view/posts/oldestfirst" name="oldestfirst"> Oldest first </a>
-            <a class="btn btn-info form-btn" href="/view/posts/newestfirst" name="newestfirst"> Latest first </a>
-            <a class="btn btn-info form-btn" href="/view/posts/lastweek" name="lastweek"> Last week</a>
-            <a class="btn btn-info form-btn" href="/view/posts/lastmonth" name="lastmonth"> Last month </a>
-        </div>
-        {% if posts %}
+        {% if contents %}
+            <div class="sort-options">
+                <a class="btn btn-info form-btn btn-no-round" href="/view/posts/oldestfirst" name="oldestfirst"> Oldest first </a>
+                <a class="btn btn-info form-btn btn-no-round" href="/view/posts/newestfirst" name="newestfirst"> Latest first </a>
+                <a class="btn btn-info form-btn btn-no-round" href="/view/posts/lastweek" name="lastweek"> Last week</a>
+                <a class="btn btn-info form-btn btn-no-round" href="/view/posts/lastmonth" name="lastmonth"> Last month </a>
+            </div>
             <h5 class="comments-h vieving-posts">You are viewing posts: {{ current_option }} </h5>
             <div class="view-posts">
-                {% for post in posts %}
+                {% for post in contents %}
                     <div class="view_post">
                         <h6>
                             <a href="/view/post/{{ post.id }}">#{{ post.id }} {{ post.title }} </a>
@@ -31,7 +31,9 @@
                 {% endfor %}
             </div>
         {% else %}
-            <h6> No posts available </h6>
+            <div class="no-post">
+                <h6> No posts available </h6>
+            </div>
         {% endif %}
     </section>
 {% endblock %}

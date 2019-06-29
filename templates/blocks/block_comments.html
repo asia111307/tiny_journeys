@@ -5,7 +5,7 @@
                 <hr class="comments-hr">
                 <div class="leave-comment">
                     <h6 class="comments-h">Leave a comment </h6>
-                    <form class="form-horizontal" action="/addcomment/{{ post.id}}" method="post">
+                    <form class="form-horizontal" action="/add/comment/{{ post.id}}" method="post">
                         <div class="form-group row comment-area">
                             <label for="com_author" class="col-sm-3 col-form-label" data-toggle="tooltip" title="Type your name here" data-placement="left"> Your name </label>
                             <div class="col-sm-9">
@@ -22,8 +22,8 @@
                                 <textarea name="content" id="com_content" placeholder="Type your comment here" class="form-control" rows="2" required></textarea><br>
                             </div>
                         </div>
-                        <button type="reset" class="btn btn-info form-btn"> Clear </button>
-                        <button type="submit" class="btn btn-info form-btn"> Send </button>
+                        <button type="reset" class="btn btn-info form-btn btn-no-round"> Clear </button>
+                        <button type="submit" class="btn btn-info form-btn btn-no-round"> Send </button>
                     </form>
                 </div>
                 {% if comments %}
