@@ -7,11 +7,14 @@ See the blog online: http://jpaliwoda.pythonanywhere.com/
 You have to install Python 3.6 on your machine, if you do not have it yet (e.g with $ sudo apt-get install python3.6).
 
 Then, install virtualenv
+
 $ pip install virtualenv 
+
 
 You also have to install NodeJS, if you do not have it yet(e.g with $ sudo apt-get install nodejs)
 
 Then, install npm
+
 $ sudo apt-get install npm
 
 ### Clone the repository
