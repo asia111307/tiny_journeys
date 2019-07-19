@@ -14,11 +14,10 @@
     {% from 'blocks/block_nav.html' import block_nav with context %}
     {% from 'blocks/block_footer.html' import block_footer with context %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
-{#	<link rel="stylesheet" type="text/css" href="../static/css/styles.css?q=9591">#}
-
+{#	<link rel="stylesheet" type="text/css" href="../static/css/styles.css?q=13098753244">#}
 </head>
 <body>
-    {{ block_nav(user_name) }}
+    {{ block_nav() }}
     {% block jumbotron %}{% endblock %}
     <div class="page-content container" id="home">
         {% block content %}{% endblock %}

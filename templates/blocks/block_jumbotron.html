@@ -1,4 +1,4 @@
-{% macro block_jumbotron(source) %}
+{% macro block_jumbotron() %}
 <section>
     <div class="jumbotron">
         <div class="small-jumb">
@@ -9,11 +9,6 @@
             <hr class="underline">
             <p></p>
             <a href="#home" class="explore-btn"> Explore Journeys <i class="fa fa-angle-double-right"></i></a>
-        </div>
-        <div class="video-container">
-            <video autoplay loop muted class="jumb-video">
-                <source src={{ source }} type="video/mp4">
-            </video>
         </div>
     </div>
 </section>

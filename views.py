@@ -7,7 +7,7 @@ from builtins import *
 from sqlalchemy import exc
 from models import *
 import os, datetime, re
-from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, UserMixin
+from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, UserMixin, current_user
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -17,30 +17,35 @@ login_manager.login_view = "login"
 @app.route('/')
 def start():
     posts = Post.query.order_by(Post.creation_date.desc()).all()
-    prevs = nexts = comments = comments_counts = ''
+    prevs = nexts = comments = comments_counts = users = user_posts = user_comments = ''
     if posts:
         prevs = [Post.query.get(post.id - 1) for post in posts]
         nexts = [Post.query.get(post.id + 1) for post in posts]
         comments = [Comment.query.filter(Comment.post_id == post.id).order_by(Comment.creation_date.desc()).all() for post in posts]
         comments_counts = [len(comments[i]) for i in range(len(posts))]
-    return render_template('index.html', posts=posts, prevs=prevs, nexts=nexts, comments=comments, comments_counts=comments_counts)
+    if current_user.is_authenticated:
+        users = User.query.all()
+        user_posts = Post.query.filter(Post.author == current_user.id).all()
+        user_comments = Comment.query.filter(Comment.author == current_user.username).all()
+    return render_template('index.html', posts=posts, prevs=prevs, nexts=nexts, comments=comments, comments_counts=comments_counts, users=users, user_posts=user_posts, usr_comments=user_comments)
 
 
 @app.route('/view/<content_type>')
 def render_view_content(content_type):
-    contents = ''
+    contents = comments = ''
     if content_type == 'posts':
         contents = Post.query.all()
+        comments = [len(Comment.query.filter(Comment.post_id == post.id).all()) for post in contents]
     elif content_type == 'photos':
         contents = Photo.query.all()
     elif content_type == 'videos':
         contents = Video.query.all()
-    return render_template('view{}.html'.format(content_type), contents=contents, current_option='All', count=len(contents))
+    return render_template('view{}.html'.format(content_type), contents=contents, current_option='All', comments=comments)
 
 
 @app.route('/view/<content_type>/<sort_option>', methods=['POST', 'GET'])
 def render_view_photos_options(content_type, sort_option):
-    content = contents = ''
+    content = contents = comments = ''
     if content_type == 'posts':
         contents = Post
     elif content_type == 'photos':
@@ -61,7 +66,9 @@ def render_view_photos_options(content_type, sort_option):
         month_ago = datetime.datetime.today() - datetime.timedelta(days=3)
         content = contents.query.filter(contents.creation_date > month_ago).order_by(contents.creation_date.desc())
         sort_option = 'Last month'
-    return render_template('view{}.html'.format(content_type), contents=content, current_option=sort_option, count=len(content.all()))
+    if content_type == 'posts':
+        comments = [len(Comment.query.filter(Comment.post_id == post.id).all()) for post in content.all()]
+    return render_template('view{}.html'.format(content_type), contents=content.all(), current_option=sort_option, comments=comments)
 
 
 @app.route('/view/post/<int:post_id>')
@@ -70,7 +77,7 @@ def render_view_post(post_id):
     p_prev = Post.query.get(post_id-1)
     p_next = Post.query.get(post_id+1)
     comments = Comment.query.filter(Comment.post_id == post.id).order_by(Comment.creation_date.desc()).all()
-    return render_template('view_post.html', post=post, prev=p_prev, next=p_next, comments=comments, comments_count=len(comments))
+    return render_template('view_post.html', post=post, prev=p_prev, next=p_next, comments=comments)
 
 
 @app.route('/add/post', methods=['POST', 'GET'])
@@ -185,8 +192,7 @@ def login():
                 feedback = 'This username does not exist in our system.'
             return render_template('login.html', feedback=feedback)
     else:
-        feedback = 'Sorry, but adding posts is now only available for logged in users. Please login to continue.'
-        return render_template('login.html', feedback=feedback)
+        return render_template('login.html', feedback='')
 
 
 @app.route("/account/logout")

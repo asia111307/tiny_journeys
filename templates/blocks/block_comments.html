@@ -1,6 +1,6 @@
 {% macro block_comment(post, comments, comments_count) %}
     <div class="visible-post-comments">
-            <h7>Comments ({{ comments_count }}) <i class="fa fa-caret-down caret-icon-fa"></i></h7>
+            <h7>Comments ({{ comments | length }}) <i class="fa fa-caret-down caret-icon-fa"></i></h7>
             <div class="visible-post-comments-content">
                 <hr class="comments-hr">
                 <div class="leave-comment">

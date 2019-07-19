@@ -2,8 +2,12 @@
 
 {% macro block_post(post, prev, next, comments, comments_count, fullview) %}
     <div class="visible-post">
-        <h1 class="h-style"><a href="/view/post/{{ post.id }}">{{ post.title }} </a> </h1>
-        <p class="p-style">  {{ post.content | safe  }}</p>
+        <h1 class="h-style">
+            <a href="/view/post/{{ post.id }}">{{ post.title }} </a>
+        </h1>
+        <div>
+            <p class="p-style">  {{ post.content | safe  }}</p>
+        </div>
         <div class="meta">
             <h5 class="p-style credentials"> Created by <span class="author">{{ post.author }}</span> on {{ '{} {} {}, {}:{}'.format(post.creation_date.day, post.creation_date.strftime('%B'), post.creation_date.year, post.creation_date.hour, post.creation_date.strftime('%M')) }}</h5>
             <h5 class="p-style credentials">Last modified on {{ '{} {} {}, {}:{}'.format(post.last_modified_date.day, post.last_modified_date.strftime('%B'), post.last_modified_date.year, post.last_modified_date.hour, post.last_modified_date.strftime('%M')) }}</h5>

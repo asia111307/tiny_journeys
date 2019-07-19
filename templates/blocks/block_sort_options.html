@@ -1,0 +1,9 @@
+{% macro block_sort_options(type) %}
+    <div class="sort-options">
+        <a class="btn btn-info form-btn btn-no-round" href="{{ '/view/{}/oldestfirst'.format(type) }}" name="oldestfirst"> Oldest first </a>
+        <a class="btn btn-info form-btn btn-no-round" href="{{ '/view/{}/newestfirst'.format(type) }}" name="newestfirst"> Latest first </a>
+        <a class="btn btn-info form-btn btn-no-round" href="{{ '/view/{}/lastweek'.format(type) }}" name="lastweek"> Last week</a>
+        <a class="btn btn-info form-btn btn-no-round" href="{{ '/view/{}/lastmonth'.format(type) }}" name="lastmonth"> Last month </a>
+    </div>
+{% endmacro %}
+

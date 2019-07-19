@@ -1,24 +1,16 @@
 {% extends "start.html" %}
+{% from 'blocks/block_single_media.html' import block_single_media with context %}
+{% from 'blocks/block_sort_options.html' import block_sort_options with context %}
 {% block title %}View photos{% endblock %}
 {% block content %}
     <section class="section-style container">
         <h1 class="h-style"> View photos </h1>
         {% if contents %}
-            <div class="sort-options">
-                <a class="btn btn-info form-btn btn-no-round" href="/view/photos/oldestfirst" name="oldestfirst"> Oldest first </a>
-                <a class="btn btn-info form-btn btn-no-round" href="/view/photos/newestfirst" name="newestfirst"> Latest first </a>
-                <a class="btn btn-info form-btn btn-no-round" href="/view/photos/lastweek" name="lastweek"> Last week</a>
-                <a class="btn btn-info form-btn btn-no-round" href="/view/photos/lastmonth" name="lastmonth"> Last month </a>
-            </div>
-            <h5 class="comments-h vieving-posts">You are viewing photos: {{ current_option }} ({{ count }}) </h5>
+            {{ block_sort_options('photos') }}
+            <h5 class="comments-h vieving-posts">Photos: {{ current_option }} ({{ contents | length }}) </h5>
             <div class="view-posts viewing-photos">
                 {% for photo in contents %}
-                     <div class="view_post view-photo-item">
-                        <h6>
-                            <a href="/view/post/{{ photo.post_id }}">{{ photo.name }}</a>
-                        </h6>
-                        <img src="{{ photo.source }}" alt="{{ photo.name }}" class="view-photo">
-                        </div>
+                     {{ block_single_media(photo, type='photo') }}
                 {% endfor %}
         {% else %}
             <div class="no-post">

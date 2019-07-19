@@ -1,23 +1,26 @@
 {% extends "start.html" %}
+{% from 'blocks/block_sort_options.html' import block_sort_options with context %}
 {% block title %}View posts{% endblock %}
 {% block content %}
     <section class="section-style container">
         <h1 class="h-style"> View posts </h1>
         {% if contents %}
-            <div class="sort-options">
-                <a class="btn btn-info form-btn btn-no-round" href="/view/posts/oldestfirst" name="oldestfirst"> Oldest first </a>
-                <a class="btn btn-info form-btn btn-no-round" href="/view/posts/newestfirst" name="newestfirst"> Latest first </a>
-                <a class="btn btn-info form-btn btn-no-round" href="/view/posts/lastweek" name="lastweek"> Last week</a>
-                <a class="btn btn-info form-btn btn-no-round" href="/view/posts/lastmonth" name="lastmonth"> Last month </a>
-            </div>
-            <h5 class="comments-h vieving-posts">You are viewing posts: {{ current_option }} ({{ count }}) </h5>
+            {{ block_sort_options('posts') }}
+            <h5 class="comments-h vieving-posts">Posts: {{ current_option }} ({{ contents | length }}) </h5>
             <div class="view-posts">
                 {% for post in contents %}
-                    <div class="view_post">
+                    <div class="view_post simplified-posts-view">
                         <h6>
                             <a href="/view/post/{{ post.id }}"> {{ post.title }} </a>
                         </h6>
-                        <p class="p-style comment-p credentials"><span class="author"> {{ post.author }}</span>, {{ '{} {} {}, {}:{}'.format(post.creation_date.day, post.creation_date.strftime('%B'), post.creation_date.year, post.creation_date.hour, post.creation_date.strftime('%M')) }}</p>
+                        <p class="p-style comment-p credentials">
+                            <span class="author"> {{ post.author }}</span>,
+                            {{ '{} {} {} {}:{}'.format(post.creation_date.day, post.creation_date.strftime('%B'),
+                            post.creation_date.year, post.creation_date.hour, post.creation_date.strftime('%M')) }}
+                            <a href="/view/post/{{ post.id }}">
+                                <span class="comment-icon"><i class="fa fa-comment comment-icon-fa"></i></span>{{ comments[contents.index(post)] }}
+                            </a>
+                        </p>
                         {% if post.content | length >= 300 %}
                             <p class="p-content">{{ post.content | safe | truncate(300) }}
                                 <span class="readmore">

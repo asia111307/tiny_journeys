@@ -5,7 +5,7 @@
 
 {% block title %}Home{% endblock %}
 {% block jumbotron %}
-{{ block_jumbotron(source="../static/images/videos.mp4") }}
+{{ block_jumbotron() }}
 {% endblock %}
 
 {% block content %}
@@ -24,7 +24,9 @@
             </div>
         {% endif %}
         </div>
-        {{ block_sidebar() }}
+    <div class="page-sidebar">
+        {{ block_sidebar(users) }}
+    </div>
     </section>
 {% endblock %}
 

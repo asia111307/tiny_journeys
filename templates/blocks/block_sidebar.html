@@ -1,4 +1,4 @@
-{% macro block_sidebar() %}
+{% macro block_sidebar(users) %}
 <div class="sidebar">
     <div class="timer">
         <h1 class="crete">CRETE</h1>
@@ -22,5 +22,16 @@
             </div>
         </div>
     </div>
+    {% if current_user.is_authenticated %}
+    <div class="user-panel">
+        <p>Current user: {{ current_user.username }}  </p>
+        <p>Number of all users: {{ users | length }}</p>
+        <h5>Your activity: </h5>
+        <p>Posts: {{ user_posts | length }}</p>
+        <p>Comments: {{ user_comments | length }}</p>
+    </div>
+    {% else %}
+        <p>Login to see this panel</p>
+    {% endif %}
 </div>
 {% endmacro %}

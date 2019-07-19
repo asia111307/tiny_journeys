@@ -6,10 +6,8 @@ document.getElementById('nav-icon1').addEventListener('click', function() {
   for (let i=0; i< menu_items.length; i++) {
       if (menu.classList.contains('open')) {
           menu_items[i].style.display = 'flex';
-          document.querySelector('nav').style.backgroundColor = '#FFFFFF';
       } else {
           menu_items[i].style.display = 'none';
-          document.querySelector('nav').style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
       }
   }
 });
@@ -20,10 +18,25 @@ if (current_window_width <= 880) {
 }
 
 
+
+
+const sidebar = document.getElementsByClassName('sidebar')[0];
+const sidebarTop = sidebar.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
+window.addEventListener('scroll', function(){
+    console.log(document.documentElement.scrollTop, sidebarTop);
+    if (sidebarTop - document.documentElement.scrollTop <= 100  ){
+        sidebar.style.position = 'fixed';
+        sidebar.style.top = '120px';
+    } else {
+        sidebar.style.position = 'static';
+        sidebar.style.top = 'auto';
+    }
+});
+
+
 // COMMENT BLOCK SECTION OPENING ----------------
 const arrows = document.getElementsByClassName('caret-icon-fa');
 const comments = document.getElementsByClassName('comment');
-const posts = document.getElementsByClassName('view_post');
 function toggleOpenContent() {
     const arrow = this;
     const comment_content = arrow.parentElement.nextElementSibling;
@@ -50,6 +63,9 @@ if (single_post) {
     arrow.addEventListener('click', toggleOpenContent);
     arrow.click();
 }
+
+
+const posts = document.getElementsByClassName('view_post');
 if (posts) {
     for (var i=0; i< posts.length; i+=2) {
         posts[i].style.backgroundColor = 'rgba(0, 0, 0, 0.05)';

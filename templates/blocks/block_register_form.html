@@ -1,4 +1,4 @@
-{% macro block_register_form(feedback=False) %}
+{% macro block_register_form(feedback) %}
     <form class="login-form"  method="post" action='/account/register'>
         <div class="form-meta">
             {%  if feedback %}
