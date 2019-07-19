@@ -30,8 +30,5 @@ Then, install **npm**:
 ### Install node modules
     $ npm install
 
-### Run gulp
-    $ gulp watch
-
 ### Run project
     $ FLASK_APP=start.py FLASK_DEBUG=1 flask run
