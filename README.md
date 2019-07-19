@@ -5,8 +5,7 @@ See the blog online: http://jpaliwoda.pythonanywhere.com/
 
 ## How to run the project locally:
 ### Clone the repository
-& git clone https://github.com/asia111307/tiny_journeys.git
-& cd tiny_journeys
+$ git clone https://github.com/asia111307/tiny_journeys.git && cd tiny_journeys
 
 ### Create and start virtual environment
 $ virtualenv .env && source .env/bin/activate && pip install -r requirements.txt
