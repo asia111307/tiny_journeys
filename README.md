@@ -15,7 +15,7 @@ Then, install **virtualenv**:
 
 You also have to install **NodeJS**, if you do not have it yet, e.g with: 
 
-    $ sudo apt-get install nodejs)
+    $ sudo apt-get install nodejs
 
 Then, install **npm**:
 
