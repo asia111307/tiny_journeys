@@ -3,15 +3,15 @@ A small blog written in Flask. Not perfect yet, still needs Frontend fixes and p
 
 See the blog online: http://jpaliwoda.pythonanywhere.com/
 
-# How to run the project locally:
-## Create and start virtual environment
+## How to run the project locally:
+### Create and start virtual environment
 $ virtualenv .env && source .env/bin/activate && pip install -r requirements.txt
 
-## Install node modules
+### Install node modules
 $ npm install
 
-## Run gulp
+### Run gulp
 $ gulp watch
 
-## Run project
+### Run project
 $ FLASK_APP=start.py FLASK_DEBUG=1 flask run
