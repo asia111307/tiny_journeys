@@ -28,7 +28,6 @@ def db_start():
 from models import *
 from views import *
 db_start()
-db.session.add(User(username='admin', password='password', isAdmin=True))
 db.session.commit()
 
 

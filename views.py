@@ -4,7 +4,7 @@
 from start import app, db
 from flask import render_template, request, jsonify, redirect, url_for, Markup, session, abort, Response
 from builtins import *
-from sqlalchemy import exc
+from sqlalchemy import exc, text
 from models import *
 import os, datetime, re
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, UserMixin, current_user
