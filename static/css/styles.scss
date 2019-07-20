@@ -468,7 +468,10 @@ footer {
 
 .github-btn {
   color: $textwhite;
-    background-color: inherit;
+  background-color: inherit;
+  display:  flex;
+  justify-content: center;
+  align-items: center;
   &:hover {
     color: $maincolor;
     background-color: $textwhite;
