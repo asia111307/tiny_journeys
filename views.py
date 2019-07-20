@@ -40,8 +40,8 @@ def start():
         comments = [Comment.query.filter(Comment.post_id == post[1].id).order_by(Comment.creation_date.desc()).all() for post in posts]
         comments_counts = [len(comments[i]) for i in range(len(posts))]
     if not current_user.is_anonymous:
-        user_posts = Post.query.filter(Post.author == session['logged_user']).all()
-        user_comments = Comment.query.filter(Comment.author == current_user.username).all()
+        user_posts = Post.query.filter(Post.author == current_user.id).all()
+        user_comments = Comment.query.filter(Comment.author_id == current_user.id).all()
     return render_template('index.html', posts=posts, prevs=prevs, nexts=nexts, comments=comments, comments_counts=comments_counts, users=users, user_posts=user_posts, user_comments=user_comments, online_users=update_online_users())
 
 
@@ -110,7 +110,7 @@ def render_view_post(post_id):
 @login_required
 def add_post():
     if request.method == 'POST':
-        author = session['logged_user'].id
+        author = session['logged_user']
         title = request.form.get('title')
         content = request.form.get('content')
         link = '/'
@@ -183,7 +183,12 @@ def edit_post_id(post_id):
 def add_comment(post_id):
     author = request.form.get('author')
     content = request.form.get('content')
-    db.session.add(Comment(author, content, post_id))
+    if not current_user.is_authenticated:
+        author = '{} (anonymous)'.format(author)
+        db.session.add(Comment(author, content, post_id))
+    else:
+        author_id = User.query.filter(User.username == author).first().id
+        db.session.add(Comment(author, content, post_id, author_id))
     db.session.commit()
     link = '/view/post/{}'.format(post_id)
     return redirect(link)

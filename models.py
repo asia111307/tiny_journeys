@@ -53,6 +53,7 @@ class Comment(db.Model):
     __tablename__ = 'comment'
     id = Column(Integer, autoincrement=True, primary_key=True)
     author = Column(String, default='')
+    author_id = Column(Integer, ForeignKey('user.id'))
     content = Column(String, default='')
     post_id = Column(Integer, ForeignKey('post.id'))
     creation_date = Column(DateTime, default=datetime.datetime.now)
@@ -61,15 +62,18 @@ class Comment(db.Model):
         return {
             'id': self.id,
             'author': self.author,
+            'author_id': self.author_id,
             'content': self.content,
             'creation_date': self.creation_date,
             'post_id': self.post_id
         }
 
-    def __init__(self, author, content, post_id):
+    def __init__(self, author, content, post_id, *author_id):
         self.author = author
         self.content = content
         self.post_id = post_id
+        if author_id:
+            self.author_id = author_id[0]
 
 
 class User(db.Model, UserMixin):
