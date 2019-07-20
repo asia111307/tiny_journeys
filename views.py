@@ -18,11 +18,13 @@ def update_online_users(action=None):
     site = Site.query.get(1)
     if action == 'login':
         site.online_users += 1
-    elif action == 'logout' and site.online_users > 0:
+    elif action == 'logout':
         site.online_users -= 1
-    elif not action:
-        return site.online_users
+    if site.online_users < 0:
+        site.online_users = 0
     db.session.commit()
+    if not action:
+        return site.online_users
 
 
 @app.route('/')
