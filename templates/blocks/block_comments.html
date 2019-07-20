@@ -9,7 +9,7 @@
                         <div class="form-group row comment-area">
                             <label for="com_author" class="col-sm-3 col-form-label" data-toggle="tooltip" title="Type your name here" data-placement="left"> Your name </label>
                             <div class="col-sm-9">
-                                {% if current_user.username %}
+                                {% if not current_user.is_anonymous %}
                                     <input type="text" name="author" id="com_author" placeholder="Type your name here" class="form-control" value="{{ current_user.username }}" required readonly><br>
                                 {%  else %}
                                     <input type="text" name="author" id="com_author" placeholder="Type your name here" class="form-control" required><br>

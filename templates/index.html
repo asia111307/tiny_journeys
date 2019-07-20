@@ -12,9 +12,9 @@
     <section class="section-style home-section" id="home-feed">
         <div class="home-posts">
         {% if posts %}
-            {% for i in range(posts|length) %}
+            {% for i in range(posts | length) %}
                 <div class="post-content">
-                    {{ block_post(posts[i], prevs[i], nexts[i], comments[i], comments_counts[i], fullview=False) }}
+                    {{ block_post(posts[i][1], posts[i][0], prevs[i], nexts[i], comments[i], comments_counts[i], fullview=False) }}
                 </div>
             {%  endfor %}
         {% else %}
@@ -24,9 +24,9 @@
             </div>
         {% endif %}
         </div>
-    <div class="page-sidebar">
-        {{ block_sidebar(users) }}
-    </div>
+        <div class="page-sidebar">
+            {{ block_sidebar() }}
+        </div>
     </section>
 {% endblock %}
 

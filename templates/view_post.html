@@ -3,6 +3,6 @@
 {% block title %}View post{% endblock %}
 {% block content %}
     <section class="section-style container single-post">
-        {{ block_post(post, prev, next, comments, comments_count, fullview=True) }}
+        {{ block_post(post, user, prev, next, comments, comments_count, fullview=True) }}
     </section>
 {% endblock %}

@@ -11,24 +11,24 @@
                 {% for post in contents %}
                     <div class="view_post simplified-posts-view">
                         <h6>
-                            <a href="/view/post/{{ post.id }}"> {{ post.title }} </a>
+                            <a href="/view/post/{{ post[1].id }}"> {{ post[1].title }} </a>
                         </h6>
                         <p class="p-style comment-p credentials">
-                            <span class="author"> {{ post.author }}</span>,
-                            {{ '{} {} {} {}:{}'.format(post.creation_date.day, post.creation_date.strftime('%B'),
-                            post.creation_date.year, post.creation_date.hour, post.creation_date.strftime('%M')) }}
-                            <a href="/view/post/{{ post.id }}">
+                            <span class="author"> {{ post[0].username }}</span>,
+                            {{ '{} {} {} {}:{}'.format(post[1].creation_date.day, post[1].creation_date.strftime('%B'),
+                            post[1].creation_date.year, post[1].creation_date.hour, post[1].creation_date.strftime('%M')) }}
+                            <a href="/view/post/{{ post[1].id }}">
                                 <span class="comment-icon"><i class="fa fa-comment comment-icon-fa"></i></span>{{ comments[contents.index(post)] }}
                             </a>
                         </p>
-                        {% if post.content | length >= 300 %}
-                            <p class="p-content">{{ post.content | safe | truncate(300) }}
+                        {% if post[1].content | length >= 300 %}
+                            <p class="p-content">{{ post[1].content | safe | truncate(300) }}
                                 <span class="readmore">
-                                    <a class="readmorebtn" href="/view/post/{{ post.id }}">Read more</a>
+                                    <a class="readmorebtn" href="/view/post/{{ post[1].id }}">Read more</a>
                                 </span>
                             </p>
                         {% else %}
-                            <p class="p-content">{{ post.content | safe }} </p>
+                            <p class="p-content">{{ post[1].content | safe }} </p>
                         {% endif %}
                     </div>
                 {% endfor %}

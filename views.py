@@ -14,28 +14,41 @@ login_manager.init_app(app)
 login_manager.login_view = "login"
 
 
+def update_online_users(action=None):
+    site = Site.query.get(1)
+    if action == 'login':
+        site.online_users += 1
+    elif action == 'logout':
+        site.online_users -= 1
+    elif not action:
+        return site.online_users
+    db.session.commit()
+
+
 @app.route('/')
 def start():
-    posts = Post.query.order_by(Post.creation_date.desc()).all()
-    prevs = nexts = comments = comments_counts = users = user_posts = user_comments = ''
+    # sql = text('SELECT P.*, U.username FROM Post P JOIN User U ON P.author=U.id ORDER BY P.creation_date DESC')
+    posts = db.session.query(User, Post).filter(Post.author==User.id).order_by(Post.creation_date.desc()).all()
+    # posts = Post.query.order_by(Post.creation_date.desc()).all()
+    prevs = nexts = comments = comments_counts = users = user_posts = user_comments = site =''
+    users = User.query.all()
     if posts:
-        prevs = [Post.query.get(post.id - 1) for post in posts]
-        nexts = [Post.query.get(post.id + 1) for post in posts]
-        comments = [Comment.query.filter(Comment.post_id == post.id).order_by(Comment.creation_date.desc()).all() for post in posts]
+        prevs = [Post.query.get(post[1].id - 1) for post in posts]
+        nexts = [Post.query.get(post[1].id + 1) for post in posts]
+        comments = [Comment.query.filter(Comment.post_id == post[1].id).order_by(Comment.creation_date.desc()).all() for post in posts]
         comments_counts = [len(comments[i]) for i in range(len(posts))]
-    if current_user.is_authenticated:
-        users = User.query.all()
-        user_posts = Post.query.filter(Post.author == current_user.id).all()
+    if not current_user.is_anonymous:
+        user_posts = Post.query.filter(Post.author == session['logged_user']).all()
         user_comments = Comment.query.filter(Comment.author == current_user.username).all()
-    return render_template('index.html', posts=posts, prevs=prevs, nexts=nexts, comments=comments, comments_counts=comments_counts, users=users, user_posts=user_posts, usr_comments=user_comments)
+    return render_template('index.html', posts=posts, prevs=prevs, nexts=nexts, comments=comments, comments_counts=comments_counts, users=users, user_posts=user_posts, user_comments=user_comments, online_users=update_online_users())
 
 
 @app.route('/view/<content_type>')
 def render_view_content(content_type):
     contents = comments = ''
     if content_type == 'posts':
-        contents = Post.query.all()
-        comments = [len(Comment.query.filter(Comment.post_id == post.id).all()) for post in contents]
+        contents = db.session.query(User, Post).filter(Post.author==User.id).order_by(Post.creation_date.desc()).all()
+        comments = [len(Comment.query.filter(Comment.post_id == post[1].id).all()) for post in contents]
     elif content_type == 'photos':
         contents = Photo.query.all()
     elif content_type == 'videos':
@@ -46,45 +59,56 @@ def render_view_content(content_type):
 @app.route('/view/<content_type>/<sort_option>', methods=['POST', 'GET'])
 def render_view_photos_options(content_type, sort_option):
     content = contents = comments = ''
-    if content_type == 'posts':
-        contents = Post
-    elif content_type == 'photos':
+    if content_type == 'photos':
         contents = Photo
     elif content_type == 'videos':
         contents = Video
     if sort_option == 'oldestfirst':
-        content = contents.query.order_by(contents.creation_date)
+        if content_type == 'posts':
+            content = db.session.query(User, Post).filter(Post.author == User.id).order_by(Post.creation_date)
+        else:
+            content = contents.query.order_by(contents.creation_date)
         sort_option = 'Oldest first'
     elif sort_option == 'newestfirst':
-        content = contents.query.order_by(contents.creation_date.desc())
+        if content_type == 'posts':
+            content = db.session.query(User, Post).filter(Post.author == User.id).order_by(Post.creation_date.desc())
+        else:
+            content = contents.query.order_by(contents.creation_date.desc())
         sort_option = 'Newest first'
     elif sort_option == 'lastweek':
         week_ago = datetime.datetime.today() - datetime.timedelta(days=7)
-        content = contents.query.filter(contents.creation_date > week_ago).order_by(contents.creation_date.desc())
+        if content_type == 'posts':
+            content = db.session.query(User, Post).filter(Post.author == User.id).filter(Post.creation_date > week_ago).order_by(Post.creation_date.desc())
+        else:
+            content = contents.query.filter(contents.creation_date > week_ago).order_by(contents.creation_date.desc())
         sort_option = 'Last week'
     elif sort_option == 'lastmonth':
         month_ago = datetime.datetime.today() - datetime.timedelta(days=3)
-        content = contents.query.filter(contents.creation_date > month_ago).order_by(contents.creation_date.desc())
+        if content_type == 'posts':
+            content = db.session.query(User, Post).filter(Post.author == User.id).filter(Post.creation_date > month_ago).order_by(Post.creation_date.desc())
+        else:
+            content = contents.query.filter(contents.creation_date > month_ago).order_by(contents.creation_date.desc())
         sort_option = 'Last month'
     if content_type == 'posts':
-        comments = [len(Comment.query.filter(Comment.post_id == post.id).all()) for post in content.all()]
+        comments = [len(Comment.query.filter(Comment.post_id == post[1].id).all()) for post in content.all()]
     return render_template('view{}.html'.format(content_type), contents=content.all(), current_option=sort_option, comments=comments)
 
 
 @app.route('/view/post/<int:post_id>')
 def render_view_post(post_id):
     post = Post.query.get_or_404(post_id)
+    user = User.query.get(post.author)
     p_prev = Post.query.get(post_id-1)
     p_next = Post.query.get(post_id+1)
     comments = Comment.query.filter(Comment.post_id == post.id).order_by(Comment.creation_date.desc()).all()
-    return render_template('view_post.html', post=post, prev=p_prev, next=p_next, comments=comments)
+    return render_template('view_post.html', post=post, user=user, prev=p_prev, next=p_next, comments=comments)
 
 
 @app.route('/add/post', methods=['POST', 'GET'])
 @login_required
 def add_post():
     if request.method == 'POST':
-        author = request.form.get('author')
+        author = session['logged_user'].id
         title = request.form.get('title')
         content = request.form.get('content')
         link = '/'
@@ -181,6 +205,7 @@ def login():
             if user.password == password:
                 login_user(user, remember=True)
                 session['logged_user'] = user.id
+                update_online_users('login')
                 return redirect(request.args.get("next", '/'))
             else:
                 feedback = 'This password is incorrect.'
@@ -195,10 +220,12 @@ def login():
         return render_template('login.html', feedback='')
 
 
-@app.route("/account/logout")
+@app.route("/account/logout/<int:user_id>")
 @login_required
-def logout():
+def logout(user_id):
     logout_user()
+    user = User.query.get(user_id)
+    update_online_users('logout')
     return redirect('/')
 
 
@@ -217,6 +244,10 @@ def register():
             return render_template('register.html', feedback=feedback)
         db.session.add(User(username=username, password=password))
         db.session.commit()
+        user = User.query.order_by(User.id.desc()).first()
+        login_user(user, remember=True)
+        session['logged_user'] = user.id
+        update_online_users('login')
         return redirect('/')
     else:
         return render_template('register.html')

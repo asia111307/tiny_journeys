@@ -1,37 +1,17 @@
-{% macro block_sidebar(users) %}
+{% macro block_sidebar() %}
 <div class="sidebar">
-    <div class="timer">
-        <h1 class="crete">CRETE</h1>
-        <p>Your journey begins in</p>
-        <div class="timer-inner">
-            <div class="timer-item">
-                <span class="days"></span>
-                <p class="timer-p">DAYS</p>
-            </div>
-            <div class="timer-item">
-                <span class="hours"></span>
-                <p class="timer-p">HOURS</p>
-            </div>
-            <div class="timer-item">
-                <span class="minutes"></span>
-                <p class="timer-p">MIN.</p>
-            </div>
-            <div class="timer-item">
-                <span class="seconds"></span>
-                <p class="timer-p">SEC.</p>
-            </div>
-        </div>
-    </div>
-    {% if current_user.is_authenticated %}
+    {% if not current_user.is_anonymous %}
     <div class="user-panel">
-        <p>Current user: {{ current_user.username }}  </p>
-        <p>Number of all users: {{ users | length }}</p>
+        <p>Current user: {{ current_user.username }}</p>
         <h5>Your activity: </h5>
         <p>Posts: {{ user_posts | length }}</p>
         <p>Comments: {{ user_comments | length }}</p>
     </div>
-    {% else %}
-        <p>Login to see this panel</p>
     {% endif %}
+    <div class="stats">
+        <h5>Page summary: </h5>
+        <p>Number of all users: {{ users | length }}</p>
+        <p>Currently logged in users: {{ online_users }}</p>
+    </div>
 </div>
 {% endmacro %}

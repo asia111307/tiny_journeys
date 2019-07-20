@@ -1,3 +1,20 @@
+// FIXED SIDEBAR
+const sidebar = document.getElementsByClassName('sidebar')[0];
+if (sidebar) {
+    const sidebarTop = sidebar.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
+    window.addEventListener('scroll', function() {
+        if (sidebarTop - document.documentElement.scrollTop <= 100  ){
+            sidebar.style.position = 'fixed';
+            sidebar.style.top = '120px';
+        } else {
+            sidebar.style.position = 'static';
+            sidebar.style.top = 'auto';
+        }
+    });
+}
+
+
+
 // HAMBURGER MENU
 document.getElementById('nav-icon1').addEventListener('click', function() {
   this.classList.toggle('open');
@@ -11,35 +28,25 @@ document.getElementById('nav-icon1').addEventListener('click', function() {
       }
   }
 });
+
 document.getElementById('nav-icon1').click();
 const current_window_width = window.innerWidth;
 if (current_window_width <= 880) {
     document.getElementById('nav-icon1').click();
+    sidebar.style.position = 'static';
 }
 
 
 
-
-const sidebar = document.getElementsByClassName('sidebar')[0];
-const sidebarTop = sidebar.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
-window.addEventListener('scroll', function(){
-    console.log(document.documentElement.scrollTop, sidebarTop);
-    if (sidebarTop - document.documentElement.scrollTop <= 100  ){
-        sidebar.style.position = 'fixed';
-        sidebar.style.top = '120px';
-    } else {
-        sidebar.style.position = 'static';
-        sidebar.style.top = 'auto';
-    }
-});
-
-
-// COMMENT BLOCK SECTION OPENING ----------------
+// COMMENT BLOCK SECTION OPENING
 const arrows = document.getElementsByClassName('caret-icon-fa');
 const comments = document.getElementsByClassName('comment');
+const single_post = document.getElementsByClassName('single-post')[0];
+
 function toggleOpenContent() {
     const arrow = this;
     const comment_content = arrow.parentElement.nextElementSibling;
+
     if (arrow.classList.contains('open')) {
         comment_content.style.display = 'none';
         arrow.classList.remove('fa-caret-up');
@@ -52,19 +59,22 @@ function toggleOpenContent() {
         arrow.classList.add('open');
     }
 }
+
 if (arrows) {
     for (let i=0; i<arrows.length; i++){
         arrows[i].addEventListener('click', toggleOpenContent);
     }
 }
-const single_post = document.getElementsByClassName('single-post')[0];
+
 if (single_post) {
-    const arrow = document.getElementsByClassName('caret-icon-fa')[0];
-    arrow.addEventListener('click', toggleOpenContent);
-    arrow.click();
+    for (let i=0; i<arrows.length; i++){
+        arrows[i].click();
+    }
 }
 
 
+
+// LIST OF POSTS BACKGROUND CHANGE
 const posts = document.getElementsByClassName('view_post');
 if (posts) {
     for (var i=0; i< posts.length; i+=2) {
@@ -74,7 +84,7 @@ if (posts) {
 
 
 
-// TITLE & CURSON ANIMATION -------------------
+// TITLE & CURSON ANIMATION
 const home = document.getElementById('home-feed');
 if (home) {
     const titleAnm = document.querySelector(".title-anm");
@@ -112,40 +122,4 @@ if (home) {
             }, false
         );
     }
-}
-
-
-
-
-// TRIP TIMER ---------------------
-const trip = new Date("2019-08-11 04:00:00").getTime();
-
-const day = document.querySelector('.days');
-const hour = document.querySelector('.hours');
-const minute = document.querySelector('.minutes');
-const second = document.querySelector('.seconds');
-
-const tripTimer = () => {
-    const today = new Date().getTime();
-
-    let days = Math.floor((trip / (1000 * 60 * 60 * 24)) - (today / (1000 * 60 * 60 * 24)));
-    days = days < 10 ? `0${days}` : days;
-
-    let hours = Math.floor((trip / (1000 * 60 * 60)) - today / (1000 * 60 * 60)) % 24;
-    hours = hours < 10 ? `0${hours}` : hours;
-
-    let minutes = Math.floor(trip / (1000 * 60) - today / (1000 * 60)) % 60;
-    minutes = minutes < 10 ? `0${minutes}` : minutes;
-
-    let seconds = Math.floor(trip / 1000 - today / 1000) % 60;
-    seconds = seconds < 10 ? `0${seconds}` : seconds;
-
-    day.textContent = days;
-    hour.textContent = hours;
-    minute.textContent = minutes;
-    second.textContent = seconds;
-};
-if (day && hour && minute && second) {
-    tripTimer();
-    setInterval(tripTimer,1000);
 }

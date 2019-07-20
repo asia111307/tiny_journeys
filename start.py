@@ -18,14 +18,19 @@ app.static_path = path.join(path.abspath(__file__), 'static')
 app.secret_key = 'super secret key'
 app.config['SESSION_TYPE'] = 'filesystem'
 
-
+from models import *
 def db_start():
     create_engine('sqlite:///tmp/gr_db.db', convert_unicode=True)
     db.create_all()
+    admin = User.query.filter(User.username == 'admin').first()
+    site = Site.query.get(1)
+    if not admin:
+        db.session.add(User(username='admin', password='password', isAdmin=True))
+    if not site:
+        db.session.add(Site(owner='Joanna Paliwoda', online_users=0))
     db.session.commit()
 
     
-from models import *
 from views import *
 db_start()
 db.session.commit()
