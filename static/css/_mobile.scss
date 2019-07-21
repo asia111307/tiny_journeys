@@ -1,0 +1,71 @@
+@media screen and (max-width: 880px) {
+  nav ul, nav li {
+    display: block;
+  }
+  .hamburger-item {
+    display: flex;
+  }
+  .home-section {
+    display: block;
+  }
+  .visible-post .meta {
+    display: block;
+  }
+  .home-posts {
+    width: 100%;
+  }
+  .sidebar {
+    padding: 0;
+    margin-top: 50px;
+    width: 100%;
+    position: static;
+  }
+  .post-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .comment {
+    width: 100%;
+  }
+  .comments-hr {
+    display: none;
+  }
+  .small-jumb {
+    width: 100%!important;
+    margin-top: 200px!important;
+  }
+  .small-jumb h1 {
+    font-size: 30px;
+  }
+  .small-jumb p {
+    font-size: $mainfontsize;
+  }
+  .explore-btn {
+    display: none!important;
+  }
+  .other-menu-items {
+    flex-direction: column;
+  }
+  .jumbotron {
+    height: 50%!important;
+    background-image: url("../images/spina.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+  }
+  .form-group {
+    width: 80%;
+  }
+  .viewing-photos {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .view_media {
+    width: 80%;
+  }
+  .nav-hidden {
+    display: none;
+  }
+}

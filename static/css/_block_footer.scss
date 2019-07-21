@@ -1,0 +1,30 @@
+footer {
+  background-color: $maincolor;
+  color: $background-color;
+  text-align: center;
+  width: 100%;
+  .copyright {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $smallfontsize;
+    padding: 10px 0;
+    p {
+        margin-bottom: 0;
+    }
+    .github-button {
+      margin-left: 10px;
+      display:  flex;
+      justify-content: center;
+      align-items: center;
+      .github-btn {
+        color: $background-color;
+        background-color: inherit;
+        &:hover {
+          color: $maincolor;
+          background-color: $background-color;
+        }
+      }
+    }
+  }
+}

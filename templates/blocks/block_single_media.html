@@ -3,7 +3,7 @@
     {% if type=='photo' %}
          <img src="{{ media.source }}" alt="{{ media.name }}" class="view-media">
     {% else %}
-         <iframe src="{{ media.source }}"  class="view-media"></iframe>
+         <iframe src="{{ media.source }}" class="view-media"></iframe>
     {% endif %}
          <a href="/view/post/{{ media.post_id }}">
              <div class="view-media-hover">

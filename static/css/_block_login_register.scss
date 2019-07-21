@@ -1,0 +1,24 @@
+.login-block {
+  border: $border;
+  width: 50%;
+  padding: 40px;
+    .login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .login-btn {
+      margin-top: 40px;
+      width: 200px;
+    }
+    .yet-registered {
+      margin-top: 70px;
+      margin-bottom: 190px;
+    }
+  }
+}
+
+
+
+
+

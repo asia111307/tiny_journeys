@@ -1,29 +1,29 @@
 {% macro block_form(type, post) %}
-    <form class="form-horizontal"  method="post" action={{ '/add/post' if type=='add' else '/edit/post/{}'.format(post.id) }}>
-        <p class="feedback">For better site performance, please <b>DO NOT</b> upload photos directly from your computer. Provide source URLs instead.</p>
+    <form method="post" action={{ '/add/post' if type=='add' else '/edit/post/{}'.format(post.id) }}>
+        <p class="feedback"> For better site performance, please <b>DO NOT</b> upload photos directly from your computer. Provide source URLs instead. </p>
         <div class="form-meta">
-            <div class="form-group form-author">
-                <label for="author" data-toggle="tooltip" title="Your name" data-placement="left"> Your name </label>
+            <div class="form-group">
+{#                <label for="author" data-toggle="tooltip" title="Your name" data-placement="left"> Your name </label>#}
                 {% if type=='add' %}
-                    <input type="text" name="author" id="author" placeholder="Type your name here" class="form-control" value="{{ current_user.username if current_user.username }}" required readonly><br>
+                    <input type="text" name="author" id="author" placeholder="Your name" class="form-control" value="{{ current_user.username if current_user.username }}" required readonly><br>
                 {% else %}
-                    <input type="text" name="author" id="author" placeholder="Type your name here" class="form-control" value="{{ post.author if post }}" required readonly><br>
+                    <input type="text" name="author" id="author" placeholder="Your name" class="form-control" value="{{ author if author }}" required readonly><br>
                 {%  endif %}
             </div>
-            <div class="form-group form-title">
-                <label for="title" data-toggle="tooltip" title="Post title" data-placement="top"> Post title </label>
-                <input type="text" name="title" id="title" placeholder="Type post title here" class="form-control" value="{{ post.title if post }}" required><br>
+            <div class="form-group">
+{#                <label for="title" data-toggle="tooltip" title="Post title" data-placement="top"> Post title </label>#}
+                <input type="text" name="title" id="title" placeholder="Post title" class="form-control" value="{{ post.title if post }}" required><br>
             </div>
         </div>
-        <div class="form-group post-area">
-            <label for="content" data-toggle="tooltip" title="Post content" data-placement="top"> Post content </label>
-            <textarea name="content" id="content" placeholder="Type post content here" class="form-control" rows="8" required>{{ post.content if post }}</textarea>
+        <div class="form-group">
+{#            <label for="content" data-toggle="tooltip" title="Post content" data-placement="top"> Post content </label>#}
+            <textarea name="content" id="content" placeholder="Post content" class="form-control" rows="8" required>{{ post.content if post }}</textarea>
         </div>
         {% if type=='add' %}
-            <button type="reset" class="btn btn-info form-btn btn-no-round" id="reset-btn"> Clear </button>
-            <button type="submit" class="btn btn-info form-btn btn-no-round"> Add post </button>
+            <button type="reset" class="form-btn" id="reset-btn"> Clear </button>
+            <button type="submit" class="form-btn"> Add post </button>
         {% else %}
-            <button type="submit" class="btn btn-info form-btn btn-no-round"> Save changes </button>
+            <button type="submit" class="form-btn"> Save changes </button>
         {% endif %}
     </form>
 {% endmacro %}

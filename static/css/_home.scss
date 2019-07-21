@@ -1,0 +1,27 @@
+#home {
+  display: block;
+  .home-section {
+    display: flex;
+    .home-posts {
+      display: flex;
+      flex-direction: column;
+      width: 70%;
+      height: 100%;
+      overflow: scroll;
+      overflow-y: hidden;
+      overflow-x: hidden;
+      .neighbour-posts {
+        display: none;
+      }
+      .h-style {
+        margin-top: 10px;
+      }
+    }
+    .no-visible-posts {
+      margin-bottom: 10%;
+    }
+  }
+}
+
+
+

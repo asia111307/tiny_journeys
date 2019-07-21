@@ -1,0 +1,26 @@
+.page-sidebar {
+  position: relative;
+  padding: 0 5%;
+  i {
+    color: $maincolor;
+  }
+  .account-icon-fa {
+    margin: 0 10px;
+    color: $maincolor;
+  }
+  .user-panel, .stats {
+    margin: 10px 0;
+    border: $border;
+    padding: 10px;
+    a {
+      color: black;
+    }
+  }
+
+}
+
+.activity {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

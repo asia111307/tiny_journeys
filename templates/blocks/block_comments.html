@@ -1,52 +1,53 @@
 {% macro block_comment(post, comments, comments_count) %}
     <div class="visible-post-comments">
-            <h7>Comments ({{ comments | length }}) <i class="fa fa-caret-down caret-icon-fa"></i></h7>
-            <div class="visible-post-comments-content">
-                <hr class="comments-hr">
-                <div class="leave-comment">
-                    <h6 class="comments-h">Leave a comment </h6>
-                    <form class="form-horizontal" action="/add/comment/{{ post.id}}" method="post">
-                        <div class="form-group row comment-area">
-                            <label for="com_author" class="col-sm-3 col-form-label" data-toggle="tooltip" title="Type your name here" data-placement="left"> Your name </label>
-                            <div class="col-sm-9">
-                                {% if not current_user.is_anonymous %}
-                                    <input type="text" name="author" id="com_author" placeholder="Type your name here" class="form-control" value="{{ current_user.username }}" required readonly><br>
-                                {%  else %}
-                                    <input type="text" name="author" id="com_author" placeholder="Type your name here" class="form-control" required><br>
-                                {%  endif %}
-                            </div>
-                        </div>
-                        <div class="form-group row comment-area">
-                            <label for="com_content" class="col-sm-3 col-form-label" data-toggle="tooltip" title="Type your comment" data-placement="top"> Your comment </label>
-                            <div class="col-sm-9">
-                                <textarea name="content" id="com_content" placeholder="Type your comment here" class="form-control" rows="2" required></textarea><br>
-                            </div>
-                        </div>
-                        <button type="reset" class="btn btn-info form-btn btn-no-round"> Clear </button>
-                        <button type="submit" class="btn btn-info form-btn btn-no-round"> Send </button>
-                    </form>
-                </div>
-                {% if comments %}
-                    <div class="left-comments">
-                        {% for comment in comments %}
-                            <div class="comment">
-                                <div class="meta">
-                                    <p class="p-style comment-p credentials"> <span class="user-icon"><i class="fa fa-user-circle user-icon-fa"></i></span><span class="author"> {{ comment.author }}</span>, {{ '{} {} {}, {}:{}'.format(comment.creation_date.day, comment.creation_date.strftime('%B'), comment.creation_date.year, comment.creation_date.hour, comment.creation_date.minute) }}</p>
-                                    {% if current_user.username == 'admin' %}
-                                        <a href="/delete/comment/{{ post.id }}/{{comment.id}}" name="delete-commentt-btn"> <i class="fa fa-times"></i></a>
-                                    {% endif %}
-                                </div>
-                                <span class="quot"><i class="fa fa-quote-left quot-icon-fa"></i></span><span class="p-style">  {{ comment.content }}</span><span><i class="fa fa-quote-right quot-icon-fa"></i></span>
-
-                            </div>
-                        {% endfor %}
+        <h7 class="comments-header"><i title="Comments" class="fa fa-comment comment-icon-fa icon-big"></i> Comments: {{ comments | length }} <i class="fa fa-caret-down caret-icon-fa"></i></h7>
+        <div class="visible-post-comments-content">
+            <hr class="comments-hr">
+            <div class="leave-comment">
+                <h6 class="smaller-h"> Leave a comment </h6>
+                <form class="comments-form" action="/add/comment/{{ post.id}}" method="post">
+                    <div class="form-group">
+{#                            <label for="com_author" class="col-sm-3 col-form-label" data-toggle="tooltip" title="Type your name here" data-placement="left"> Your name </label>#}
+                        {% if not current_user.is_anonymous %}
+                            <input type="text" name="author" id="com_author" placeholder="Your name" class="form-control" value="{{ current_user.username }}" required readonly><br>
+                        {%  else %}
+                            <input type="text" name="author" id="com_author" placeholder="Your name" class="form-control" required><br>
+                        {%  endif %}
                     </div>
-                {% else %}
-                    <div class="">
-                        <p class="p-style">  <br> No comments yet. </p>
+                    <div class="form-group">
+{#                            <label for="com_content" class="col-sm-3 col-form-label" data-toggle="tooltip" title="Type your comment" data-placement="top"> Your comment </label>#}
+                        <textarea name="content" id="com_content" placeholder="Your comment" class="form-control" rows="1" required></textarea><br>
                     </div>
-                {% endif %}
+                    <button type="submit" class="btn btn-info form-btn btn-no-round"> Send </button>
+                </form>
             </div>
+            {% if comments %}
+                <div class="left-comments">
+                    {% for comment in comments %}
+                        <div class="comment">
+                            <div class="meta">
+                                <p class="p-style credentials">
+                                    <span class="user-icon">
+                                        <i class="fa fa-user-circle user-icon-fa"></i>
+                                    </span>
+                                    <span class="author"> {{ comment.author }}</span>,
+                                    {{ '{} {} {}, {}:{}'.format(comment.creation_date.day, comment.creation_date.strftime('%B'), comment.creation_date.year, comment.creation_date.hour, comment.creation_date.minute) }}</p>
+                                {% if current_user.username == 'admin' %}
+                                    <a href="/delete/comment/{{ post.id }}/{{comment.id}}" name="delete-commentt-btn"> <i class="fa fa-times"></i></a>
+                                {% endif %}
+                            </div>
+                            <span class="quot"><i class="fa fa-quote-left quot-icon-fa"></i></span>
+                            <span class="p-style">  {{ comment.content }}</span>
+                            <span class="quot"><i class="fa fa-quote-right quot-icon-fa"></i></span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="">
+                    <p class="p-style"> No comments yet. </p>
+                </div>
+            {% endif %}
         </div>
+    </div>
 {% endmacro %}
 

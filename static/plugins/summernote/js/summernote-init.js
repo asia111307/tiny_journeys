@@ -7,4 +7,7 @@ $(document).ready(function(){
   $('#reset-btn').on('click', function(){
        $('#content').summernote('reset')
    });
+  $('.card').css("width", "100%");
+
+
 });

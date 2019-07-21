@@ -9,7 +9,7 @@ function onError(err) {
 }
 
 gulp.task('sass', function(){
-    return gulp.src('static/css/*.scss')
+    return gulp.src('static/css/styles.scss')
         .pipe(sass())
         .pipe(prefix('last 2 versions'))
         .pipe(minify())

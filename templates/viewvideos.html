@@ -1,13 +1,13 @@
 {% extends "start.html" %}
 {% from 'blocks/block_single_media.html' import block_single_media with context %}
 {% from 'blocks/block_sort_options.html' import block_sort_options with context %}
-{% block title %}View videos{% endblock %}
+{% block title %} View videos {% endblock %}
 {% block content %}
     <section class="section-style container">
         <h1 class="h-style"> View videos </h1>
         {% if contents %}
             {{ block_sort_options('videos') }}
-            <h5 class="comments-h vieving-posts">Videos: {{ current_option }} ({{ contents | length }}) </h5>
+            <h5 class="smaller-h vieving-posts"> Videos: {{ current_option }} ({{ contents | length }}) </h5>
             <div class="view-posts">
                 {% for video in contents %}
                     {{ block_single_media(video, type='video') }}

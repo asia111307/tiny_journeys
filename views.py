@@ -29,9 +29,7 @@ def update_online_users(action=None):
 
 @app.route('/')
 def start():
-    # sql = text('SELECT P.*, U.username FROM Post P JOIN User U ON P.author=U.id ORDER BY P.creation_date DESC')
     posts = db.session.query(User, Post).filter(Post.author==User.id).order_by(Post.creation_date.desc()).all()
-    # posts = Post.query.order_by(Post.creation_date.desc()).all()
     prevs = nexts = comments = comments_counts = users = user_posts = user_comments = site =''
     users = User.query.all()
     if posts:
@@ -176,7 +174,8 @@ def edit_post_id(post_id):
         return redirect(link)
     else:
         post = Post.query.get_or_404(post_id)
-        return render_template('editpost.html', post=post)
+        author = User.query.get(post.id).username
+        return render_template('editpost.html', post=post, author=author)
 
 
 @app.route('/add/comment/<int:post_id>', methods=['POST', 'GET'])

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang='en'>
-
 <head>
     <meta name='description' content='Tiny Journeys'>
 	<meta name='author' content='Asia P'>
@@ -10,20 +9,23 @@
 	<link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
     {% block head %}{% endblock %}
     {% from 'blocks/block_nav.html' import block_nav with context %}
     {% from 'blocks/block_footer.html' import block_footer with context %}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
-{#	<link rel="stylesheet" type="text/css" href="../static/css/styles.css?q=13098753244">#}
+{#    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">#}
+	<link rel="stylesheet" type="text/css" href="../static/css/styles.css?q=984">
 </head>
+
 <body>
     {{ block_nav() }}
     {% block jumbotron %}{% endblock %}
-    <div class="page-content container" id="home">
+    <div class="container" id="home">
         {% block content %}{% endblock %}
 	</div>
 	{{ block_footer() }}
     {% block scripts %} {% endblock %}
+
     <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 

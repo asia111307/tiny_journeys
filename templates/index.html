@@ -3,7 +3,7 @@
 {% from 'blocks/block_jumbotron.html' import block_jumbotron with context %}
 {% from 'blocks/block_sidebar.html' import block_sidebar with context %}
 
-{% block title %}Home{% endblock %}
+{% block title %} Home {% endblock %}
 {% block jumbotron %}
 {{ block_jumbotron() }}
 {% endblock %}
@@ -13,20 +13,16 @@
         <div class="home-posts">
         {% if posts %}
             {% for i in range(posts | length) %}
-                <div class="post-content">
-                    {{ block_post(posts[i][1], posts[i][0], prevs[i], nexts[i], comments[i], comments_counts[i], fullview=False) }}
-                </div>
+                {{ block_post(posts[i][1], posts[i][0], prevs[i], nexts[i], comments[i], comments_counts[i], fullview=False) }}
             {%  endfor %}
         {% else %}
             <div class="no-visible-posts">
                 <h1 class="h-style"> Hi! </h1>
-                <p class="p-style">  <br> No posts yet. Add the first one! </p>
+                <p class="p-style"> No posts yet. Add the first one! </p>
             </div>
         {% endif %}
         </div>
-        <div class="page-sidebar">
-            {{ block_sidebar() }}
-        </div>
+        {{ block_sidebar() }}
     </section>
 {% endblock %}
 

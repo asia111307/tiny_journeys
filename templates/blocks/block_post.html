@@ -1,6 +1,7 @@
 {% from 'blocks/block_comments.html' import block_comment with context %}
 
 {% macro block_post(post, user, prev, next, comments, comments_count, fullview) %}
+<div class="post-content">
     <div class="visible-post">
         <h1 class="h-style">
             <a href="/view/post/{{ post.id }}">{{ post.title }} </a>
@@ -13,11 +14,11 @@
             <h5 class="p-style credentials">Last modified on {{ '{} {} {}, {}:{}'.format(post.last_modified_date.day, post.last_modified_date.strftime('%B'), post.last_modified_date.year, post.last_modified_date.hour, post.last_modified_date.strftime('%M')) }}</h5>
             {% if fullview and current_user.id == post.author or current_user.isAdmin == True %}
                 <div class="post-actions">
-                    <div class="edit">
-                        <a class="btn btn-info form-btn meta-btn btn-no-round" href="/edit/post/{{post.id}}" name="edit-btn"> <i class="fa fa-pencil"></i> Edit </a>
+                    <div>
+                        <a class="form-btn meta-btn" href="/edit/post/{{post.id}}" name="edit-btn"> <i class="fa fa-pencil"></i> Edit </a>
                     </div>
-                    <div class="delete">
-                        <a class="btn btn-info form-btn meta-btn btn-no-round" href="/delete/post/{{post.id}}" name="delete-btn"><i class="fa fa-times-circle"></i> Delete </a>
+                    <div>
+                        <a class="form-btn meta-btn" href="/delete/post/{{post.id}}" name="delete-btn"><i class="fa fa-times-circle"></i> Delete </a>
                     </div>
                 </div>
             {% endif %}
@@ -36,4 +37,5 @@
         </div>
     </div>
     {{ block_comment(post, comments, comments_count) }}
+</div>
 {% endmacro %}

@@ -1,6 +1,7 @@
 {% extends "start.html" %}
 {% from 'blocks/block_post.html' import block_post with context %}
-{% block title %}View post{% endblock %}
+{% block title %} View post {% endblock %}
+
 {% block content %}
     <section class="section-style container single-post">
         {{ block_post(post, user, prev, next, comments, comments_count, fullview=True) }}

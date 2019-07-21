@@ -1,17 +1,23 @@
 {% macro block_sidebar() %}
-<div class="sidebar">
-    {% if not current_user.is_anonymous %}
-    <div class="user-panel">
-        <p>Current user: {{ current_user.username }}</p>
-        <h5>Your activity: </h5>
-        <p>Posts: {{ user_posts | length }}</p>
-        <p>Comments: {{ user_comments | length }}</p>
-    </div>
-    {% endif %}
-    <div class="stats">
-        <h5>Page summary: </h5>
-        <p>Number of all users: {{ users | length }}</p>
-        <p>Currently logged in users: {{ online_users }}</p>
+<div class="page-sidebar">
+    <div class="sidebar">
+        {% if not current_user.is_anonymous %}
+        <div class="user-panel">
+            <h5><i class="fa fa-line-chart icon-big"></i> Your activity: </h5>
+            <div class="activity">
+                <p><i title="Posts" class="fa fa-pencil "></i>{{ user_posts | length }}</p>
+                <p><i title="Comments" class="fa fa-comment-o"></i>{{ user_comments | length }}</p>
+            </div>
+
+        </div>
+        {% endif %}
+        <div class="stats">
+            <h5><i class="fa fa-area-chart icon-big"></i> Page summary: </h5>
+            <div class="activity">
+                <p><i title="All users" class="fa fa-users"></i> {{ users | length }}</p>
+                <p><i title= "Online users" class="fa fa-globe"></i> {{ online_users }}</p>
+            </div>
+        </div>
     </div>
 </div>
 {% endmacro %}

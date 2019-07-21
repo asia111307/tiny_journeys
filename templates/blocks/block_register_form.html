@@ -1,23 +1,29 @@
 {% macro block_register_form(feedback) %}
-    <form class="login-form"  method="post" action='/account/register'>
-        <div class="form-meta">
-            {%  if feedback %}
-                <p class="feedback">{{ feedback }}</p>
-            {% endif %}
-        </div>
-        <div class="form-group form-username">
-            <label for="username" data-toggle="tooltip" title="Username" data-placement="left"> Username </label>
-            <input type="text" name="username" id="username" placeholder="Type your username here" class="form-control" required><br>
-        </div>
-        <div class="form-group form-password">
-            <label for="password" data-toggle="tooltip" title="Password" data-placement="top"> Password </label>
-            <input type="password" name="password" id="password" placeholder="Type yout password here" class="form-control" required><br>
-        </div>
-        <div class="form-group form-password">
-            <label for="password-again" data-toggle="tooltip" title="Password - again" data-placement="top"> Password (again) </label>
-            <input type="password" name="password-again" id="password" placeholder="Type your password here (again)" class="form-control" required><br>
-        </div>
-        <button type="submit" class="btn btn-info form-btn btn-no-round"> Register </button>
-        <h5 class="yet-registered">Already have an account? <a href='/account/login'><b>Login now!</b></a> </h5>
-    </form>
+    <div class="login-block">
+        <form class="login-form"  method="post" action='/account/register'>
+            <div class="form-meta">
+                {% if feedback %}
+                    <p class="feedback"> {{ feedback }} </p>
+                {% endif %}
+            </div>
+            <div class="form-group">
+    {#            <label for="username" data-toggle="tooltip" title="Username" data-placement="left"> Username </label>#}
+                <input type="text" name="username" id="username" placeholder="Username" class="form-control" required><br>
+            </div>
+            <div class="form-group">
+    {#            <label for="password" data-toggle="tooltip" title="Password" data-placement="top"> Password </label>#}
+                <input type="password" name="password" id="password" placeholder="Password" class="form-control" required><br>
+            </div>
+            <div class="form-group">
+    {#            <label for="password-again" data-toggle="tooltip" title="Password - again" data-placement="top"> Password (again) </label>#}
+                <input type="password" name="password-again" id="password" placeholder="Password (again)" class="form-control" required><br>
+            </div>
+            <button type="submit" class="form-btn login-btn"> Register </button>
+            <h5 class="yet-registered"> Already have an account?
+                <a href='/account/login'>
+                    <b> Login now! </b>
+                </a>
+            </h5>
+        </form>
+    </div>
 {% endmacro %}

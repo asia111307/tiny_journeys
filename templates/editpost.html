@@ -1,17 +1,19 @@
 {% extends "start.html" %}
 {% from 'blocks/block_form.html' import block_form with context %}
-{% block title %}Edit post{% endblock %}
+{% block title %} Edit post {% endblock %}
 {% block head %}
   <!-- Summernote Editor -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css">
 {% endblock %}
+
 {% block content %}
     <section class="section-style container">
         <h1 class="h-style"> Edit post </h1>
         {{ block_form(type='edit', post=post) }}
     </section>
 {% endblock %}
+
 {% block scripts %}
     <!-- Summernote Editor -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

@@ -14,7 +14,7 @@
             </div>
             <div class="other-menu-items">
                 <li class="nav-hidden">
-                    <a href=""> Posts </a>
+                    Posts
                     <ul>
                         <a href="/add/post"><li> Add post </li></a>
                         <a href="/view/posts"><li> View posts </li></a>
@@ -22,12 +22,14 @@
                         <a href="/view/videos"><li> View videos </li></a>
                     </ul>
                 </li>
-                {% if current_user.is_authenticated %}
-                    <li class="nav-hidden"><a href="/profile"> {{ current_user.username }} (</a> <a href="/account/logout/{{ current_user.id }}">Logout</a>)</li>
-                {% else %}
-                    <a href="/account/login"><li class="nav-hidden"> Login </li></a>
-                {% endif %}
-                <li>
+                <li class="nav-hidden">
+                    {% if current_user.is_authenticated %}
+                        <p><i class="fa fa-user icon-big"></i><a href="/profile">{{ current_user.username }} </a></p><a href="/account/logout/{{ current_user.id }}"><i title="Logout" class="fa fa-sign-out account-icon-fa icon-big"></i></a>
+                    {% else %}
+                        <a href="/account/login"><i title="Login" class="fa fa-sign-in account-icon-fa icon-big"></i></a>
+                    {% endif %}
+                </li>
+                <li class="hamburger-item">
                     <div id="nav-icon1" class="start">
                         <span></span>
                         <span></span>

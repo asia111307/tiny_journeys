@@ -29,23 +29,24 @@ document.getElementById('nav-icon1').addEventListener('click', function() {
   }
 });
 
-document.getElementById('nav-icon1').click();
-const current_window_width = window.innerWidth;
-if (current_window_width <= 880) {
-    document.getElementById('nav-icon1').click();
-    sidebar.style.position = 'static';
-}
+window.addEventListener('resize', function() {
+    const current_window_width = window.innerWidth;
+    if ((current_window_width >= 880 && !document.getElementById('nav-icon1').classList.contains('open')) ||
+        (current_window_width <= 880 && document.getElementById('nav-icon1').classList.contains('open'))) {
+        document.getElementById('nav-icon1').click();
+    }
+});
 
 
 
 // COMMENT BLOCK SECTION OPENING
-const arrows = document.getElementsByClassName('caret-icon-fa');
-const comments = document.getElementsByClassName('comment');
+const comments_headers = document.getElementsByClassName('comments-header');
 const single_post = document.getElementsByClassName('single-post')[0];
 
-function toggleOpenContent() {
-    const arrow = this;
-    const comment_content = arrow.parentElement.nextElementSibling;
+function toggleOpenContentComments() {
+    const comment_header = this;
+    const arrow = comment_header.firstChild.nextElementSibling;
+    const comment_content = comment_header.nextElementSibling;
 
     if (arrow.classList.contains('open')) {
         comment_content.style.display = 'none';
@@ -60,15 +61,15 @@ function toggleOpenContent() {
     }
 }
 
-if (arrows) {
-    for (let i=0; i<arrows.length; i++){
-        arrows[i].addEventListener('click', toggleOpenContent);
+if (comments_headers) {
+    for (let i=0; i<comments_headers.length; i++){
+        comments_headers[i].addEventListener('click', toggleOpenContentComments);
     }
 }
 
 if (single_post) {
-    for (let i=0; i<arrows.length; i++){
-        arrows[i].click();
+    for (let i=0; i<comments_headers.length; i++){
+        comments_header[i].click();
     }
 }
 

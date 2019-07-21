@@ -1,13 +1,14 @@
 {% extends "start.html" %}
 {% from 'blocks/block_single_media.html' import block_single_media with context %}
 {% from 'blocks/block_sort_options.html' import block_sort_options with context %}
-{% block title %}View photos{% endblock %}
+{% block title %} View photos {% endblock %}
+
 {% block content %}
     <section class="section-style container">
         <h1 class="h-style"> View photos </h1>
         {% if contents %}
             {{ block_sort_options('photos') }}
-            <h5 class="comments-h vieving-posts">Photos: {{ current_option }} ({{ contents | length }}) </h5>
+            <h5 class="smaller-h vieving-posts"> Photos: {{ current_option }} ({{ contents | length }}) </h5>
             <div class="view-posts viewing-photos">
                 {% for photo in contents %}
                      {{ block_single_media(photo, type='photo') }}
