@@ -3,67 +3,67 @@
     display: block;
   }
   .hamburger-item {
-    display: flex;
+    display: flex!important;
   }
   .home-section {
-    display: block;
+    display: block!important;
   }
   .visible-post .meta {
-    display: block;
+    display: block!important;
   }
   .home-posts {
-    width: 100%;
+    width: 100%!important;
   }
   .sidebar {
-    padding: 0;
-    margin-top: 50px;
-    width: 100%;
-    position: static;
+    padding: 0!important;
+    margin-top: 50px!important;
+    width: 100%!important;
+    position: static!important;
   }
   .post-actions {
-    margin-top: 20px;
-    display: flex;
-    justify-content: flex-end;
+    margin-top: 20px!important;
+    display: flex!important;
+    justify-content: flex-end!important;
   }
   .comment {
-    width: 100%;
+    width: 100%!important;
   }
   .comments-hr {
-    display: none;
+    display: none!important;
   }
   .small-jumb {
     width: 100%!important;
     margin-top: 200px!important;
   }
   .small-jumb h1 {
-    font-size: 30px;
+    font-size: 30px!important;
   }
   .small-jumb p {
-    font-size: $mainfontsize;
+    font-size: $mainfontsize!important;
   }
   .explore-btn {
     display: none!important;
   }
   .other-menu-items {
-    flex-direction: column;
+    flex-direction: column-reverse!important;
   }
   .jumbotron {
     height: 50%!important;
-    background-image: url("../images/spina.jpg");
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
+    background-image: url("../images/spina.jpg")!important;
+    background-attachment: fixed!important;
+    background-position: center!important;
+    background-size: cover!important;
   }
   .form-group {
-    width: 80%;
+    width: 80%!important;
   }
   .viewing-photos {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column!important;
+    justify-content: center!important;
+    align-items: center!important;
   }
   .view_media {
-    width: 80%;
+    width: 80%!important;
   }
   .nav-hidden {
     display: none;
