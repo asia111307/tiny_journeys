@@ -31,11 +31,8 @@ from views import *
 db_start()
 db.session.commit()
 admin = User.query.filter(User.username == 'admin').first()
-site = Site.query.get(1)
 if not admin:
     db.session.add(User(username='admin', password='password', isAdmin=True))
-if not site:
-    db.session.add(Site(owner='Joanna Paliwoda', online_users=0))
 db.session.commit()
 
 
