@@ -2,6 +2,8 @@ body {
   font-family: $mainfont;
   margin: 0;
   background: $background-color;
+  position: relative;
+  min-height: 100vh;
 }
 * {
   box-sizing: border-box;
