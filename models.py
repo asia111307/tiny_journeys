@@ -14,14 +14,6 @@ from start import db
 import datetime
 
 
-class Site(db.Model):
-    __tablename__ = 'site'
-    id = Column(Integer, autoincrement=True, primary_key=True)
-    owner = Column(String, default="")
-    online_users = Column(Integer, default=0)
-
-
-
 class Post(db.Model):
     __tablename__ = 'post'
     id = Column(Integer, autoincrement=True, primary_key=True)
