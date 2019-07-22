@@ -14,24 +14,12 @@ login_manager.init_app(app)
 login_manager.login_view = "login"
 
 
-def update_online_users(action=None):
-    site = Site.query.get(1)
-    if action == 'login':
-        site.online_users += 1
-    elif action == 'logout':
-        site.online_users -= 1
-    if site.online_users < 0:
-        site.online_users = 0
-    db.session.commit()
-    if not action:
-        return site.online_users
-
-
 @app.route('/')
 def start():
     posts = db.session.query(User, Post).filter(Post.author==User.id).order_by(Post.creation_date.desc()).all()
     prevs = nexts = comments = comments_counts = users = user_posts = user_comments = site =''
     users = User.query.all()
+    online_users = User.query.filter(User.isOnline == True).all()
     if posts:
         prevs = [Post.query.get(post[1].id - 1) for post in posts]
         nexts = [Post.query.get(post[1].id + 1) for post in posts]
@@ -40,7 +28,7 @@ def start():
     if not current_user.is_anonymous:
         user_posts = Post.query.filter(Post.author == current_user.id).all()
         user_comments = Comment.query.filter(Comment.author_id == current_user.id).all()
-    return render_template('index.html', posts=posts, prevs=prevs, nexts=nexts, comments=comments, comments_counts=comments_counts, users=users, user_posts=user_posts, user_comments=user_comments, online_users=update_online_users())
+    return render_template('index.html', posts=posts, prevs=prevs, nexts=nexts, comments=comments, comments_counts=comments_counts, users=users, user_posts=user_posts, user_comments=user_comments, online_users=online_users)
 
 
 @app.route('/view/<content_type>')
@@ -211,7 +199,8 @@ def login():
             if user.password == password:
                 login_user(user, remember=True)
                 session['logged_user'] = user.id
-                update_online_users('login')
+                user.isOnline = True
+                db.session.commit()
                 return redirect(request.args.get("next", '/'))
             else:
                 feedback = 'This password is incorrect.'
@@ -231,7 +220,8 @@ def login():
 def logout(user_id):
     logout_user()
     user = User.query.get(user_id)
-    update_online_users('logout')
+    user.isOnline = False
+    db.session.commit()
     return redirect('/')
 
 
@@ -253,7 +243,8 @@ def register():
         user = User.query.order_by(User.id.desc()).first()
         login_user(user, remember=True)
         session['logged_user'] = user.id
-        update_online_users('login')
+        user.isOnline = True
+        db.session.commit()
         return redirect('/')
     else:
         return render_template('register.html')

@@ -84,6 +84,7 @@ class User(db.Model, UserMixin):
     creation_date = Column(DateTime, default=datetime.datetime.now)
     isAdmin = Column(Boolean, default=False)
     isLocked = Column(Boolean, default=False)
+    isOnline = Column(Boolean, default=False)
 
     def to_json(self):
         return {
@@ -92,7 +93,8 @@ class User(db.Model, UserMixin):
             'password': self.password,
             'creation_date': self.creation_date,
             'isAdmin': self.isAdmin,
-            'isLocked': self.isLocked
+            'isLocked': self.isLocked,
+            'isOnline': self.isOnline
         }
 
     def __init__(self, username, password, isAdmin=False):
