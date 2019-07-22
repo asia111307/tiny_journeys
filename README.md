@@ -27,8 +27,9 @@ Then, install **npm**:
 ### Create and start virtual environment
     $ virtualenv .env && source .env/bin/activate && pip install -r requirements.txt
 
-### Install node modules
+### If you want to run gulp
     $ npm install
+    $ gulp watch
 
 ### Run project
     $ FLASK_APP=start.py FLASK_DEBUG=1 flask run
