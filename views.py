@@ -8,6 +8,7 @@ from sqlalchemy import exc, text
 from models import *
 import os, datetime, re
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, UserMixin, current_user
+from bs4 import BeautifulSoup, Tag
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -16,10 +17,11 @@ login_manager.login_view = "login"
 
 @app.route('/')
 def start():
-    posts = db.session.query(User, Post).filter(Post.author==User.id).order_by(Post.creation_date.desc()).all()
+    posts = db.session.query(User, Post).filter(Post.author== User.id).order_by(Post.creation_date.desc()).all()
     prevs = nexts = comments = comments_counts = users = user_posts = user_comments = site =''
     users = User.query.all()
     online_users = User.query.filter(User.isOnline == True).all()
+    all_posts = Post.query.all()
     if posts:
         prevs = [Post.query.get(post[1].id - 1) for post in posts]
         nexts = [Post.query.get(post[1].id + 1) for post in posts]
@@ -28,7 +30,7 @@ def start():
     if not current_user.is_anonymous:
         user_posts = Post.query.filter(Post.author == current_user.id).all()
         user_comments = Comment.query.filter(Comment.author_id == current_user.id).all()
-    return render_template('index.html', posts=posts, prevs=prevs, nexts=nexts, comments=comments, comments_counts=comments_counts, users=users, user_posts=user_posts, user_comments=user_comments, online_users=online_users)
+    return render_template('index.html', posts=posts, prevs=prevs, nexts=nexts, comments=comments, comments_counts=comments_counts, users=users, user_posts=user_posts, user_comments=user_comments, online_users=online_users, all_posts=all_posts)
 
 
 @app.route('/view/<content_type>')
@@ -92,6 +94,11 @@ def render_view_post(post_id):
     return render_template('view_post.html', post=post, user=user, prev=p_prev, next=p_next, comments=comments)
 
 
+def wrap(to_wrap, wrap_in):
+    contents = to_wrap.replace_with(wrap_in)
+    wrap_in.append(contents)
+
+
 @app.route('/add/post', methods=['POST', 'GET'])
 @login_required
 def add_post():
@@ -103,22 +110,30 @@ def add_post():
         if author and title and content:
             db.session.add(Post(author, title, content))
             db.session.commit()
-            post_id = Post.query.order_by(Post.id.desc()).first().id
+            post = Post.query.order_by(Post.id.desc()).first()
             pat = re.compile(r'<img [^>]*src="([^"]+)')
             imgs = pat.findall(content)
+            content_imgs = BeautifulSoup(content, 'html.parser')
+            all_imgs = content_imgs.findAll('img')
             if imgs:
                 for i in range(len(imgs)):
                     img_title = 'Picture {} for {}'.format(i+1, title)
-                    db.session.add(Photo(img_title, imgs[i], post_id))
+                    db.session.add(Photo(img_title, imgs[i], post.id))
+                    db.session.commit()
+                    a_tag = content_imgs.new_tag("a")
+                    a_tag.attrs['href'] = imgs[i]
+                    a_tag.attrs['data-lightbox'] = title.replace(" ", "")
+                    all_imgs[i].wrap(a_tag)
+                    post.content = str(content_imgs)
                     db.session.commit()
             pat2 = re.compile(r'<iframe [^>]*src="([^"]+)')
             videos = pat2.findall(content)
             if videos:
                 for i in range(len(videos)):
                     vid_title =  'Video {} for {}'.format(i+1, title)
-                    db.session.add(Video(vid_title, videos[i], post_id))
+                    db.session.add(Video(vid_title, videos[i], post.id))
                     db.session.commit()
-            link = '/view/post/{}'.format(post_id)
+            link = '/view/post/{}'.format(post.id)
         return redirect(link)
     else:
         return render_template('addpost.html')
@@ -145,10 +160,18 @@ def edit_post_id(post_id):
         Photo.query.filter_by(post_id=post_id).delete()
         pat = re.compile(r'<img [^>]*src="([^"]+)')
         imgs = pat.findall(post.content)
+        content_imgs = BeautifulSoup(post.content, 'html.parser')
+        all_imgs = content_imgs.findAll('img')
         if imgs:
             for i in range(len(imgs)):
                 img_title = 'Picture {} for {}'.format(i+1, post.title)
                 db.session.add(Photo(img_title, imgs[i], post_id))
+                db.session.commit()
+                a_tag = content_imgs.new_tag("a")
+                a_tag.attrs['href'] = imgs[i]
+                a_tag.attrs['data-lightbox'] = post.title.replace(" ", "")
+                all_imgs[i].wrap(a_tag)
+                post.content = str(content_imgs)
                 db.session.commit()
         Video.query.filter_by(post_id=post_id).delete()
         pat2 = re.compile(r'<iframe [^>]*src="([^"]+)')
@@ -162,7 +185,7 @@ def edit_post_id(post_id):
         return redirect(link)
     else:
         post = Post.query.get_or_404(post_id)
-        author = User.query.get(post.id).username
+        author = User.query.get(post.author).username
         return render_template('editpost.html', post=post, author=author)
 
 

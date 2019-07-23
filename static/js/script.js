@@ -36,7 +36,7 @@ window.addEventListener('resize', function() {
         document.getElementById('nav-icon1').click();
     }
 });
-
+document.getElementById('nav-icon1').click();
 
 
 // COMMENT BLOCK SECTION OPENING

@@ -1,9 +1,18 @@
 {% extends "start.html" %}
 {% from 'blocks/block_post.html' import block_post with context %}
 {% block title %} View post {% endblock %}
-
+{%  block head %}
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='plugins/lightbox2/src/css/lightbox.css') }}">
+{% endblock %}
 {% block content %}
     <section class="section-style container single-post">
         {{ block_post(post, user, prev, next, comments, comments_count, fullview=True) }}
     </section>
 {% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{{ url_for('static', filename='plugins/lightbox2/dist/js/lightbox-plus-jquery.js') }}"></script>
+{% endblock %}
+
+
+
