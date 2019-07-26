@@ -18,7 +18,7 @@ login_manager.login_view = "login"
 @app.route('/')
 def start():
     posts = db.session.query(User, Post).filter(Post.author== User.id).order_by(Post.creation_date.desc()).all()
-    prevs = nexts = comments = comments_counts = users = user_posts = user_comments = site =''
+    prevs = nexts = comments = comments_counts = user_posts = user_comments = ''
     users = User.query.all()
     online_users = User.query.filter(User.isOnline == True).all()
     all_posts = Post.query.all()
@@ -99,6 +99,40 @@ def wrap(to_wrap, wrap_in):
     wrap_in.append(contents)
 
 
+def find_all_videos(post):
+    pattern = re.compile(r'<iframe [^>]*src="([^"]+)')
+    video_sources = pattern.findall(post.content)
+    if video_sources:
+        for i in range(len(video_sources)):
+            video_title = 'Video {} for {}'.format(i + 1, post.title)
+            db.session.add(Video(video_title, video_sources[i], post.id))
+            db.session.commit()
+
+
+def find_all_images(post):
+    pattern = re.compile(r'<img [^>]*src="([^"]+)')
+    img_sources = pattern.findall(post.content)
+    content_html = BeautifulSoup(post.content, 'html.parser')
+    all_imgs = content_html.findAll('img')
+    all_a_tags = content_html.findAll('a')
+    if img_sources:
+        for i in range(len(img_sources)):
+            img_title = 'Picture {} for {}'.format(i + 1, post.title)
+            db.session.add(Photo(img_title, img_sources[i], post.id))
+            db.session.commit()
+            if not all_imgs[i].parent.name == 'a':
+                a_tag = content_html.new_tag("a")
+                a_tag.attrs['href'] = img_sources[i]
+                a_tag.attrs['name'] = 'image-a'
+                a_tag.attrs['data-lightbox'] = post.title.replace(" ", "")
+                all_imgs[i].wrap(a_tag)
+    for a in all_a_tags:
+        if a.get('name') == 'image-a' and not a.find('img'):
+            a.decompose()
+    post.content = str(content_html)
+    db.session.commit()
+
+
 @app.route('/add/post', methods=['POST', 'GET'])
 @login_required
 def add_post():
@@ -111,28 +145,8 @@ def add_post():
             db.session.add(Post(author, title, content))
             db.session.commit()
             post = Post.query.order_by(Post.id.desc()).first()
-            pat = re.compile(r'<img [^>]*src="([^"]+)')
-            imgs = pat.findall(content)
-            content_imgs = BeautifulSoup(content, 'html.parser')
-            all_imgs = content_imgs.findAll('img')
-            if imgs:
-                for i in range(len(imgs)):
-                    img_title = 'Picture {} for {}'.format(i+1, title)
-                    db.session.add(Photo(img_title, imgs[i], post.id))
-                    db.session.commit()
-                    a_tag = content_imgs.new_tag("a")
-                    a_tag.attrs['href'] = imgs[i]
-                    a_tag.attrs['data-lightbox'] = title.replace(" ", "")
-                    all_imgs[i].wrap(a_tag)
-                    post.content = str(content_imgs)
-                    db.session.commit()
-            pat2 = re.compile(r'<iframe [^>]*src="([^"]+)')
-            videos = pat2.findall(content)
-            if videos:
-                for i in range(len(videos)):
-                    vid_title =  'Video {} for {}'.format(i+1, title)
-                    db.session.add(Video(vid_title, videos[i], post.id))
-                    db.session.commit()
+            find_all_images(post)
+            find_all_videos(post)
             link = '/view/post/{}'.format(post.id)
         return redirect(link)
     else:
@@ -156,31 +170,11 @@ def edit_post_id(post_id):
         post.content = request.form.get('content')
         post.last_modified_date = datetime.datetime.now()
         db.session.commit()
-        post_id = Post.query.order_by(Post.id.desc()).first().id
-        Photo.query.filter_by(post_id=post_id).delete()
-        pat = re.compile(r'<img [^>]*src="([^"]+)')
-        imgs = pat.findall(post.content)
-        content_imgs = BeautifulSoup(post.content, 'html.parser')
-        all_imgs = content_imgs.findAll('img')
-        if imgs:
-            for i in range(len(imgs)):
-                img_title = 'Picture {} for {}'.format(i+1, post.title)
-                db.session.add(Photo(img_title, imgs[i], post_id))
-                db.session.commit()
-                a_tag = content_imgs.new_tag("a")
-                a_tag.attrs['href'] = imgs[i]
-                a_tag.attrs['data-lightbox'] = post.title.replace(" ", "")
-                all_imgs[i].wrap(a_tag)
-                post.content = str(content_imgs)
-                db.session.commit()
-        Video.query.filter_by(post_id=post_id).delete()
-        pat2 = re.compile(r'<iframe [^>]*src="([^"]+)')
-        videos = pat2.findall(post.content)
-        if videos:
-            for i in range(len(videos)):
-                vid_title = 'Video {} for {}'.format(i+1, post.title)
-                db.session.add(Video(vid_title, videos[i], post_id))
-                db.session.commit()
+        post = Post.query.order_by(Post.id.desc()).first()
+        Photo.query.filter_by(post_id=post.id).delete()
+        find_all_images(post)
+        Video.query.filter_by(post_id=post.id).delete()
+        find_all_videos(post)
         link = '/view/post/{}'.format(post.id)
         return redirect(link)
     else:

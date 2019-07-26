@@ -69,8 +69,11 @@ if (comments_headers) {
 
 if (single_post) {
     for (let i=0; i<comments_headers.length; i++){
-        comments_header[i].click();
+        comments_headers[i].click();
     }
+    lightbox.option({
+      'wrapAround': true
+    });
 }
 
 
@@ -122,5 +125,17 @@ if (home) {
                 this.currentTime = 27;
             }, false
         );
+    }
+}
+
+
+// DEACTIVATE IMAGE LINKS ON HOME
+if (!single_post) {
+    links = document.getElementsByName('image-a');
+    if (links) {
+        for (let i=0; i< links.length; i++) {
+            links[i].href = "javascript:void(0)";
+            links[i].style.cursor = 'default';
+        }
     }
 }
