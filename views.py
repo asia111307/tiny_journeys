@@ -43,12 +43,16 @@ def render_view_content(content_type):
         contents = Photo.query.order_by(Photo.creation_date.desc()).all()
     elif content_type == 'videos':
         contents = Video.query.order_by(Video.creation_date.desc()).all()
+    else:
+        return abort(404)
     return render_template('view{}.html'.format(content_type), contents=contents, current_option='Latest first', comments=comments)
 
 
 @app.route('/view/<content_type>/<sort_option>', methods=['POST', 'GET'])
 def render_view_photos_options(content_type, sort_option):
     content = contents = comments = ''
+    if content_type not in ('photos', 'videos', 'posts') or sort_option not in ('oldestfirst', 'newestfirst', 'lastweek', 'lastmonth'):
+        return abort(404)
     if content_type == 'photos':
         contents = Photo
     elif content_type == 'videos':
