@@ -1,5 +1,5 @@
 @media screen and (max-width: 880px) {
-  nav ul, nav li {
+  nav ul {
     display: block;
   }
   .hamburger-item {
@@ -46,6 +46,14 @@
   }
   .other-menu-items {
     flex-direction: column-reverse!important;
+  }
+  .label-link {
+    flex-direction: row!important;
+  }
+  .label-p {
+    font-size: $mainfontsize!important;
+    margin-left: 15px!important;
+    margin-top: 0!important;
   }
   .jumbotron {
     height: 50%!important;

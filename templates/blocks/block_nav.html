@@ -3,30 +3,59 @@
     <div class="container">
         <ul>
             <div class="logo-menu-item">
-                 <a href="/" title="Tiny Journeys" class="menu-item-logo">
-                <li>
-                    <div class="logo-container">
-                        <div class="logo-btn"></div>
-                        <p> | Tiny Journeys </p>
-                    </div>
-                </li>
-            </a>
+                <a href="/" title="Tiny Journeys" class="menu-item-logo">
+                    <li>
+                        <div class="logo-container">
+                            <div class="logo-btn"></div>
+                            <p> | Tiny Journeys </p>
+                        </div>
+                    </li>
+                </a>
             </div>
             <div class="other-menu-items">
                 <li class="nav-hidden">
-                    Posts
-                    <ul>
-                        <a href="/add/post"><li> Add post </li></a>
-                        <a href="/view/posts"><li> View posts </li></a>
-                        <a href="/view/photos"><li> View pictures </li></a>
-                        <a href="/view/videos"><li> View videos </li></a>
-                    </ul>
+                    <a href="/add/post" class="label-link">
+                        <i title="Add post" class="fa fa-plus-circle account-icon-fa icon-big"></i>
+                        <p class="label-p"> Add post </p>
+                    </a>
                 </li>
                 <li class="nav-hidden">
+                    <a href="/view/posts" class="label-link">
+                        <i title="View posts" class="fa fa-newspaper-o account-icon-fa icon-big"></i>
+                        <p class="label-p"> View posts </p>
+                    </a>
+                </li>
+                <li class="nav-hidden">
+                    <a href="/view/photos" class="label-link">
+                        <i title="View photos" class="fa fa-picture-o account-icon-fa icon-big"></i>
+                        <p class="label-p"> View photos </p>
+                    </a>
+                </li>
+                <li class="nav-hidden">
+                    <a href="/view/videos" class="label-link">
+                        <i title="View videos" class="fa fa-film account-icon-fa icon-big"></i>
+                        <p class="label-p"> View videos </p>
+                    </a>
+                </li>
+                {% if current_user.is_authenticated %}
+                    <li class="nav-hidden">
+                        <a href="/profile/{{ current_user.username }}" class="label-link">
+                            <i class="fa fa-user icon-big"></i>
+                            <p class="label-p">{{ current_user.username }}</p>
+                        </a>
+                    </li>
+                {% endif %}
+                <li class="nav-hidden">
                     {% if current_user.is_authenticated %}
-                        <p><i class="fa fa-user icon-big"></i><a href="/profile">{{ current_user.username }} </a></p><a href="/account/logout/{{ current_user.id }}"><i title="Logout" class="fa fa-sign-out account-icon-fa icon-big"></i></a>
+                        <a href="/account/logout/{{ current_user.id }}" class="label-link">
+                            <i title="Logout" class="fa fa-sign-out account-icon-fa icon-big"></i>
+                            <p class="label-p"> Logout </p>
+                        </a>
                     {% else %}
-                        <a href="/account/login"><i title="Login" class="fa fa-sign-in account-icon-fa icon-big"></i></a>
+                        <a href="/account/login" class="label-link">
+                            <i title="Login" class="fa fa-sign-in account-icon-fa icon-big"></i>
+                            <p class="label-p"> Login </p>
+                        </a>
                     {% endif %}
                 </li>
                 <li class="hamburger-item">

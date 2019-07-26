@@ -11,6 +11,9 @@
     height: 100%;
     max-width: 100%;
   }
+  .view-media-photo {
+    object-fit: cover;
+  }
   .view-media-hover {
     position: absolute;
     top: 0;

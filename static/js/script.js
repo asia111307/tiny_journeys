@@ -139,3 +139,11 @@ if (!single_post) {
         }
     }
 }
+
+
+// NO-CONTENT
+const section_style = document.getElementsByClassName('section-style')[0];
+const no_content = document.getElementsByClassName('no-content')[0];
+if (no_content) {
+    section_style.style.height = '100vh';
+}

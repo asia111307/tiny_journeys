@@ -20,6 +20,17 @@ a {
 p {
   margin: 0;
 }
+.label-link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.label-p {
+  font-size: $labelfontsize;
+  line-height: normal;
+  margin-top: 5px;
+}
 .p-style {
   font-size: $mainfontsize;
   color: $textcolor;
@@ -53,11 +64,12 @@ p {
   align-items: center;
   flex-direction: column;
 }
-.no-post {
+.no-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100%;
 }
 .icon-btn {
   height: 25px;

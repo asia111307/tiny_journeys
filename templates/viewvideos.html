@@ -4,8 +4,8 @@
 {% block title %} View videos {% endblock %}
 {% block content %}
     <section class="section-style container">
-        <h1 class="h-style"> View videos </h1>
         {% if contents %}
+            <h1 class="h-style"> View videos </h1>
             {{ block_sort_options('videos') }}
             <h5 class="smaller-h vieving-posts"> Videos: {{ current_option }} ({{ contents | length }}) </h5>
             <div class="view-posts">
@@ -14,7 +14,7 @@
                 {% endfor %}
             </div>
         {% else %}
-            <div class="no-post">
+            <div class="no-content">
                 <h6> No videos yet </h6>
             </div>
         {% endif %}

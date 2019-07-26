@@ -1,7 +1,7 @@
 {% macro block_single_media(media, type) %}
     <div class="view_media">
     {% if type=='photo' %}
-         <img src="{{ media.source }}" alt="{{ media.name }}" class="view-media">
+         <img src="{{ media.source }}" alt="{{ media.name }}" class="view-media view-media-photo">
     {% else %}
          <iframe src="{{ media.source }}" class="view-media"></iframe>
     {% endif %}

@@ -40,10 +40,10 @@ def render_view_content(content_type):
         contents = db.session.query(User, Post).filter(Post.author==User.id).order_by(Post.creation_date.desc()).all()
         comments = [len(Comment.query.filter(Comment.post_id == post[1].id).all()) for post in contents]
     elif content_type == 'photos':
-        contents = Photo.query.all()
+        contents = Photo.query.order_by(Photo.creation_date.desc()).all()
     elif content_type == 'videos':
-        contents = Video.query.all()
-    return render_template('view{}.html'.format(content_type), contents=contents, current_option='All', comments=comments)
+        contents = Video.query.order_by(Video.creation_date.desc()).all()
+    return render_template('view{}.html'.format(content_type), contents=contents, current_option='Latest first', comments=comments)
 
 
 @app.route('/view/<content_type>/<sort_option>', methods=['POST', 'GET'])
@@ -64,7 +64,7 @@ def render_view_photos_options(content_type, sort_option):
             content = db.session.query(User, Post).filter(Post.author == User.id).order_by(Post.creation_date.desc())
         else:
             content = contents.query.order_by(contents.creation_date.desc())
-        sort_option = 'Newest first'
+        sort_option = 'Latest first'
     elif sort_option == 'lastweek':
         week_ago = datetime.datetime.today() - datetime.timedelta(days=7)
         if content_type == 'posts':
@@ -154,6 +154,7 @@ def add_post():
 
 
 @app.route('/delete/post/<int:post_id>')
+@login_required
 def delete_post(post_id):
     Post.query.filter_by(id=post_id).delete()
     Photo.query.filter_by(post_id=post_id).delete()
@@ -163,6 +164,7 @@ def delete_post(post_id):
 
 
 @app.route('/edit/post/<int:post_id>', methods=['POST', 'GET'])
+@login_required
 def edit_post_id(post_id):
     if request.method == 'POST':
         post = Post.query.get_or_404(post_id)
@@ -265,6 +267,15 @@ def register():
         return redirect('/')
     else:
         return render_template('register.html')
+
+
+@app.route("/profile/<username>")
+@login_required
+def view_profile(username):
+    user = User.query.filter(User.username==username).first()
+    if not user:
+        return abort(404)
+    return render_template('profile.html', user=user)
 
 
 @login_manager.user_loader
