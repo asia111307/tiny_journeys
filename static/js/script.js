@@ -36,10 +36,12 @@ window.addEventListener('resize', function() {
         document.getElementById('nav-icon1').click();
     }
 });
-document.getElementById('nav-icon1').click();
-document.getElementById('nav-icon1').click();
 
-
+const current_window_width = window.innerWidth;
+if (current_window_width >= 880) {
+    document.getElementById('nav-icon1').click();
+    document.getElementById('nav-icon1').click();
+}
 
 // COMMENT BLOCK SECTION OPENING
 const comments_headers = document.getElementsByClassName('comments-header');
