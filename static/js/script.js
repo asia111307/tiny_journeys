@@ -14,7 +14,6 @@ if (sidebar) {
 }
 
 
-
 // HAMBURGER MENU
 document.getElementById('nav-icon1').addEventListener('click', function() {
   this.classList.toggle('open');
@@ -38,7 +37,7 @@ window.addEventListener('resize', function() {
 });
 
 const current_window_width = window.innerWidth;
-if (current_window_width >= 880) {
+if (current_window_width <= 880) {
     document.getElementById('nav-icon1').click();
     document.getElementById('nav-icon1').click();
 }
