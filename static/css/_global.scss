@@ -83,6 +83,7 @@ p {
   transition: 0.3s;
 }
 .form-btn {
+  margin-top: 30px;
   transition: 0.8s;
   padding: 5px 10px;
   border: none;
@@ -100,7 +101,8 @@ p {
 }
 .form-meta {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  margin: 30px 0;
 }
 .form-group {
   display: flex;
@@ -123,9 +125,16 @@ p {
   textarea {
     width: 350px;
   }
+  .title-input {
+    width: 100%;
+  }
 }
+.title-form-group {
+  width: calc(100% - 200px);
+}
+
 .meta {
-  margin-top: 20px;
+  padding: 20px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -150,4 +159,8 @@ p {
 }
 i {
   padding-right: 5px;
+}
+.post-content-form {
+  margin-right: 0;
+  width: 100%!important;
 }

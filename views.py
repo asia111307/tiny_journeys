@@ -10,42 +10,51 @@ import os, datetime, re
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, UserMixin, current_user
 from bs4 import BeautifulSoup, Tag
 
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
 
+POSTS_PER_PAGE = 5
+
 
 @app.route('/')
 def start():
-    posts = db.session.query(User, Post).filter(Post.author== User.id).order_by(Post.creation_date.desc()).all()
-    prevs = nexts = comments = comments_counts = user_posts = user_comments = ''
+    posts = db.session.query(User, Post).filter(Post.author == User.id).order_by(Post.creation_date.desc()).all()
+    prevs = nexts = comments = comments_counts = user_posts = user_comments = user_videos = user_photos = likes = user_post_likes = ''
     users = User.query.all()
-    online_users = User.query.filter(User.isOnline == True).all()
-    all_posts = Post.query.all()
+    photos = Photo.query.all()
+    videos = Video.query.all()
+    online_users = User.query.filter(User.isOnline is True).all()
     if posts:
         prevs = [Post.query.get(post[1].id - 1) for post in posts]
         nexts = [Post.query.get(post[1].id + 1) for post in posts]
         comments = [Comment.query.filter(Comment.post_id == post[1].id).order_by(Comment.creation_date.desc()).all() for post in posts]
         comments_counts = [len(comments[i]) for i in range(len(posts))]
+        likes = [db.session.query(Like, User).filter(Like.user_id == User.id).filter(Like.post_id == post[1].id).order_by(Like.date.desc()).all() for post in posts]
     if not current_user.is_anonymous:
         user_posts = Post.query.filter(Post.author == current_user.id).all()
+        user_photos = [len(Photo.query.filter(Photo.post_id == user_post.id).all()) for user_post in user_posts]
+        user_videos = [len(Video.query.filter(Video.post_id == user_post.id).all()) for user_post in user_posts]
         user_comments = Comment.query.filter(Comment.author_id == current_user.id).all()
-    return render_template('index.html', posts=posts, prevs=prevs, nexts=nexts, comments=comments, comments_counts=comments_counts, users=users, user_posts=user_posts, user_comments=user_comments, online_users=online_users, all_posts=all_posts)
+        user_post_likes = [True if Like.query.filter(Like.post_id == post[1].id).filter(Like.user_id == current_user.id).all() else False for post in posts]
+    return render_template('index.html', posts=posts, prevs=prevs, nexts=nexts, comments=comments, comments_counts=comments_counts, users=users, user_posts=user_posts, user_comments=user_comments, online_users=online_users, photos=photos, videos=videos, user_photos=user_photos, user_videos=user_videos, likes=likes, user_post_likes=user_post_likes)
 
 
 @app.route('/view/<content_type>')
 def render_view_content(content_type):
-    contents = comments = ''
+    contents = comments = likes = ''
     if content_type == 'posts':
         contents = db.session.query(User, Post).filter(Post.author==User.id).order_by(Post.creation_date.desc()).all()
         comments = [len(Comment.query.filter(Comment.post_id == post[1].id).all()) for post in contents]
+        likes = [len(Like.query.filter(Like.post_id == post[1].id).all()) for post in contents]
     elif content_type == 'photos':
         contents = Photo.query.order_by(Photo.creation_date.desc()).all()
     elif content_type == 'videos':
         contents = Video.query.order_by(Video.creation_date.desc()).all()
     else:
         return abort(404)
-    return render_template('view{}.html'.format(content_type), contents=contents, current_option='Latest first', comments=comments)
+    return render_template('view{}.html'.format(content_type), contents=contents, current_option='Latest first', comments=comments, likes=likes)
 
 
 @app.route('/view/<content_type>/<sort_option>', methods=['POST', 'GET'])
@@ -85,6 +94,14 @@ def render_view_photos_options(content_type, sort_option):
         sort_option = 'Last month'
     if content_type == 'posts':
         comments = [len(Comment.query.filter(Comment.post_id == post[1].id).all()) for post in content.all()]
+        likes = [len(Like.query.filter(Like.post_id == post[1].id).all()) for post in content.all()]
+        # if sort_option == 'mostcommented':
+        #     content = db.session.query(User, Post, Comment, func.sum(Post.id).label('total')).filter(Post.author == User.id).filter(Comment.post_id == Post.id).group_by('')
+        #     sort_option = 'Most commentedt'
+        # if sort_option == 'mostlikes':
+        #     content = db.session.query(User, Post).filter(Post.author == User.id).order_by(Post.creation_date)
+        #     sort_option = 'Most liked'
+
     return render_template('view{}.html'.format(content_type), contents=content.all(), current_option=sort_option, comments=comments)
 
 
@@ -95,7 +112,9 @@ def render_view_post(post_id):
     p_prev = Post.query.get(post_id-1)
     p_next = Post.query.get(post_id+1)
     comments = Comment.query.filter(Comment.post_id == post.id).order_by(Comment.creation_date.desc()).all()
-    return render_template('view_post.html', post=post, user=user, prev=p_prev, next=p_next, comments=comments)
+    likes = db.session.query(Like, User).filter(Like.user_id == User.id).filter(Like.post_id == post.id).order_by(Like.date.desc()).all()
+    user_post_likes = True if Like.query.filter(Like.post_id == post.id).filter(Like.user_id == current_user.id).all() else False
+    return render_template('view_post.html', post=post, user=user, prev=p_prev, next=p_next, comments=comments, likes=likes, user_post_likes=user_post_likes)
 
 
 def wrap(to_wrap, wrap_in):
@@ -212,6 +231,22 @@ def delete_comment(post_id, comment_id):
     return redirect(link)
 
 
+@app.route('/like/post/<int:user_id>/<int:post_id>')
+def like(user_id, post_id):
+    db.session.add(Like(user_id, post_id))
+    db.session.commit()
+    link = '/view/post/{}'.format(post_id)
+    return redirect(link)
+
+
+@app.route('/unlike/post/<int:user_id>/<int:post_id>')
+def unlike(user_id, post_id):
+    Like.query.filter(Like.post_id == post_id).filter(Like.user_id == user_id).delete()
+    db.session.commit()
+    link = '/view/post/{}'.format(post_id)
+    return redirect(link)
+
+
 @app.route('/account/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
@@ -301,7 +336,6 @@ def dated_url_for(endpoint, **values):
     if endpoint == 'static':
         filename = values.get('filename', None)
         if filename:
-            file_path = os.path.join(app.root_path,
-                                 endpoint, filename)
+            file_path = os.path.join(app.root_path, endpoint, filename)
             values['q'] = int(os.stat(file_path).st_mtime)
     return url_for(endpoint, **values)

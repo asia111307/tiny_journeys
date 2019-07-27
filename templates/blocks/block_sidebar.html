@@ -5,8 +5,12 @@
         <div class="user-panel">
             <h5><i class="fa fa-line-chart icon-big"></i> Your activity: </h5>
             <div class="activity">
-                <p><i title="Posts" class="fa fa-pencil "></i>{{ user_posts | length }}</p>
+                <p><i title="Posts" class="fa fa-newspaper-o "></i>{{ user_posts | length }}</p>
                 <p><i title="Comments" class="fa fa-comment-o"></i>{{ user_comments | length }}</p>
+            </div>
+            <div class="activity">
+                <p><i title="Photos" class="fa fa-picture-o "></i>{{ user_photos | sum }}</p>
+                <p><i title="Videos" class="fa fa-film"></i>{{ user_videos | sum }}</p>
             </div>
 
         </div>
@@ -14,7 +18,14 @@
         <div class="stats">
             <h5><i class="fa fa-area-chart icon-big"></i> Site summary: </h5>
             <div class="activity">
-                <p><i title= "All posts" class="fa fa-pencil"></i> {{ all_posts | length }}</p>
+                <a href="/view/posts"><p><i title= "All posts" class="fa fa-newspaper-o"></i> {{ posts | length }}</p></a>
+                <p><i title= "All comments" class="fa fa-comment-o"></i> {{ comments_counts | sum }}</p>
+            </div>
+            <div class="activity">
+                <a href="/view/photos"><p><i title="All photos" class="fa fa-picture-o"></i> {{ photos | length }}</p></a>
+                <a href="/view/videos"><p><i title= "All videos" class="fa fa-film"></i> {{ videos | length }}</p></a>
+            </div>
+            <div class="activity">
                 <p><i title="All users" class="fa fa-users"></i> {{ users | length }}</p>
                 <p><i title= "Online users" class="fa fa-globe"></i> {{ online_users | length }}</p>
             </div>

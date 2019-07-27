@@ -5,7 +5,7 @@ if (sidebar) {
     window.addEventListener('scroll', function() {
         if (sidebarTop - document.documentElement.scrollTop <= 100  ){
             sidebar.style.position = 'fixed';
-            sidebar.style.top = '120px';
+            sidebar.style.top = '60px';
         } else {
             sidebar.style.position = 'static';
             sidebar.style.top = 'auto';
@@ -37,6 +37,8 @@ window.addEventListener('resize', function() {
     }
 });
 document.getElementById('nav-icon1').click();
+document.getElementById('nav-icon1').click();
+
 
 
 // COMMENT BLOCK SECTION OPENING
@@ -141,9 +143,10 @@ if (!single_post) {
 }
 
 
-// NO-CONTENT
+// WHEN THERE IS N0 CONTENT
 const section_style = document.getElementsByClassName('section-style')[0];
 const no_content = document.getElementsByClassName('no-content')[0];
 if (no_content) {
     section_style.style.height = '100vh';
 }
+

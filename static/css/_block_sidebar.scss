@@ -2,6 +2,9 @@
   position: relative;
   padding: 0 5%;
   margin-bottom: 50px;
+  .sidebar {
+    margin-top: 30px;
+  }
   i {
     color: $maincolor;
   }
@@ -24,4 +27,5 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-top: 10px;
 }

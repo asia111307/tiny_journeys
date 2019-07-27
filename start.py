@@ -4,6 +4,7 @@ from os import path
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///gr_db.db'
@@ -17,6 +18,8 @@ app.static_path = path.join(path.abspath(__file__), 'static')
 
 app.secret_key = 'super secret key'
 app.config['SESSION_TYPE'] = 'filesystem'
+
+migrate = Migrate(app, db)
 
 from models import *
 

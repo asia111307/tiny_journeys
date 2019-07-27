@@ -112,11 +112,10 @@ class Photo(db.Model):
             'creation_date': self.creation_date,
         }
 
-    def __init__(self, name, source, *post_id):
+    def __init__(self, name, source, post_id):
         self.name = name
         self.source = source
-        if post_id:
-            self.post_id = post_id[0]
+        self.post_id = post_id
 
 
 class Video(db.Model):
@@ -136,8 +135,62 @@ class Video(db.Model):
             'creation_date': self.creation_date,
         }
 
-    def __init__(self, name, source, *post_id):
+    def __init__(self, name, source, post_id):
         self.name = name
         self.source = source
-        if post_id:
-            self.post_id = post_id[0]
+        elf.post_id = post_id
+
+
+class Like(db.Model):
+    __tablename__ = 'like'
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    post_id = Column(Integer, ForeignKey('user.id'))
+    date = Column(DateTime, default=datetime.datetime.now)
+
+    def to_json(self):
+        return {
+            'id': self.id,
+            'user_id': self.author_id,
+            'post_id': self.post_id,
+            'date': self.date,
+        }
+
+    def __init__(self, user_id, post_id):
+        self.user_id = user_id
+        self.post_id = post_id
+
+
+class Tag(db.Model):
+    __tablename__ = 'tag'
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    name = Column(String, default='')
+    date = Column(DateTime, default=datetime.datetime.now)
+
+    def to_json(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'date': self.date,
+        }
+
+    def __init__(self, name):
+        self.name = name
+
+
+class TagPost(db.Model):
+    __tablename__ = 'tagpost'
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    tag = Column(Integer, ForeignKey('tag.id'))
+    post = Column(Integer, ForeignKey('post.id'))
+
+    def to_json(self):
+        return {
+            'id': self.id,
+            'tag': self.tag,
+            'post': self.post,
+        }
+
+    def __init__(self, tag, post):
+        self.tag = tag
+        self.post = post

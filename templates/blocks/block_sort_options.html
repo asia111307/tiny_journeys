@@ -1,5 +1,9 @@
 {% macro block_sort_options(type) %}
     <div class="sort-options">
+    {% if type == 'posts' %}
+        <a class="form-btn" href="{{ '/view/{}/mostliked'.format(type) }}" name="mostliked"> Most liked </a>
+        <a class="form-btn" href="{{ '/view/{}/mostcommented'.format(type) }}" name="mostcommented"> Most commented </a>
+    {% endif %}
         <a class="form-btn" href="{{ '/view/{}/oldestfirst'.format(type) }}" name="oldestfirst"> Oldest first </a>
         <a class="form-btn" href="{{ '/view/{}/newestfirst'.format(type) }}" name="newestfirst"> Latest first </a>
         <a class="form-btn" href="{{ '/view/{}/lastweek'.format(type) }}" name="lastweek"> Last week</a>

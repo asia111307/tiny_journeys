@@ -4,10 +4,9 @@
   border: $border;
   margin-top: 30px;
   .visible-post {
-    margin-bottom: 10%;
     display: flex;
     flex-direction: column;
-    p, h4 {
+    h4 {
       margin-top: 10%;
     }
     .neighbour-posts {
@@ -21,10 +20,32 @@
     }
   }
 }
-
-
-
-
+.likes-span {
+  margin-left: 10px;
+}
+.like-link .fa-thumbs-up, .like-link .fa-thumbs-down {
+  border: 1px solid $background-color;
+  border-radius: 50%;
+  padding: 5px;
+  transition: 0.3s;
+}
+.like-link .fa-thumbs-up:hover, .like-link .fa-thumbs-down:hover {
+  border: 1px solid $maincolor;
+  background-color: $maincolor;
+  color: $background-color;
+}
+.like {
+  color: $maincolor;
+}
+.likes-block {
+  border-top: $border;
+  border-bottom: $border;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px 0;
+}
 
 
 

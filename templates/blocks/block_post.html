@@ -1,6 +1,8 @@
 {% from 'blocks/block_comments.html' import block_comment with context %}
+{% from 'blocks/block_likes.html' import block_likes with context %}
 
-{% macro block_post(post, user, prev, next, comments, comments_count, fullview) %}
+
+{% macro block_post(post, user, prev, next, comments, comments_count, likes, user_post_likes, fullview) %}
 <div class="post-content">
     <div class="visible-post">
         <h1 class="h-style">
@@ -23,6 +25,7 @@
                 </div>
             {% endif %}
         </div>
+        {{ block_likes(user_post_likes, user, post, likes) }}
         <div class="neighbour-posts">
             {% if prev %}
                 <h5 class="p-style credentials"><a href="/view/post/{{ prev.id }}"><i class="fa fa-caret-left"></i> {{ '#{} {}'.format(prev.id, prev.title) }}</a></h5>
