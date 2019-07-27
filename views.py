@@ -25,7 +25,7 @@ def start():
     users = User.query.all()
     photos = Photo.query.all()
     videos = Video.query.all()
-    online_users = User.query.filter(User.isOnline is True).all()
+    online_users = User.query.filter(User.isOnline == True).all()
     if posts:
         prevs = [Post.query.get(post[1].id - 1) for post in posts]
         nexts = [Post.query.get(post[1].id + 1) for post in posts]
