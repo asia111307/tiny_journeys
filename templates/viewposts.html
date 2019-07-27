@@ -23,12 +23,12 @@
                                 </span>
                                 {{ comments[contents.index(post)] }}
                             </a>
-                            <a href="/view/post/{{ post[1].id }}" class="view-link">
-                                <span class="comment-icon icon-small">
-                                    <i title="Likes" class="fa fa-thumbs-up"></i>
-                                </span>
-                                {{ likes[contents.index(post)] }}
-                            </a>
+{#                            <a href="/view/post/{{ post[1].id }}" class="view-link">#}
+{#                                <span class="comment-icon icon-small">#}
+{#                                    <i title="Likes" class="fa fa-thumbs-up"></i>#}
+{#                                </span>#}
+{#                                {{ likes[contents.index(post)] }}#}
+{#                            </a>#}
                         </p>
                         <p class="p-content">{{ post[1].content | safe | truncate(300) }}
                             <span class="readmore">

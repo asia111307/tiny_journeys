@@ -47,14 +47,14 @@ def render_view_content(content_type):
     if content_type == 'posts':
         contents = db.session.query(User, Post).filter(Post.author==User.id).order_by(Post.creation_date.desc()).all()
         comments = [len(Comment.query.filter(Comment.post_id == post[1].id).all()) for post in contents]
-        likes = [len(Like.query.filter(Like.post_id == post[1].id).all()) for post in contents]
+        # likes = [len(Like.query.filter(Like.post_id == post[1].id).all()) for post in contents]
     elif content_type == 'photos':
         contents = Photo.query.order_by(Photo.creation_date.desc()).all()
     elif content_type == 'videos':
         contents = Video.query.order_by(Video.creation_date.desc()).all()
     else:
         return abort(404)
-    return render_template('view{}.html'.format(content_type), contents=contents, current_option='Latest first', comments=comments, likes=likes)
+    return render_template('view{}.html'.format(content_type), contents=contents, current_option='Latest first', comments=comments)
 
 
 @app.route('/view/<content_type>/<sort_option>', methods=['POST', 'GET'])
