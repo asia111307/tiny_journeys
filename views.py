@@ -113,7 +113,9 @@ def render_view_post(post_id):
     p_next = Post.query.get(post_id+1)
     comments = Comment.query.filter(Comment.post_id == post.id).order_by(Comment.creation_date.desc()).all()
     likes = db.session.query(Like, User).filter(Like.user_id == User.id).filter(Like.post_id == post.id).order_by(Like.date.desc()).all()
-    user_post_likes = True if Like.query.filter(Like.post_id == post.id).filter(Like.user_id == current_user.id).all() else False
+    user_post_likes = ''
+    if current_user.is_authenticated:
+        user_post_likes = True if Like.query.filter(Like.post_id == post.id).filter(Like.user_id == current_user.id).all() else False
     return render_template('view_post.html', post=post, user=user, prev=p_prev, next=p_next, comments=comments, likes=likes, user_post_likes=user_post_likes)
 
 
