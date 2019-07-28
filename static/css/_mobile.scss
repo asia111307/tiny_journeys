@@ -80,11 +80,16 @@
     margin-bottom: 50px!important;
   }
   .comments-form {
+    flex-direction: column!important;
     .form-btn {
-      margin-top: 0!important;
+      width: 70%!important;
     }
     textarea, input {
       width: 100%!important;
+    }
+    .form-group {
+      margin-right: 0!important;
+      margin-bottom: 20px!important;
     }
   }
   .visible-post-comments-content {
