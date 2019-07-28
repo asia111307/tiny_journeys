@@ -30,7 +30,11 @@
                                     <span class="user-icon">
                                         <i class="fa fa-user-circle user-icon-fa"></i>
                                     </span>
-                                    <span class="author"> {{ comment.author }}</span>,
+                                    {% if comment.author_id %}
+                                        <span class="author"> <a href="/profile/{{ comment.author }}">{{ comment.author }}</a></span>,
+                                    {% else %}
+                                        <span class="author"> {{ comment.author }}</span>,
+                                    {% endif %}
                                     {{ '{} {} {}, {}:{}'.format(comment.creation_date.day, comment.creation_date.strftime('%B'), comment.creation_date.year, comment.creation_date.hour, comment.creation_date.minute) }}</p>
                                 {% if current_user.username == 'admin' %}
                                     <a href="/delete/comment/{{ post.id }}/{{comment.id}}" name="delete-commentt-btn"> <i class="fa fa-times"></i></a>
