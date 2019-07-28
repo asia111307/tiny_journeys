@@ -81,16 +81,6 @@
   }
   .comments-form {
     flex-direction: column!important;
-    .form-btn {
-      width: 70%!important;
-    }
-    textarea, input {
-      width: 100%!important;
-    }
-    .form-group {
-      margin-right: 0!important;
-      margin-top: 20px!important;
-    }
   }
   .visible-post-comments-content {
     padding: 0!important;
@@ -100,4 +90,20 @@
     padding: 0 40px!important;
     border: 0!important;
   }
+  textarea, input {
+    width: 100%!important;
+  }
+  .form-group {
+    margin-right: 0!important;
+    margin-top: 20px!important;
+    width: 100%!important;
+  }
+  .form-meta {
+    flex-direction: column!important;
+  }
+  .form-btn {
+    width: 40%!important;
+  }
+
+
 }
