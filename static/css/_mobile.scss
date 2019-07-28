@@ -79,4 +79,15 @@
   .post-form {
     margin-bottom: 50px!important;
   }
+  .comments-form {
+    .form-btn {
+      margin-top: 0!important;
+    }
+    textarea, input {
+      width: 100%!important;
+    }
+  }
+  .visible-post-comments-content {
+    padding: 0!important;
+  }
 }
