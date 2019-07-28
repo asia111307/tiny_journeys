@@ -91,7 +91,7 @@
     border: 0!important;
   }
   textarea, input {
-    width: 100%;
+    width: 100%!important;
   }
   .form-group {
     margin-right: 0;
@@ -103,6 +103,7 @@
   }
   .form-btn {
     width: 40%;
+    margin-top: 0!important;
   }
 
 
