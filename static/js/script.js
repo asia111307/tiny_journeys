@@ -74,9 +74,6 @@ if (single_post) {
     for (let i=0; i<comments_headers.length; i++){
         comments_headers[i].click();
     }
-    lightbox.option({
-      'wrapAround': true
-    });
 }
 
 
@@ -144,7 +141,7 @@ if (!single_post) {
 }
 
 
-// WHEN THERE IS N0 CONTENT
+//  N0 CONTENT HEIGHT ADJUSTMENT
 const section_style = document.getElementsByClassName('section-style')[0];
 const no_content = document.getElementsByClassName('no-content')[0];
 if (no_content) {
