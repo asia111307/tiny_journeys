@@ -1,7 +1,4 @@
 @media screen and (max-width: 880px) {
-  nav ul {
-    display: block;
-  }
   .hamburger-item {
     display: flex!important;
   }
@@ -10,6 +7,9 @@
   }
   .visible-post .meta {
     display: block!important;
+  }
+  .other-menu-items, .other-menu-items li {
+    width: 100%!important;
   }
   .home-posts {
     width: 100%!important;
@@ -76,7 +76,7 @@
   .nav-hidden {
     display: none;
   }
-  .post-form {
+  .post-form, .post-content {
     margin-bottom: 50px!important;
   }
   .comments-form {
@@ -89,5 +89,10 @@
   }
   .visible-post-comments-content {
     padding: 0!important;
+  }
+  .login-block {
+    width: 100%!important;
+    padding: 0 40px!important;
+    border: 0!important;
   }
 }

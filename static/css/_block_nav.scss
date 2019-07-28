@@ -14,6 +14,10 @@ nav {
     background-color: $background-color;
     color: $maincolor;
     border-bottom: $border;
+    flex-wrap: wrap;
+    .logo-menu-item {
+      width: 50%;
+    }
     ul {
       display: none;
       position: absolute;
@@ -66,6 +70,7 @@ nav {
     }
     .other-menu-items {
       display: flex;
+      width: 50%;
       li {
         transition: 0.3s;
         display: flex;
@@ -75,11 +80,11 @@ nav {
           transform: scale(1.1);
         }
       }
-      .hamburger-item {
-        display: none;
-        align-items: center;
-        justify-content: center;
-      }
+    }
+    .hamburger-item {
+      display: none;
+      align-items: center;
+      justify-content: center;
     }
   }
 }
