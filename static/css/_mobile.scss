@@ -103,6 +103,17 @@
   }
   .form-btn {
     width: 40%;
+    margin-top: 20px!important;
+  }
+  .post-form {
+    .form-group {
+      width: 100%!important;
+    }
+  }
+  .post-form-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
 
