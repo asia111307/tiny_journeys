@@ -1,0 +1,26 @@
+{% extends "start.html" %}
+
+{% block title %} Admin Panel {% endblock %}
+
+{% block content %}
+    <section class="section-style">
+    <div class="add-tag">
+    <form class="tag-form" action="/add/tag" method="post">
+        <input type="text" name="new_tag">
+        <button type="submit" class="btn btn-info form-btn"> Add </button>
+    </form>
+    <p>Tags:</p>
+    {% for tag in tags %}
+        {{ tag.name }}
+    {% endfor %}
+        <p>Unique tags: {{ tags | length }} </p>
+    <br>
+    <p>Tagposts: </p>
+    {% for tagpost in tagposts %}
+        {{ tagpost[1].name }} : <a href="/view/post/{{ tagpost[2].id }}">{{ tagpost[2].id }}</a><br>
+    {% endfor %}
+    <br>
+     <p> Tagposts: {{ tagposts | length }} </p>
+    </div>
+{% endblock %}
+

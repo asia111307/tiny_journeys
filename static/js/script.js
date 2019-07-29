@@ -148,3 +148,19 @@ if (no_content) {
     section_style.style.height = '100vh';
 }
 
+
+
+// AJAX FOR LIKES
+// const thumbs = document.getElementsByClassName('like-link');
+// for (let i=0; i< thumbs.length; i++){
+//     thumbs[i].addEventListener('click', function () {
+//         const href = this.href;
+//         $.ajax({
+//           url: href,
+//                  success: function(data){
+//                  alert("HAPPY");
+//                }
+//         });
+//
+//     })
+// }

@@ -2,7 +2,7 @@
 {% from 'blocks/block_likes.html' import block_likes with context %}
 
 
-{% macro block_post(post, user, prev, next, comments, comments_count, likes, user_post_likes, fullview) %}
+{% macro block_post(post, user, prev, next, comments, likes, user_post_likes, fullview, tag=None) %}
 <div class="post-content">
     <div class="visible-post">
         <h1 class="h-style">
@@ -15,6 +15,7 @@
             <h5 class="p-style credentials"> Created by <span class="author"><a href="/profile/{{ user.username }}"> {{ user.username }} </a></span> on {{ '{} {} {}, {}:{}'.format(post.creation_date.day, post.creation_date.strftime('%B'), post.creation_date.year, post.creation_date.hour, post.creation_date.strftime('%M')) }}</h5>
             <h5 class="p-style credentials">Last modified on {{ '{} {} {}, {}:{}'.format(post.last_modified_date.day, post.last_modified_date.strftime('%B'), post.last_modified_date.year, post.last_modified_date.hour, post.last_modified_date.strftime('%M')) }}</h5>
             {% if fullview and current_user.id == post.author or current_user.isAdmin == True %}
+                <h5 class="p-style credentials">Tag: {{ tag.name }}</h5>
                 <div class="post-actions">
                     <div>
                         <a class="form-btn meta-btn" href="/edit/post/{{post.id}}" name="edit-btn"> <i class="fa fa-pencil"></i> Edit </a>
@@ -28,17 +29,17 @@
         {{ block_likes(user_post_likes, user, post, likes) }}
         <div class="neighbour-posts">
             {% if prev %}
-                <h5 class="p-style credentials"><a href="/view/post/{{ prev.id }}"><i class="fa fa-caret-left"></i> {{ '#{} {}'.format(prev.id, prev.title) }}</a></h5>
+                <h5 class="p-style credentials"><a href="/view/post/{{ prev.id }}"><i class="fa fa-caret-left"></i> {{ prev.title }}</a></h5>
             {% else %}
                 <h5></h5>
             {% endif %}
             {% if next %}
-                <h5 class="p-style credentials"><a href="/view/post/{{ next.id }}">{{ '#{} {}'.format(next.id, next.title) }} <i class="fa fa-caret-right"></i></a></h5>
+                <h5 class="p-style credentials"><a href="/view/post/{{ next.id }}">{{ next.title }} <i class="fa fa-caret-right"></i></a></h5>
             {% else %}
                 <h5></h5>
             {% endif %}
         </div>
     </div>
-    {{ block_comment(post, comments, comments_count) }}
+    {{ block_comment(post, comments) }}
 </div>
 {% endmacro %}

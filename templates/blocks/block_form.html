@@ -15,10 +15,25 @@
                 <input type="text" name="title" id="title" placeholder="Post title" class="form-control title-input" value="{{ post.title if post }}" required><br>
             </div>
         </div>
+        {% if tags %}
+            <p>Post category: </p>
+            <div class="form-group">
+                <select name="tag" method="GET">
+                    {% for one_tag in tags %}
+                        {% if one_tag == tag %}
+                            <option value="{{ one_tag.name }}" selected> {{ one_tag.name }} </option>
+                        {% else %}
+                            <option value="{{ one_tag.name }}"> {{ one_tag.name }} </option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        {% endif %}
         <div class="form-group post-content-form">
 {#            <label for="content" data-toggle="tooltip" title="Post content" data-placement="top"> Post content </label>#}
             <textarea name="content" id="content" placeholder="Post content" class="form-control" rows="8" required>{{ post.content if post }}</textarea>
         </div>
+
         {% if type=='add' %}
             <div class="post-form-buttons">
                 <button type="reset" class="form-btn" id="reset-btn"> Clear </button>

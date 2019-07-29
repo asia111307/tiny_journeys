@@ -1,6 +1,6 @@
 {% macro block_likes(user_post_likes, user, post, likes) %}
     <div class="likes-block">
-        {% if not current_user.is_anonymous %}
+        {% if not current_user.is_anonymous and current_user.id != post.author %}
             <p class="likes-p">
                 {% if user_post_likes %}
                     <a class="like like-link" href="/unlike/post/{{ current_user.id }}/{{post.id}}" name="unlikee-btn"><i class="fa fa-thumbs-down" title="Unlike"></i></a>

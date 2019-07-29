@@ -46,10 +46,17 @@
                 </li>
                 {% if current_user.is_authenticated %}
                     <li class="nav-hidden">
-                        <a href="/profile/{{ current_user.username }}" class="label-link">
+                    {% if current_user.isAdmin %}
+                        <a href="/admin/panel" class="label-link">
                             <i class="fa fa-user icon-big"></i>
                             <p class="label-p">{{ current_user.username }}</p>
                         </a>
+                        {% else %}
+                            <a href="/profile/{{ current_user.username }}" class="label-link">
+                                <i class="fa fa-user icon-big"></i>
+                                <p class="label-p">{{ current_user.username }}</p>
+                            </a>
+                        {% endif %}
                     </li>
                 {% endif %}
                 <li class="nav-hidden">
