@@ -14,16 +14,20 @@
         <div class="meta">
             <h5 class="p-style credentials"> Created by <span class="author"><a href="/profile/{{ user.username }}"> {{ user.username }} </a></span> on {{ '{} {} {}, {}:{}'.format(post.creation_date.day, post.creation_date.strftime('%B'), post.creation_date.year, post.creation_date.hour, post.creation_date.strftime('%M')) }}</h5>
             <h5 class="p-style credentials">Last modified on {{ '{} {} {}, {}:{}'.format(post.last_modified_date.day, post.last_modified_date.strftime('%B'), post.last_modified_date.year, post.last_modified_date.hour, post.last_modified_date.strftime('%M')) }}</h5>
-            {% if fullview and current_user.id == post.author or current_user.isAdmin == True %}
-                <h5 class="p-style credentials">Tag: {{ tag.name }}</h5>
-                <div class="post-actions">
-                    <div>
-                        <a class="form-btn meta-btn" href="/edit/post/{{post.id}}" name="edit-btn"> <i class="fa fa-pencil"></i> Edit </a>
+            {% if fullview %}
+                {% if tag %}
+                    <h5 class="p-style credentials">Tag: {{ tag[0].name }}</h5>
+                {% endif %}
+                {% if current_user.id == post.author or current_user.isAdmin == True %}
+                    <div class="post-actions">
+                        <div>
+                            <a class="form-btn meta-btn" href="/edit/post/{{post.id}}" name="edit-btn"> <i class="fa fa-pencil"></i> Edit </a>
+                        </div>
+                        <div>
+                            <a class="form-btn meta-btn" href="/delete/post/{{post.id}}" name="delete-btn"><i class="fa fa-times-circle"></i> Delete </a>
+                        </div>
                     </div>
-                    <div>
-                        <a class="form-btn meta-btn" href="/delete/post/{{post.id}}" name="delete-btn"><i class="fa fa-times-circle"></i> Delete </a>
-                    </div>
-                </div>
+                {% endif %}
             {% endif %}
         </div>
         {{ block_likes(user_post_likes, user, post, likes) }}

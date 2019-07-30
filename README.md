@@ -1,9 +1,36 @@
-# tiny_journeys
-A small blog written in Flask. Not perfect yet, still needs frontend fixes and performance boosting, but at least works to some extend.
+# Tiny Journeys
 
-See the blog online: http://jpaliwoda.pythonanywhere.com/
+Tiny Journeys is a small, travel-themed blog. Not perfect yet, still needs frontend fixes and performance boosting, but at least works to some extend. The aim is to create a simple-looking, but functionable blog service with elements of social networking sites (like Facebook or Instagram). 
 
-## How to run the project locally:
+By now, a user can:
+- create an account and login
+- add, edit and delete post and select tag for post (only logged in users)
+- add comments to posts (admin can also delete comments)
+- like and unlike posts and see who liked posts (only logged in users)
+- see photos for a post in lightbox gallery
+- view posts, photos and videos from the whole site with sorting options
+- see site statistics
+- see own activity statistics (only logged in users)
+
+Features in progress:
+- user can see his own and other users' profiles (only logged in users)
+- user can see his own activity log
+- full admin panel 
+
+See (and try!) the blog online: http://jpaliwoda.pythonanywhere.com/
+
+## Build with
+- HTML, CSS and JavsScript - as a frontend layer
+- [Python3.6](https://www.python.org/) - as a backend language
+- [Flask](https://palletsprojects.com/p/flask/) - the Python framework
+- [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/) - the Python SQL toolkit
+- [Flask-Login](https://flask-login.readthedocs.io/en/latest/) - the library to manage logging sessions
+- [Summernote](https://summernote.org/) - an open source, simple WYSIWYG editor
+- [Lightbox2](https://lokeshdhakar.com/projects/lightbox2/) - a free-licensed plugin for lightbox gallery
+
+
+## Getting Started
+
 You have to install **Python 3.6** on your machine, if you do not have it yet, e.g with: 
     
     $ sudo apt-get install python3.6
@@ -27,7 +54,7 @@ Then, install **npm**:
 ### Create and start virtual environment
     $ virtualenv .env && source .env/bin/activate && pip install -r requirements.txt
 
-### If you want to run gulp
+### Run gulp
     $ npm install
     $ gulp watch
 

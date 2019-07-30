@@ -15,8 +15,6 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
 
-POSTS_PER_PAGE = 5
-
 
 @app.route('/')
 def start():
@@ -110,7 +108,7 @@ def render_view_post(post_id):
     p_next = Post.query.get(post_id+1)
     comments = Comment.query.filter(Comment.post_id == post.id).order_by(Comment.creation_date.desc()).all()
     likes = db.session.query(Like, User).filter(Like.user_id == User.id).filter(Like.post_id == post.id).order_by(Like.date.desc()).all()
-    tag = db.session.query(Tag, TagPost).filter(TagPost.tag == Tag.id).filter(TagPost.post == post.id).first()[0]
+    tag = db.session.query(Tag, TagPost).filter(TagPost.tag == Tag.id).filter(TagPost.post == post.id).first()
     user_post_likes = ''
     if current_user.is_authenticated:
         user_post_likes = True if Like.query.filter(Like.post_id == post.id).filter(Like.user_id == current_user.id).all() else False

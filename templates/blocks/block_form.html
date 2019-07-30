@@ -16,9 +16,9 @@
             </div>
         </div>
         {% if tags %}
-            <p>Post category: </p>
-            <div class="form-group">
-                <select name="tag" method="GET">
+            <div class="form-group form-group-tags">
+                <p>Post category: </p>
+                <select class="select" name="tag" method="GET">
                     {% for one_tag in tags %}
                         {% if one_tag == tag %}
                             <option value="{{ one_tag.name }}" selected> {{ one_tag.name }} </option>

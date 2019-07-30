@@ -164,4 +164,16 @@ i {
 .post-content-form {
   margin-right: 0;
   width: 100%!important;
+  margin-top: 20px;
+}
+.select {
+  border: none;
+  padding: 10px;
+  background-color: $background-color;
+  margin-left: 15px;
+}
+.form-group-tags {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
