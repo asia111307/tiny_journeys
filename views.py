@@ -241,7 +241,7 @@ def edit_post_id(post_id):
         post = Post.query.get_or_404(post_id)
         author = User.query.get(post.author).username
         tags = Tag.query.all()
-        tag = db.session.query(Tag, TagPost).filter(TagPost.tag == Tag.id).filter(TagPost.post == post.id).first()[0]
+        tag = db.session.query(Tag, TagPost).filter(TagPost.tag == Tag.id).filter(TagPost.post == post.id).first()
         return render_template('editpost.html', post=post, author=author, tags=tags, tag=tag)
 
 
