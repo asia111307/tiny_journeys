@@ -1,12 +1,15 @@
 .page-sidebar {
   position: relative;
-  padding: 0 5%;
+  padding: 0 0 0 50px;
   margin-bottom: 50px;
+  width: 200px;
   .sidebar {
     margin-top: 30px;
+    width: 200px;
   }
   i {
     color: $maincolor;
+    padding-right: 5px;
   }
   .account-icon-fa {
     margin: 0 10px;
@@ -28,4 +31,8 @@
   justify-content: space-around;
   align-items: center;
   margin-top: 10px;
+}
+.fixed {
+  position: fixed;
+  top: 60px;
 }

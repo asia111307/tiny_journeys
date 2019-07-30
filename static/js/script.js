@@ -4,11 +4,9 @@ if (sidebar) {
     const sidebarTop = sidebar.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
     window.addEventListener('scroll', function() {
         if (sidebarTop - document.documentElement.scrollTop <= 100  ){
-            sidebar.style.position = 'fixed';
-            sidebar.style.top = '60px';
+            sidebar.classList.add('fixed');
         } else {
-            sidebar.style.position = 'static';
-            sidebar.style.top = 'auto';
+            sidebar.classList.remove('fixed');
         }
     });
 }

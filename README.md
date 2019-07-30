@@ -26,7 +26,7 @@ See (and try!) the blog online: http://jpaliwoda.pythonanywhere.com/
 - [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/) - the Python SQL toolkit
 - [Flask-Login](https://flask-login.readthedocs.io/en/latest/) - the library to manage logging sessions
 - [Summernote](https://summernote.org/) - an open source, simple WYSIWYG editor
-- [Lightbox2](https://lokeshdhakar.com/projects/lightbox2/) - a free-licensed plugin for lightbox gallery
+- [Lightbox2](https://lokeshdhakar.com/projects/lightbox2/) - a free-licensed lightbox gallery
 
 
 ## Getting Started

@@ -16,7 +16,12 @@ nav {
     border-bottom: $border;
     flex-wrap: wrap;
     .logo-menu-item {
-      width: 50%;
+      width: 30%;
+      .logo-li {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+      }
     }
     ul {
       display: none;
@@ -70,7 +75,9 @@ nav {
     }
     .other-menu-items {
       display: flex;
-      width: 50%;
+      align-items: center;
+      justify-content: flex-end;
+      width: 70%;
       li {
         transition: 0.3s;
         display: flex;

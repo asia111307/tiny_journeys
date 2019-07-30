@@ -158,9 +158,6 @@ p {
 .icon-big {
   font-size: $bigiconsize;
 }
-i {
-  padding-right: 5px;
-}
 .post-content-form {
   margin-right: 0;
   width: 100%!important;
@@ -176,4 +173,7 @@ i {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+i {
+  padding: 0;
 }

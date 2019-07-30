@@ -8,9 +8,6 @@
   .visible-post .meta {
     display: block!important;
   }
-  .other-menu-items, .other-menu-items li {
-    width: 100%!important;
-  }
   .home-posts {
     width: 100%!important;
   }
@@ -44,8 +41,15 @@
   .explore-btn {
     display: none!important;
   }
+  .logo-menu-item {
+    width: 50%!important;
+  }
   .other-menu-items {
     flex-direction: column-reverse!important;
+    width: 100%!important;
+  }
+  .other-menu-items li {
+    width: 100%!important;
   }
   .label-link {
     flex-direction: row!important;
