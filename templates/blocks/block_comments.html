@@ -2,11 +2,9 @@
     <div class="visible-post-comments">
         <h7 class="comments-header"><i title="Comments" class="fa fa-comment comment-icon-fa icon-big"></i> Comments: {{ comments | length }} <i class="fa fa-caret-down caret-icon-fa"></i></h7>
         <div class="visible-post-comments-content">
-            <hr class="comments-hr">
             <div class="leave-comment">
-                <h6 class="smaller-h"> Leave a comment </h6>
                 <form class="comments-form" action="/add/comment/{{ post.id}}" method="post">
-                    <div class="form-group">
+                    <div class="form-group comment-author">
 {#                            <label for="com_author" class="col-sm-3 col-form-label" data-toggle="tooltip" title="Type your name here" data-placement="left"> Your name </label>#}
                         {% if not current_user.is_anonymous %}
                             <input type="text" name="author" id="com_author" placeholder="Your name" class="form-control" value="{{ current_user.username }}" required readonly><br>
@@ -14,11 +12,11 @@
                             <input type="text" name="author" id="com_author" placeholder="Your name" class="form-control" required><br>
                         {%  endif %}
                     </div>
-                    <div class="form-group">
+                    <div class="form-group comment-content">
 {#                            <label for="com_content" class="col-sm-3 col-form-label" data-toggle="tooltip" title="Type your comment" data-placement="top"> Your comment </label>#}
                         <textarea name="content" id="com_content" placeholder="Your comment" class="form-control" rows="1" required></textarea><br>
                     </div>
-                    <button type="submit" class="btn btn-info form-btn"> Send </button>
+                    <button type="submit" class="btn btn-info form-btn"> Post a comment </button>
                 </form>
             </div>
             {% if comments %}

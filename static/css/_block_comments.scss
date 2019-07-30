@@ -9,12 +9,7 @@
     }
   }
   .visible-post-comments-content {
-    padding-left: 5%;
     display: none;
-    .comments-hr {
-      width: 65%;
-      margin-right: 35%;
-    }
     .leave-comment {
       margin-top: 5%;
       .comments-form {
@@ -24,8 +19,15 @@
         .form-group {
           margin-right: 10px;
         }
+        .comment-author {
+          width: 25%;
+        }
+        .comment-content {
+          width: 45%;
+        }
         .form-btn {
           margin-top: 0;
+          width: 25%;
         }
       }
     }
