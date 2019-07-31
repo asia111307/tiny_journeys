@@ -1,19 +1,19 @@
 @media screen and (max-width: 880px) {
   .hamburger-item {
-    display: flex;
+    display: flex!important;
   }
   .home-section {
-    display: block;
+    display: block!important;
   }
   .visible-post .meta {
-    display: block;
+    display: block!important;
   }
   .home-posts {
-    width: 100%;
+    width: 100%!important;
   }
   .page-sidebar {
-    width: 100%;
-    padding-right: 0;
+    width: 100%!important;
+    padding-right: 0!important;
   }
   .sidebar {
     padding: 0!important;
@@ -114,7 +114,7 @@
     margin-top: 20px!important;
   }
   .comment .form-btn {
-    width: 80%;
+    width: 80%!important;
   }
   .post-form {
     .form-group {
@@ -133,7 +133,4 @@
   .comment-content, .comment-author {
     margin-right: 0;
   }
-
-
-
 }
