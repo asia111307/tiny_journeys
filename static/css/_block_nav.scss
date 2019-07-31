@@ -87,6 +87,16 @@ nav {
           transform: scale(1.1);
         }
       }
+      .profile-img-nav {
+        width: 25px;
+        height: 25px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: $border;
+      }
+      .label-p-nav {
+        margin-top: 0;
+      }
     }
     .hamburger-item {
       display: none;

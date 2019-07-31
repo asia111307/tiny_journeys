@@ -15,7 +15,10 @@ By now, a user can:
 Features in progress:
 - user can see his own and other users' profiles (only logged in users)
 - user can see his own activity log
+- user can sort posts by Most commented and Most likes
+- user can change his account data
 - full admin panel 
+
 
 See (and try!) the blog online: http://jpaliwoda.pythonanywhere.com/
 

@@ -53,8 +53,17 @@
                         </a>
                         {% else %}
                             <a href="/profile/{{ current_user.username }}" class="label-link">
-                                <i class="fa fa-user icon-big"></i>
-                                <p class="label-p">{{ current_user.username }}</p>
+                                {% if current_user.profile_image %}
+                                    {% if 'http' in current_user.profile_image %}
+                                            <img class="profile-img-nav" alt="Profile picture" src="{{ current_user.profile_image }}">
+                                        {% else %}
+                                            <img class="profile-img-nav" alt="Profile picture" src="{{ url_for('static', filename='{}'.format(current_user.profile_image)) }}">
+                                    {% endif %}
+                                    <p class="label-p label-p-nav">{{ current_user.username }}</p>
+                                {% else %}
+                                    <i class="fa fa-user icon-big"></i>
+                                    <p class="label-p">{{ current_user.username }}</p>
+                                {% endif %}
                             </a>
                         {% endif %}
                     </li>

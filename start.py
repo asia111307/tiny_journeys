@@ -1,7 +1,7 @@
 __author__ = 'Asia Paliwoda'
 
 from os import path
-from flask import Flask
+from flask import Flask, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from flask_migrate import Migrate

@@ -5,6 +5,13 @@
 {% block content %}
     <section class="section-style">
     <h5> Welcome to {{ user.username }}'s profile! </h5>
+        {% if user.profile_image %}
+            {% if 'http' in user.profile_image %}
+                    <img class="profile-img" alt="Profile picture" src="{{ user.profile_image }}">
+                {% else %}
+                    <img class="profile-img" alt="Profile picture" src="{{ url_for('static', filename='{}'.format(user.profile_image)) }}">
+                {% endif %}
+        {% endif %}
     </section>
 {% endblock %}
 

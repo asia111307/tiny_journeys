@@ -9,7 +9,7 @@ from models import *
 import os, datetime, re
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, UserMixin, current_user
 from bs4 import BeautifulSoup
-
+from werkzeug import secure_filename
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -326,14 +326,23 @@ def register():
         username = request.form.get('username')
         password = request.form.get('password')
         password_again = request.form.get('password-again')
+        profile_picture_file = request.files['profile-picture-file']
+        profile_picture_link = request.form.get('profile-picture-link')
         all_usernames = [user.username for user in User.query.all()]
+        file_src = 'https://cdn.pixabay.com/photo/2014/04/02/10/25/man-303792_960_720.png'
         if username in all_usernames:
             feedback = 'This username is already taken'
             return render_template('register.html', feedback=feedback)
         if password != password_again:
             feedback = 'Passwords do not match'
             return render_template('register.html', feedback=feedback)
-        db.session.add(User(username=username, password=password))
+        if profile_picture_file:
+            filename = 'profile-picture-{}.jpg'.format(username)
+            profile_picture_file.save(os.path.join(app.root_path, 'static', 'uploads', filename))
+            file_src = 'uploads/{}'.format(filename)
+        if profile_picture_link:
+            file_src = profile_picture_link
+        db.session.add(User(username, password, False, file_src))
         db.session.commit()
         user = User.query.order_by(User.id.desc()).first()
         login_user(user, remember=True)

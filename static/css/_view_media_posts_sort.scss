@@ -57,9 +57,16 @@
 .sort-options {
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
   margin-top: 60px;
+  .form-btn {
+   max-width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   a {
-    margin: 0 5px;
+    margin: 5px;
   }
 }
 .view-link {

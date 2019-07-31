@@ -162,3 +162,11 @@ if (no_content) {
 //
 //     })
 // }
+// document.getElementById("profile-picture-file").onchange = function () {
+//     if(this.value.split(/(\\|\/)/g).pop()=='') {
+//         document.getElementById("upload-label").innerHTML = '<em>Choose file</em>';
+//     }
+//     else {
+//         document.getElementById("upload-label").innerHTML = this.value.split(/(\\|\/)/g).pop();
+//     }
+// };

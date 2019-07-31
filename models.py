@@ -73,6 +73,7 @@ class User(db.Model, UserMixin):
     id = Column(Integer, autoincrement=True, primary_key=True)
     username = Column(String, default='')
     password = Column(String, default='')
+    profile_image = Column(String, default='')
     creation_date = Column(DateTime, default=datetime.datetime.now)
     isAdmin = Column(Boolean, default=False)
     isLocked = Column(Boolean, default=False)
@@ -83,16 +84,18 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'password': self.password,
+            'profile_image': self.profile_image,
             'creation_date': self.creation_date,
             'isAdmin': self.isAdmin,
             'isLocked': self.isLocked,
             'isOnline': self.isOnline
         }
 
-    def __init__(self, username, password, isAdmin=False):
+    def __init__(self, username, password, isAdmin, profile_image):
         self.username = username
         self.password = password
         self.isAdmin = isAdmin
+        self.profile_image = profile_image
 
 
 class Photo(db.Model):

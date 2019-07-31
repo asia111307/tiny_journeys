@@ -9,6 +9,16 @@
     align-items: center;
     .form-group {
       margin-top: 20px;
+      width: 80%;
+      input {
+        width: 100%;
+      }
+      label {
+        padding: 0 12px;
+      }
+    }
+    .profile-img-file {
+      display: block;
     }
     .login-btn {
       margin-top: 40px;
