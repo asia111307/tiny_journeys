@@ -1,27 +1,31 @@
 {% macro block_likes(user_post_likes, user, post, likes) %}
     <div class="likes-block">
-        {% if not current_user.is_anonymous and current_user.id != post.author %}
+        {% if not current_user.is_anonymous %}
             <p class="likes-p">
+            {% if current_user.id != post.author %}
                 {% if user_post_likes %}
                     <a class="like like-link" href="/unlike/post/{{ current_user.id }}/{{post.id}}" name="unlikee-btn"><i class="fa fa-thumbs-down" title="Unlike"></i></a>
                 {% else %}
                    <a class="like-icon like-link" href="/like/post/{{ current_user.id }}/{{post.id}}" name="likee-btn"><i class="fa fa-thumbs-up" title="Like"></i></a>
                 {% endif %}
-                {{ likes | length  }}
-                {% if likes %}
-                    <span class="credentials likes-span">
-                    Liked by
-                        {% for l in range(likes | length) %}
-                            {% if l < (likes | length)-1 %}
-                                <a href="/profile/{{ likes[l][1].username }}">{{ likes[l][1].username }}</a>,
-                            {% else %}
-                                <a href="/profile/{{ likes[l][1].username }}">{{ likes[l][1].username }}</a>
-                            {% endif %}
-                        {% endfor %}
-                    </span>
-                {% else %}
-                    <p class="credentials likes-span"> Be the first one to like this!</p>
-                {% endif %}
+            {% else %}
+                <i class="fa fa-thumbs-up like" title="Likes"></i>
+            {% endif %}
+            {{ likes | length  }}
+            {% if likes %}
+                <span class="credentials likes-span">
+                Liked by
+                    {% for l in range(likes | length) %}
+                        {% if l < (likes | length)-1 %}
+                            <a href="/profile/{{ likes[l][1].username }}">{{ likes[l][1].username }}</a>,
+                        {% else %}
+                            <a href="/profile/{{ likes[l][1].username }}">{{ likes[l][1].username }}</a>
+                        {% endif %}
+                    {% endfor %}
+                </span>
+            {% else %}
+                <p class="credentials likes-span"> Be the first one to like this!</p>
+            {% endif %}
             </p>
         {% else %}
             <p class="likes-p like"> <i class="fa fa-thumbs-up" title="Likes"></i>{{ likes | length  }} </p>

@@ -3,10 +3,10 @@
 Tiny Journeys is a small, travel-themed blog. Not perfect yet, still needs frontend fixes and performance boosting, but at least works to some extend. The aim is to create a simple-looking, but functionable blog service with elements of social networking sites (like Facebook or Instagram). 
 
 By now, a user can:
-- create an account and login
+- create an account, add profile image and log in
 - add, edit and delete post and select tag for post (only logged in users)
 - add comments to posts (admin can also delete comments)
-- like and unlike posts and see who liked posts (only logged in users)
+- like and unlike posts and see who liked posts (only logged in users; user cannot like his own posts)
 - see photos for a post in lightbox gallery
 - view posts, photos and videos from the whole site with sorting options
 - see site statistics
