@@ -141,7 +141,7 @@ class Video(db.Model):
     def __init__(self, name, source, post_id):
         self.name = name
         self.source = source
-        elf.post_id = post_id
+        self.post_id = post_id
 
 
 class Like(db.Model):
