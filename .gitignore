@@ -16,6 +16,8 @@ venv-windows\
 /*Db.*
 gr_db.db
 
+static/uploads
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 __pycache__\
