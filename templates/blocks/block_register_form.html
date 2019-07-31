@@ -1,6 +1,7 @@
 {% macro block_register_form(feedback) %}
     <div class="login-block">
         <form class="login-form"  method="post" action="/account/register" enctype="multipart/form-data">
+            <p class="feedback"> Please keep in mind that this site is not secure yet and <b> do not choose your vulnerable data as credentials. </b></p>
             <div class="form-meta">
                 {% if feedback %}
                     <p class="feedback"> {{ feedback }} </p>
