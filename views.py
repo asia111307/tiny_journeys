@@ -211,6 +211,8 @@ def delete_post(post_id):
     Photo.query.filter_by(post_id=post_id).delete()
     Video.query.filter_by(post_id=post_id).delete()
     TagPost.query.filter_by(post=post_id).delete()
+    Comment.query.filter_by(post_id=post_id).delete()
+    Like.query.filter_by(post_id=post_id).delete()
     db.session.commit()
     return redirect('/')
 

@@ -16,10 +16,21 @@
                 <span class="credentials likes-span">
                 Liked by
                     {% for l in range(likes | length) %}
-                        {% if l < (likes | length)-1 %}
-                            <a href="/profile/{{ likes[l][1].username }}">{{ likes[l][1].username }}</a>,
-                        {% else %}
-                            <a href="/profile/{{ likes[l][1].username }}">{{ likes[l][1].username }}</a>
+                        {% if likes[l][1].username == current_user.username %}
+                            {% if l < (likes | length)-1 %}
+                                <a href="/profile/{{ likes[l][1].username }}">You</a>,
+                            {% else %}
+                                <a href="/profile/{{ likes[l][1].username }}">You</a>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    {% for l2 in range(likes | length) %}
+                        {% if likes[l2][1].username != current_user.username %}
+                            {% if l2 < (likes | length)-1 %}
+                                <a href="/profile/{{ likes[l2][1].username }}">{{ likes[l2][1].username }}</a>,
+                            {% else %}
+                                <a href="/profile/{{ likes[l2][1].username }}">{{ likes[l2][1].username }}</a>
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                 </span>
