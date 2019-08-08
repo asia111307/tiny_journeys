@@ -158,7 +158,7 @@ def find_all_images(post):
 @login_required
 def add_post():
     if request.method == 'POST':
-        author = session['logged_user']
+        author = current_user.id
         title = request.form.get('title')
         content = request.form.get('content')
         tag = request.form.get('tag')
@@ -186,7 +186,8 @@ def admin_panel():
     if current_user.isAdmin:
         tags = Tag.query.all()
         tagposts = db.session.query(TagPost, Tag, Post).filter(TagPost.tag == Tag.id).filter(TagPost.post == Post.id).all()
-        return render_template('admin_panel.html', tags=tags, tagposts=tagposts)
+        users = User.query.all()
+        return render_template('admin_panel.html', tags=tags, tagposts=tagposts, users=users)
     else:
         return abort(404)
 
@@ -196,12 +197,46 @@ def admin_panel():
 def add_tag():
     if request.method == 'POST':
         tag = request.form.get('new_tag')
-        print(tag)
         db.session.add(Tag(tag))
         db.session.commit()
         return redirect('/admin/panel')
     else:
         return redirect('/admin/panel')
+
+
+@app.route('/delete/tag/<int:tag_id>', methods=['POST', 'GET'])
+@login_required
+def delete_tag(tag_id):
+    Tag.query.filter_by(id=tag_id).delete()
+    TagPost.query.filter_by(tag=tag_id).delete()
+    db.session.commit()
+    return redirect('/admin/panel')
+
+
+@app.route('/delete/user/<int:user_id>', methods=['POST', 'GET'])
+@login_required
+def delete_user(user_id):
+    User.query.filter_by(id=user_id).delete()
+    db.session.commit()
+    return redirect('/admin/panel')
+
+
+@app.route('/lock/user/<int:user_id>', methods=['POST', 'GET'])
+@login_required
+def lock_user(user_id):
+    user = User.query.get(user_id)
+    user.isLocked = True
+    db.session.commit()
+    return redirect('/admin/panel')
+
+
+@app.route('/unlock/user/<int:user_id>', methods=['POST', 'GET'])
+@login_required
+def unlock_user(user_id):
+    user = User.query.get(user_id)
+    user.isLocked = False
+    db.session.commit()
+    return redirect('/admin/panel')
 
 
 @app.route('/delete/post/<int:post_id>')

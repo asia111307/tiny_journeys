@@ -182,5 +182,19 @@ i {
   min-width: 200px;
   min-height: 200px;
 }
-
-
+.profile-img-nav {
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: $border;
+}
+.mark-green {
+  color: green;
+}
+.mark-red {
+  color: darkred;
+}
+.users-table {
+  width: 100%;
+}
