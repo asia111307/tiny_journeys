@@ -1,0 +1,89 @@
+{% macro block_nav() %}
+<nav id="nav">
+    <div class="container">
+        <ul>
+            <div class="logo-menu-item">
+                <a href="/" title="Tiny Journeys" class="menu-item-logo">
+                    <li class="logo-li">
+                        <div class="logo-container">
+                            <div class="logo-btn"></div>
+                            <p> | Tiny Journeys </p>
+                        </div>
+                    </li>
+                </a>
+            </div>
+            <li class="hamburger-item">
+                <div id="nav-icon1" class="start">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </li>
+            <div class="other-menu-items">
+                <li class="nav-hidden">
+                    <a href="{{ url_for('post.add_post') }}" class="label-link">
+                        <i title="Add post" class="fa fa-plus-circle account-icon-fa icon-big"></i>
+                        <p class="label-p"> Add post </p>
+                    </a>
+                </li>
+                <li class="nav-hidden">
+                    <a href="{{ url_for('view.view_content', content_type='posts') }}" class="label-link">
+                        <i title="View posts" class="fa fa-newspaper-o account-icon-fa icon-big"></i>
+                        <p class="label-p"> Posts </p>
+                    </a>
+                </li>
+                <li class="nav-hidden">
+                    <a href="{{ url_for('view.view_content', content_type='photos') }}" class="label-link">
+                        <i title="View photos" class="fa fa-picture-o account-icon-fa icon-big"></i>
+                        <p class="label-p"> Photos </p>
+                    </a>
+                </li>
+                <li class="nav-hidden">
+                    <a href="{{ url_for('view.view_content', content_type='videos') }}" class="label-link">
+                        <i title="View videos" class="fa fa-film account-icon-fa icon-big"></i>
+                        <p class="label-p"> Videos </p>
+                    </a>
+                </li>
+                {% if current_user.is_authenticated %}
+                    <li class="nav-hidden">
+                    {% if current_user.isAdmin %}
+                        <a href="{{ url_for('admin.panel') }}" class="label-link">
+                            <i class="fa fa-user icon-big"></i>
+                            <p class="label-p">{{ current_user.username }}</p>
+                        </a>
+                        {% else %}
+                            <a href="{{ url_for('account.view_profile', username=current_user.username) }}" class="label-link">
+                                {% if current_user.profile_image %}
+                                    {% if 'http' in current_user.profile_image %}
+                                            <img class="profile-img-nav" alt="Profile picture" src="{{ current_user.profile_image }}">
+                                        {% else %}
+                                            <img class="profile-img-nav" alt="Profile picture" src="{{ url_for('static', filename='{}'.format(current_user.profile_image)) }}">
+                                    {% endif %}
+                                    <p class="label-p label-p-nav">{{ current_user.username }}</p>
+                                {% else %}
+                                    <i class="fa fa-user icon-big"></i>
+                                    <p class="label-p">{{ current_user.username }}</p>
+                                {% endif %}
+                            </a>
+                        {% endif %}
+                    </li>
+                {% endif %}
+                <li class="nav-hidden">
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('account.logout', user_id=current_user.id) }}" class="label-link">
+                            <i title="Logout" class="fa fa-sign-out account-icon-fa icon-big"></i>
+                            <p class="label-p"> Logout </p>
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for('account.login') }}" class="label-link">
+                            <i title="Login" class="fa fa-sign-in account-icon-fa icon-big"></i>
+                            <p class="label-p"> Login </p>
+                        </a>
+                    {% endif %}
+                </li>
+            </div>
+
+        </ul>
+    </div>
+</nav>
+{% endmacro %}

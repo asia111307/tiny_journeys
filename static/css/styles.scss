@@ -1,13 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Quicksand);
 @import 'variables';
-@import 'home';
-@import 'block_comments';
-@import 'block_footer';
-@import 'block_jumbotron';
-@import 'block_login_register';
-@import 'block_nav';
-@import 'block_post';
-@import 'block_sidebar';
-@import 'view_media_posts_sort';
+@import '../../templates/blueprints/page_layout/home/static/css/home';
+@import '../../templates/blueprints/comments/static/css/block_comments';
+@import '../../templates/blueprints/page_layout/footer/static/css/block_footer';
+@import '../../templates/blueprints/page_layout/jumbotron/static/css/block_jumbotron';
+@import '../../templates/blueprints/page_layout/nav/static/css/block_nav';
+@import '../../templates/blueprints/single_post/static/css/block_post';
+@import '../../templates/blueprints/page_layout/sidebar/static/css/block_sidebar';
+@import '../../templates/blueprints/view_content/static/css/view_media_posts_sort';
 @import 'mobile';
 @import 'global';
+

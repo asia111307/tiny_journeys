@@ -1,0 +1,48 @@
+{% from 'blueprints/comments/templates/blocks/block_comments.html' import block_comment with context %}
+{% from 'blueprints/single_post/templates/blocks/block_likes.html' import block_likes with context %}
+
+{% macro block_post(post, user, prev, next, comments, likes, user_post_likes, fullview, tag=None) %}
+<div class="post-content">
+    <div class="visible-post">
+        <h1 class="h-style">
+            <a href="{{ url_for('post.view_post', post_id=post.id) }}">{{ post.title }} </a>
+        </h1>
+        <div>
+            <p class="p-style">  {{ post.content | safe  }}</p>
+        </div>
+        <div class="meta">
+            <h5 class="p-style credentials"> Created by <span class="author"><a href="{{ url_for('account.view_profile', username=user.username) if user.username else '#' }}"> {{ user.username if user.username else 'user' }} </a></span> on {{ '{} {} {}, {}:{}'.format(post.creation_date.day, post.creation_date.strftime('%B'), post.creation_date.year, post.creation_date.hour, post.creation_date.strftime('%M')) }}</h5>
+            <h5 class="p-style credentials">Last modified on {{ '{} {} {}, {}:{}'.format(post.last_modified_date.day, post.last_modified_date.strftime('%B'), post.last_modified_date.year, post.last_modified_date.hour, post.last_modified_date.strftime('%M')) }}</h5>
+            {% if fullview %}
+                {% if tag %}
+                    <h5 class="p-style credentials">Tag: {{ tag[0].name }}</h5>
+                {% endif %}
+                {% if current_user.id == post.author or current_user.isAdmin == True %}
+                    <div class="post-actions">
+                        <div>
+                            <a class="form-btn meta-btn" href="{{ url_for('post.edit_post', post_id=post.id) }}" name="edit-btn"> <i class="fa fa-pencil"></i> Edit </a>
+                        </div>
+                        <div>
+                            <a class="form-btn meta-btn" href="{{ url_for('post.delete_post', post_id=post.id) }}" name="delete-btn"><i class="fa fa-times-circle"></i> Delete </a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+        {{ block_likes(user_post_likes, user, post, likes) }}
+        <div class="neighbour-posts">
+            {% if prev %}
+                <h5 class="p-style credentials"><a href="{{ url_for('post.view_post', post_id=prev.id) }}"><i class="fa fa-caret-left"></i> {{ prev.title }} </a></h5>
+            {% else %}
+                <h5></h5>
+            {% endif %}
+            {% if next %}
+                <h5 class="p-style credentials"><a href="{{ url_for('post.view_post', post_id=next.id) }}"><i class="fa fa-caret-right"></i> {{ next.title }} </a></h5>
+            {% else %}
+                <h5></h5>
+            {% endif %}
+        </div>
+    </div>
+    {{ block_comment(post, comments) }}
+</div>
+{% endmacro %}

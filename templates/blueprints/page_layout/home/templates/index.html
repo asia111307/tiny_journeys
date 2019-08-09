@@ -1,0 +1,28 @@
+{% extends "start.html" %}
+{% from 'blueprints/single_post/templates/blocks/block_post.html' import block_post with context %}
+{% from 'blueprints/page_layout/jumbotron/templates/blocks/block_jumbotron.html' import block_jumbotron with context %}
+{% from 'blueprints/page_layout/sidebar/templates/blocks/block_sidebar.html' import block_sidebar with context %}
+
+{% block title %} Home {% endblock %}
+{% block jumbotron %}
+{{ block_jumbotron() }}
+{% endblock %}
+
+{% block content %}
+    <section class="section-style home-section" id="home-feed">
+        <div class="home-posts">
+        {% if posts %}
+            {% for i in range(posts | length) %}
+                {{ block_post(posts[i][1], posts[i][0], posts[i][1], posts[i][1], comments[i], likes[i], user_post_likes[i], fullview=False, tag=None) }}
+            {%  endfor %}
+        {% else %}
+            <div class="no-visible-posts">
+                <h1 class="h-style"> Hi! </h1>
+                <p class="p-style"> No posts yet. Add the first one! </p>
+            </div>
+        {% endif %}
+        </div>
+        {{ block_sidebar() }}
+    </section>
+{% endblock %}
+

@@ -1,0 +1,13 @@
+{% macro block_sort_options(type) %}
+    <div class="sort-options">
+    {% if type == 'posts' %}
+        <a class="form-btn" href="{{ url_for('view.view_content_options', content_type=type, sort_option='mostliked' ) }}" name="mostliked"> Most liked </a>
+        <a class="form-btn" href="{{ url_for('view.view_content_options', content_type=type, sort_option='mostcommented' ) }}"> Most commented </a>
+    {% endif %}
+        <a class="form-btn" href="{{ url_for('view.view_content_options', content_type=type, sort_option='oldestfirst' ) }}" name="oldestfirst"> Oldest first </a>
+        <a class="form-btn" href="{{ url_for('view.view_content_options', content_type=type, sort_option='latestfirst' ) }}" name="latestfirst"> Latest first </a>
+        <a class="form-btn" href="{{ url_for('view.view_content_options', content_type=type, sort_option='lastweek' ) }}" name="lastweek"> Last week</a>
+        <a class="form-btn" href="{{ url_for('view.view_content_options', content_type=type, sort_option='lastmonth' ) }}" name="lastmonth"> Last month </a>
+    </div>
+{% endmacro %}
+

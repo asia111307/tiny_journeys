@@ -1,0 +1,16 @@
+{% macro block_single_media(media, type) %}
+    <div class="view_media">
+    {% if type=='photo' %}
+         <img src="{{ media.source }}" alt="{{ media.name }}" class="view-media view-media-photo">
+    {% else %}
+         <iframe src="{{ media.source }}" class="view-media"></iframe>
+    {% endif %}
+     <a href="{{ url_for('post.view_post', post_id=media.post_id) }}">
+         <div class="view-media-hover">
+             <h6>
+                {{ media.name }}
+             </h6>
+         </div>
+     </a>
+     </div>
+{% endmacro %}

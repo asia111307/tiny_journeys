@@ -1,0 +1,10 @@
+{% extends "start.html" %}
+{% from 'blueprints/account/register/templates/blocks/block_register_form.html' import block_register_form with context %}
+{% block title %} Register {% endblock %}
+{% block content %}
+    <section class="section-style container login-register-section">
+        <h1 class="h-style"> Register </h1>
+        {{ block_register_form(feedback) }}
+    </section>
+{% endblock %}
+

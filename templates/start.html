@@ -11,10 +11,10 @@
 	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     {% block head %}{% endblock %}
-    {% from 'blocks/block_nav.html' import block_nav with context %}
-    {% from 'blocks/block_footer.html' import block_footer with context %}
+    {% from 'blueprints/page_layout/nav/templates/blocks/block_nav.html' import block_nav with context %}
+    {% from 'blueprints/page_layout/footer/templates/blocks/block_footer.html' import block_footer with context %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
-	<link rel="stylesheet" type="text/css" href="../static/css/styles.css?q=00965436">
+{#	<link rel="stylesheet" type="text/css" href="../static/css/styles.css?q=00965098776536">#}
 </head>
 
 <body>

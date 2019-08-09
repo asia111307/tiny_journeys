@@ -1,0 +1,51 @@
+{% extends "start.html" %}
+{% from 'blueprints/view_content/templates/blocks/block_sort_options.html' import block_sort_options with context %}
+{% block title %} View posts {% endblock %}
+{% block content %}
+    <section class="section-style container">
+        <h1 class="h-style"> View posts </h1>
+        {% if contents %}
+            {{ block_sort_options('posts') }}
+            <h5 class="smaller-h vieving-posts">Posts: {{ current_option }} ({{ contents | length }}) </h5>
+            <div class="view-posts">
+                {% for post in contents %}
+                    <div class="view_post simplified-posts-view">
+                        <h6>
+                            <a href="{{ url_for('post.view_post', post_id=post[1].id) }}">{{ post[1].title }} </a>
+                        </h6>
+                        <p class="p-style credentials">
+                            <span class="author"> <a href="{{ url_for('account.view_profile', username=post[0].username) }}"> {{ post[0].username }}</a></span>,
+                            {{ '{} {} {}, {}:{}'.format(post[1].creation_date.day, post[1].creation_date.strftime('%B'),
+                            post[1].creation_date.year, post[1].creation_date.hour, post[1].creation_date.strftime('%M')) }}
+                            <a href="{{ url_for('post.view_post', post_id=post[1].id) }}" class="view-link">
+                                <span class="comment-icon icon-small">
+                                    <i title="Comments" class="fa fa-comment"></i>
+                                </span>
+                                {{ comments[contents.index(post)] }}
+                            </a>
+{#                            <a href="/view/post/{{ post[1].id }}" class="view-link">#}
+{#                                <span class="comment-icon icon-small">#}
+{#                                    <i title="Likes" class="fa fa-thumbs-up"></i>#}
+{#                                </span>#}
+{#                                {{ likes[contents.index(post)] }}#}
+{#                            </a>#}
+                        </p>
+                        <p class="p-content">{{ post[1].content | safe | truncate(300) }}
+                            <span class="readmore">
+                                <a class="readmorebtn" href="{{ url_for('post.view_post', post_id=post[1].id) }}"> Read more </a>
+                            </span>
+                        </p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            {% if sorting %}
+                {{ block_sort_options('posts') }}
+             {% endif %}
+            <div class="no-content">
+                <h6> No posts yet </h6>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}
+

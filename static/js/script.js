@@ -162,7 +162,7 @@ if (no_content) {
 //
 //     })
 // }
-// document.getElementById("profile-picture-file").onchange = function () {
+// document.getElementById("account-picture-file").onchange = function () {
 //     if(this.value.split(/(\\|\/)/g).pop()=='') {
 //         document.getElementById("upload-label").innerHTML = '<em>Choose file</em>';
 //     }
