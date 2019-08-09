@@ -23,7 +23,7 @@ Features in progress:
 See (and try!) the blog online: http://jpaliwoda.pythonanywhere.com/
 
 ## Build with
-- HTML, CSS and JavsScript - as a frontend layer
+- HTML, CSS, JavaScript and [Bootstrap4](https://getbootstrap.com/docs/4.3/getting-started/introduction/) - as a frontend layer
 - [Python3.6](https://www.python.org/) - as a backend language
 - [Flask](https://palletsprojects.com/p/flask/) - the Python framework
 - [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/) - the Python SQL toolkit
