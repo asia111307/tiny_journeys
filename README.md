@@ -56,17 +56,7 @@ Create and start **virtual environment**:
 Run **project**:
 
     $ FLASK_APP=start.py FLASK_DEBUG=1 flask run
-### Run gulp
-You have to install **NodeJS**, if you do not have it yet, e.g with: 
 
-    $ sudo apt-get install nodejs
 
-Then, install **npm**:
-
-    $ sudo apt-get install npm
-
-And run **gulp**:
-    $ npm install
-    $ gulp watch
 
 
