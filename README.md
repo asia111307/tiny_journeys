@@ -33,7 +33,14 @@ See (and try!) the blog online: http://jpaliwoda.pythonanywhere.com/
 
 
 ## Getting Started
+### Clone the repository
+    $ git clone https://github.com/asia111307/tiny_journeys.git && cd tiny_journeys
 
+### Run 
+#### with Docker
+    $ docker-compose up
+
+#### or with virtualenv
 You have to install **Python 3.6** on your machine, if you do not have it yet, e.g with: 
     
     $ sudo apt-get install python3.6
@@ -42,8 +49,15 @@ Then, install **virtualenv**:
 
     $ pip install virtualenv 
 
+Create and start **virtual environment**:
 
-You also have to install **NodeJS**, if you do not have it yet, e.g with: 
+    $ virtualenv .env && source .env/bin/activate && pip install -r requirements.txt
+
+Run **project**:
+
+    $ FLASK_APP=start.py FLASK_DEBUG=1 flask run
+### Run gulp
+You have to install **NodeJS**, if you do not have it yet, e.g with: 
 
     $ sudo apt-get install nodejs
 
@@ -51,15 +65,8 @@ Then, install **npm**:
 
     $ sudo apt-get install npm
 
-### Clone the repository
-    $ git clone https://github.com/asia111307/tiny_journeys.git && cd tiny_journeys
-
-### Create and start virtual environment
-    $ virtualenv .env && source .env/bin/activate && pip install -r requirements.txt
-
-### Run gulp
+And run **gulp**:
     $ npm install
     $ gulp watch
 
-### Run project
-    $ FLASK_APP=start.py FLASK_DEBUG=1 flask run
+
