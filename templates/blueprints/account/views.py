@@ -2,6 +2,7 @@ from start import db, app
 from models import User
 from flask import Blueprint, render_template, abort, request, redirect, session
 from flask_login import login_required, login_user, logout_user, current_user
+from sqlalchemy import exc
 import os
 
 account = Blueprint('account', __name__, template_folder='templates', static_folder='static')
