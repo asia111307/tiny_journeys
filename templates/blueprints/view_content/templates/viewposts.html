@@ -17,7 +17,7 @@
                             <span class="author"> <a href="{{ url_for('account.view_profile', username=post[0].username) }}"> {{ post[0].username }}</a></span>,
                             {{ '{} {} {}, {}:{}'.format(post[1].creation_date.day, post[1].creation_date.strftime('%B'),
                             post[1].creation_date.year, post[1].creation_date.hour, post[1].creation_date.strftime('%M')) }}
-                            <a href="{{ url_for('post.view_post', post_id=post[1].id) }}" class="view-link">
+                            <a href="{{ url_for('post.view_post', post_id=post[1].id) }}#comments" class="view-link">
                                 <span class="comment-icon icon-small">
                                     <i title="Comments" class="fa fa-comment"></i>
                                 </span>

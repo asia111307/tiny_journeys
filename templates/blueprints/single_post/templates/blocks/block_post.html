@@ -1,14 +1,19 @@
-{% from 'blueprints/comments/templates/blocks/block_comments.html' import block_comment with context %}
-{% from 'blueprints/single_post/templates/blocks/block_likes.html' import block_likes with context %}
-
-{% macro block_post(post, user, prev, next, comments, likes, user_post_likes, fullview, tag=None) %}
+{% macro block_post(post, user, prev, next, comments, likes, user_post_likes, fullview, tag=None, truncate=False) %}
 <div class="post-content">
     <div class="visible-post">
         <h1 class="h-style">
             <a href="{{ url_for('post.view_post', post_id=post.id) }}">{{ post.title }} </a>
         </h1>
         <div>
-            <p class="p-style">  {{ post.content | safe  }}</p>
+            {% if not truncate %}
+                <p class="p-style">  {{ post.content | safe  }}</p>
+            {% else %}
+                <p class="p-style">  {{ post.content | safe | truncate(800)  }}
+                <span class="readmore">
+                    <a class="readmorebtn" href="{{ url_for('post.view_post', post_id=post.id) }}"> Read more </a>
+                </span>
+                </p>
+            {% endif %}
         </div>
         <div class="meta">
             <h5 class="p-style credentials"> Created by <span class="author"><a href="{{ url_for('account.view_profile', username=user.username) if user.username else '#' }}"> {{ user.username if user.username else 'user' }} </a></span> on {{ '{} {} {}, {}:{}'.format(post.creation_date.day, post.creation_date.strftime('%B'), post.creation_date.year, post.creation_date.hour, post.creation_date.strftime('%M')) }}</h5>
@@ -29,7 +34,11 @@
                 {% endif %}
             {% endif %}
         </div>
-        {{ block_likes(user_post_likes, user, post, likes) }}
+        <div class="like-block-{{ post.id }}">
+            {% with user_post_likes=user_post_likes, user=user, post=post, likes=likes %}
+                {% include 'blueprints/single_post/templates/blocks/block_likes.html' %}
+            {% endwith %}
+        </div>
         <div class="neighbour-posts">
             {% if prev %}
                 <h5 class="p-style credentials"><a href="{{ url_for('post.view_post', post_id=prev.id) }}"><i class="fa fa-caret-left"></i> {{ prev.title }} </a></h5>
@@ -43,6 +52,10 @@
             {% endif %}
         </div>
     </div>
-    {{ block_comment(post, comments) }}
+    <div class="comment-block-{{ post.id }}">
+            {% with post=post, comments=comments %}
+                {% include 'blueprints/comments/templates/blocks/block_comments.html' %}
+            {% endwith %}
+        </div>
 </div>
 {% endmacro %}

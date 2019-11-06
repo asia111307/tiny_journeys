@@ -11,3 +11,5 @@ RUN pip install -r requirements.txt && \
     npm install
 
 COPY . /app
+
+

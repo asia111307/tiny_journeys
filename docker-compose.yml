@@ -1,9 +1,10 @@
 version: '3.5'
 services:
-    local:
-      image: tiny_journeys_local
+    tj_local:
+      image: tiny_journeys_local_1
       build: .
       ports: 
         - '5000:5000'
-      command: > 
-        bash -c "FLASK_APP=start.py FLASK_DEBUG=1 flask run --host='0.0.0.0'"
+      command: FLASK_APP=start.py FLASK_DEBUG=1 flask run --host='0.0.0.0'
+      volumes:
+        - ./:/app

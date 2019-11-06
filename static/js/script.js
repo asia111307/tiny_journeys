@@ -1,105 +1,152 @@
 // FIXED SIDEBAR
-const sidebar = document.getElementsByClassName('sidebar')[0];
+const sidebar = $('.sidebar')[0];
 if (sidebar) {
     const sidebarTop = sidebar.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
-    window.addEventListener('scroll', function() {
+    $(window).on('scroll', function() {
         if (sidebarTop - document.documentElement.scrollTop <= 100  ){
-            sidebar.classList.add('fixed');
+            $(sidebar).addClass('fixed');
         } else {
-            sidebar.classList.remove('fixed');
+            $(sidebar).removeClass('fixed');
         }
     });
 }
 
 
+
 // HAMBURGER MENU
-document.getElementById('nav-icon1').addEventListener('click', function() {
-  this.classList.toggle('open');
-  const menu_items = document.getElementsByClassName('nav-hidden');
+$('#nav-icon1').on('click', function() {
+  this.toggleClass('open');
+  const menu_items = $('.nav-hidden');
   const menu = this;
   for (let i=0; i< menu_items.length; i++) {
-      if (menu.classList.contains('open')) {
-          menu_items[i].style.display = 'flex';
+      if (menu.hasClass('open')) {
+          menu_items[i].css('display', 'flex');
       } else {
-          menu_items[i].style.display = 'none';
+          menu_items[i].css('display', 'none');
       }
   }
 });
 
-window.addEventListener('resize', function() {
-    const current_window_width = window.innerWidth;
-    if ((current_window_width >= 880 && !document.getElementById('nav-icon1').classList.contains('open')) ||
-        (current_window_width <= 880 && document.getElementById('nav-icon1').classList.contains('open'))) {
-        document.getElementById('nav-icon1').click();
+$(window).on('resize', function() {
+    const current_window_width = $(window).innerWidth;
+    if ((current_window_width >= 880 && !$('#nav-icon1').hasClass('open')) ||
+        (current_window_width <= 880 && $('#nav-icon1').hasClass('open'))) {
+        $('#nav-icon1').click();
     }
 });
 
-const current_window_width = window.innerWidth;
+const current_window_width = $(window).innerWidth;
 if (current_window_width <= 880) {
-    document.getElementById('nav-icon1').click();
-    document.getElementById('nav-icon1').click();
+    $('#nav-icon1').click();
+    $('#nav-icon1').click();
 }
 
-// COMMENT BLOCK SECTION OPENING
-const comments_headers = document.getElementsByClassName('comments-header');
-const single_post = document.getElementsByClassName('single-post')[0];
 
-function toggleOpenContentComments() {
-    const comment_header = this;
-    const arrow = comment_header.firstChild.nextElementSibling;
-    const comment_content = comment_header.nextElementSibling;
 
-    if (arrow.classList.contains('open')) {
-        comment_content.style.display = 'none';
-        arrow.classList.remove('fa-caret-up');
-        arrow.classList.add('fa-caret-down');
-        arrow.classList.remove('open');
-    } else {
-        comment_content.style.display = 'block';
-        arrow.classList.remove('fa-caret-down');
-        arrow.classList.add('fa-caret-up');
-        arrow.classList.add('open');
+const single_post = $('.single-post')[0];
+
+
+
+// DEACTIVATE IMAGE LINKS ON HOME
+if (!single_post) {
+    links = $('.image-a');
+    if (links) {
+        for (let i=0; i< links.length; i++) {
+            links[i].href = "javascript:void(0)";
+            links[i].style.cursor = 'default';
+        }
     }
 }
 
-if (comments_headers) {
-    for (let i=0; i<comments_headers.length; i++){
-        comments_headers[i].addEventListener('click', toggleOpenContentComments);
+
+
+// COMMENT BLOCK SECTION OPENING
+const comments_header = $('.comments-header')[0];
+
+function toggleOpenContentComments(header) {
+    const comment_header = $(header);
+    const arrow = comment_header.find(".caret-icon-fa");
+    const comment_content = comment_header.next();
+
+    if (arrow.hasClass('open')) {
+        comment_content.css('display', 'none');
+        arrow.removeClass('fa-caret-up');
+        arrow.addClass('fa-caret-down');
+        arrow.removeClass('open');
+    } else {
+        comment_content.css('display', 'block');
+        arrow.removeClass('fa-caret-down');
+        arrow.addClass('fa-caret-up');
+        arrow.addClass('open');
     }
 }
 
 if (single_post) {
-    for (let i=0; i<comments_headers.length; i++){
-        comments_headers[i].click();
+        comments_header.click()
     }
+
+// ADD COMMENTS
+function addComment(post_id) {
+    const class_comment = `comments-form-${post_id}`;
+    const data = $(`.${class_comment}`).serialize();
+    $.ajax({
+			url: `/comment/add/${post_id}`,
+			data: data,
+			type: 'POST',
+			success: function(response){
+				const class_comment_block = `.comment-block-${post_id}`;
+				$(class_comment_block).html(response);
+				const comments_header = `.comments-header-${post_id}`;
+				$(comments_header)[0].click();
+			},
+			error: function(error){
+				console.log(error);
+			}
+		});
+
+
+}
+
+
+// DELETE COMMENTS
+function deleteComment(post_id, comment_id) {
+    const class_comment_block = `.comment-block-${post_id}`;
+    $(class_comment_block).load(`/admin/delete/comment/${post_id}/${comment_id}`);
+}
+
+
+// LIKES CLICK
+function processClick(type, post_id, user_id) {
+    const class_post = `.like-block-${post_id}`;
+    $(class_post).load(`/post/${type}/${user_id}/${post_id}`);
 }
 
 
 
 // LIST OF POSTS BACKGROUND CHANGE
-const posts = document.getElementsByClassName('view_post');
+const posts = $('.view_post');
 if (posts) {
     for (var i=0; i< posts.length; i+=2) {
-        posts[i].style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
+        posts[i].css('backgroundColor', 'rgba(0, 0, 0, 0.05)');
     }
 }
 
 
 
-// TITLE & CURSON ANIMATION
-const home = document.getElementById('home-feed');
+// TITLE & CURSOR ANIMATION
+const home = $('.home-feed');
 if (home) {
-    const titleAnm = document.querySelector(".title-anm");
-    const cursor = document.querySelector(".cursor");
+    const titleAnm = $(".title-anm");
+    const cursor = $(".cursor");
     const title = "Tiny Journeys";
-    const description = document.querySelector(".small-jumb p");
+    const description = $(".small-jumb p");
     const descWord = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.";
     let letterNumber = 0;
     const animation = () => {
         titleAnm.textContent += title[letterNumber++];
         if (letterNumber === title.length){
             clearInterval(anmInt);
-            document.querySelector(".underline").style.opacity = "1";
+            $(".underline").css('opacity', "1");
             letterNumber = 0;
             setTimeout(()=>{
                 const anmDes = setInterval(()=>{
@@ -112,14 +159,14 @@ if (home) {
             },1500)
         }
     };
-    const jumb_video = document.querySelector(".jumb-video");
+    const jumb_video = $(".jumb-video");
     const anmInt = setInterval(animation, 250);
     const cursorAnimation = () => {
-        cursor.classList.toggle("cursor-hide");
+        cursor.toggleClass("cursor-hide");
     };
     if (jumb_video) {
         setInterval(cursorAnimation, 500);
-        jumb_video.addEventListener("loadedmetadata", function (){
+        jumb_video.on("loadedmetadata", function (){
                 this.currentTime = 27;
             }, false
         );
@@ -127,46 +174,11 @@ if (home) {
 }
 
 
-// DEACTIVATE IMAGE LINKS ON HOME
-if (!single_post) {
-    links = document.getElementsByName('image-a');
-    if (links) {
-        for (let i=0; i< links.length; i++) {
-            links[i].href = "javascript:void(0)";
-            links[i].style.cursor = 'default';
-        }
-    }
-}
 
 
 //  N0 CONTENT HEIGHT ADJUSTMENT
-const section_style = document.getElementsByClassName('section-style')[0];
-const no_content = document.getElementsByClassName('no-content')[0];
+const section_style = $('.section-style')[0];
+const no_content = $('.no-content')[0];
 if (no_content) {
-    section_style.style.height = '100vh';
+    section_style.css('height', '100vh');
 }
-
-
-
-// AJAX FOR LIKES
-// const thumbs = document.getElementsByClassName('like-link');
-// for (let i=0; i< thumbs.length; i++){
-//     thumbs[i].addEventListener('click', function () {
-//         const href = this.href;
-//         $.ajax({
-//           url: href,
-//                  success: function(data){
-//                  alert("HAPPY");
-//                }
-//         });
-//
-//     })
-// }
-// document.getElementById("account-picture-file").onchange = function () {
-//     if(this.value.split(/(\\|\/)/g).pop()=='') {
-//         document.getElementById("upload-label").innerHTML = '<em>Choose file</em>';
-//     }
-//     else {
-//         document.getElementById("upload-label").innerHTML = this.value.split(/(\\|\/)/g).pop();
-//     }
-// };

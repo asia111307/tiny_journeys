@@ -1,6 +1,6 @@
 from start import db
 from models import Tag, TagPost, Like, Comment, User, Post, Photo, Video
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, g, jsonify, make_response
 from flask_login import login_required, current_user
 from bs4 import BeautifulSoup
 import datetime, re
@@ -129,16 +129,25 @@ def edit_post(post_id):
         return render_template('editpost.html', post=post, author=author, tags=tags, tag=tag)
 
 
-@post.route('/like/<int:user_id>/<int:post_id>')
+@post.route('/like/<int:user_id>/<int:post_id>', methods=['POST', 'GET'])
 def like_post(user_id, post_id):
     db.session.add(Like(user_id, post_id))
     db.session.commit()
-    return redirect( url_for('post.view_post', post_id=post_id))
+    post = Post.query.get_or_404(post_id)
+    user = User.query.get(post.author)
+    likes = db.session.query(Like, User).filter(Like.user_id == User.id).filter(Like.post_id == post.id).order_by(
+        Like.date.desc()).all()
+    return render_template('blocks/block_likes.html', user_post_likes=True, post=post, user=user, likes=likes)
 
 
-@post.route('/unlike/<int:user_id>/<int:post_id>')
+@post.route('/unlike/<int:user_id>/<int:post_id>', methods=['POST', 'GET'])
 def unlike_post(user_id, post_id):
     Like.query.filter(Like.post_id == post_id).filter(Like.user_id == user_id).delete()
     db.session.commit()
-    return redirect(url_for('post.view_post', post_id=post_id))
+    post = Post.query.get_or_404(post_id)
+    user = User.query.get(post.author)
+    likes = db.session.query(Like, User).filter(Like.user_id == User.id).filter(Like.post_id == post.id).order_by(
+        Like.date.desc()).all()
+    return render_template('blocks/block_likes.html', user_post_likes=False, post=post, user=user, likes=likes)
+
 

@@ -69,4 +69,6 @@ def unlock_user(user_id):
 def delete_comment(post_id, comment_id):
     Comment.query.filter_by(id=comment_id).delete()
     db.session.commit()
-    return redirect(url_for('post.view_post', post_id=post_id))
+    post = Post.query.get_or_404(post_id)
+    comments = Comment.query.filter(Comment.post_id == post.id).order_by(Comment.creation_date.desc()).all()
+    return render_template('blocks/block_comments.html', post=post, comments=comments)
