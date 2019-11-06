@@ -49,7 +49,6 @@ const single_post = $('.single-post')[0];
 
 // DEACTIVATE IMAGE LINKS ON HOME
 if (!single_post) {
-    console.log('np post');
     const links = $('a[name="image-a"]');
     if (links) {
         for (let i=0; i< links.length; i++) {
@@ -135,19 +134,19 @@ if (posts) {
 
 
 // TITLE & CURSOR ANIMATION
-const home = $('.home-feed');
+const home = document.getElementById('home-feed');
 if (home) {
-    const titleAnm = $(".title-anm");
-    const cursor = $(".cursor");
+    const titleAnm = document.querySelector(".title-anm");
+    const cursor = document.querySelector(".cursor");
     const title = "Tiny Journeys";
-    const description = $(".small-jumb p");
+    const description = document.querySelector(".small-jumb p");
     const descWord = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.";
     let letterNumber = 0;
     const animation = () => {
         titleAnm.textContent += title[letterNumber++];
         if (letterNumber === title.length){
             clearInterval(anmInt);
-            $(".underline").css('opacity', "1");
+            document.querySelector(".underline").style.opacity = "1";
             letterNumber = 0;
             setTimeout(()=>{
                 const anmDes = setInterval(()=>{
@@ -160,14 +159,14 @@ if (home) {
             },1500)
         }
     };
-    const jumb_video = $(".jumb-video");
+    const jumb_video = document.querySelector(".jumb-video");
     const anmInt = setInterval(animation, 250);
     const cursorAnimation = () => {
-        cursor.toggleClass("cursor-hide");
+        cursor.classList.toggle("cursor-hide");
     };
     if (jumb_video) {
         setInterval(cursorAnimation, 500);
-        jumb_video.on("loadedmetadata", function (){
+        jumb_video.addEventListener("loadedmetadata", function (){
                 this.currentTime = 27;
             }, false
         );
