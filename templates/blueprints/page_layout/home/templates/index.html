@@ -13,7 +13,7 @@
         <div class="home-posts">
         {% if posts %}
             {% for i in range(posts | length) %}
-                {{ block_post(posts[i][1], posts[i][0], posts[i][1], posts[i][1], comments[i], likes[i], user_post_likes[i], fullview=False, tag=None, truncate=True) }}
+                {{ block_post(posts[i][1], posts[i][0], posts[i][1], posts[i][1], comments[i], likes[i], user_post_likes[i], fullview=False, tag=None, truncate=False) }}
             {%  endfor %}
         {% else %}
             <div class="no-visible-posts">

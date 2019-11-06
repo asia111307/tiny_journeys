@@ -49,7 +49,7 @@ const single_post = $('.single-post')[0];
 
 // DEACTIVATE IMAGE LINKS ON HOME
 if (!single_post) {
-    links = $('.image-a');
+    const links = $('.image-a');
     if (links) {
         for (let i=0; i< links.length; i++) {
             links[i].href = "javascript:void(0)";
